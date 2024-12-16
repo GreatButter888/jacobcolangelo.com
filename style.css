@@ -1,0 +1,48 @@
+@font-face {
+    font-family: 'BDOGrotesk-VF';
+    src: url('fonts/BDOGrotesk-VF.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #000;
+    color: #fff;
+    font-family: 'BDOGrotesk-VF', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden; /* Hide scrollbars if needed */
+    cursor: none;      /* Hide mouse cursor */
+}
+
+.typed-container {
+    text-align: center;
+    position: relative;
+    z-index: 1; /* Ensures text appears above canvas */
+}
+
+h1, p {
+    margin: 0.5em 0;
+}
+
+/* Stylized dash */
+.dash {
+    display: inline-block;
+    width: 3rem;    /* Adjust for desired dash length */
+    height: 0.2rem; /* Adjust for desired dash thickness */
+    background-color: #fff;
+    margin: 0 0.1rem; /* Slightly closer spacing */
+    vertical-align: middle;
+}
+
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
