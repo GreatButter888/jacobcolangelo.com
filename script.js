@@ -1,7 +1,7 @@
 // After heading finishes, start typing the subheading
 function startSubheading() {
     new Typed(".subheading", {
-        strings: ["new website coming soon<br>this time I am coding it myself :)"],
+        strings: ["New website coming soon!<br>This time I am coding it myself :)"],
         typeSpeed: 50,
         showCursor: false,
         html: true // Needed for the <br> tag
