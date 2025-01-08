@@ -1,3 +1,4 @@
+
 @font-face {
     font-family: 'BDOGrotesk-VF';
     src: url('fonts/BDOGrotesk-VF.woff2') format('woff2');
@@ -16,8 +17,6 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
-    overflow: hidden; /* Hide scrollbars if needed */
-    cursor: none;      /* Hide mouse cursor */
 }
 
 .typed-container {
@@ -26,7 +25,8 @@ body {
     z-index: 1; /* Ensures text appears above canvas */
 }
 
-h1, p {
+h1,
+p {
     margin: 0.5em 0;
 }
 
@@ -45,4 +45,193 @@ canvas {
     top: 0;
     left: 0;
     z-index: 0;
+}
+
+.section.intro {
+    margin-top: 20vh; /* Adjusts to ensure it starts below the navbar */
+    margin-left: 10vw; /* Adds padding on the left side */
+    box-sizing: border-box; /* Ensures padding is included in width calculations */
+    overflow-x: hidden; /* Prevents horizontal overflow */
+}
+
+.content {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.gradient-mask {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 50px;
+}
+
+.gradient-mask.left {
+    left: 0;
+}
+
+.gradient-mask.right {
+    right: 0;
+}
+
+.gradient-mask.right.is--visible {
+    display: block;
+}
+
+.options {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.option {
+    display: flex;
+    flex-wrap: wrap; /* Allows options to wrap on smaller screens */
+    justify-content: center; /* Centers options horizontally */
+    gap: 15px; /* Adds spacing between options */
+    padding: 10px 20px;
+    cursor: pointer;
+    color: grey;
+    transition: background 0.3s;
+}
+
+.option.is--active {
+    color: #fff;
+}
+
+.texts {
+    position: relative;
+    z-index: 2;
+    min-height: 500px; /* Keeps the height consistent */
+    text-align: left; /* Aligns text to the top */
+}
+
+.text {
+    display: none;
+    font-size: 46px; /* Increased font size */
+    line-height: 1.1; /* Adjusted for readability */
+    color: #fff;
+}
+
+.text.is--visible {
+    display: block;
+}
+
+.text span a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.text span a:hover {
+    text-decoration: underline;
+}
+
+.text span a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.text span a:hover {
+    text-decoration: underline;
+}
+
+h1 {
+    margin: 0;
+}
+
+.sidebar {
+    width: 10vh;
+    color: white;
+    height: calc(100vh - 10vh); /* Adjust height to account for the 10vh offset */
+    position: fixed;
+    top: 10vh; /* Start 10vh below the top */
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+    z-index: 1000; /* Ensure it stays above other content */
+}
+
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar nav ul li {
+    margin: 5px 0;
+}
+
+.sidebar nav ul li a {
+    color: grey;
+    text-decoration: none;
+    padding: 10px 15px;
+    display: block;
+    transition: background 0.3s;
+}
+
+.sidebar nav ul li a:hover {
+    color: #ffffff;
+    border-radius: 4px;
+}
+
+.navbar {
+    width: 100%;
+    height: 20vh; /* Responsive height */
+    color: #fff;
+    display: flex;
+    align-items: center; /* Vertically center items */
+    justify-content: flex-start; /* Align items to the left */
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.navbar .brand {
+    font-size: 1.5em; /* Adjust font size */
+    font-weight: bold; /* Bold text */
+    padding: 0; /* Remove any padding that might shift it */
+    margin: 0; /* Reset margin to avoid misalignment */
+    line-height: 1; /* Ensure text aligns correctly */
+    margin-left: 10vw; /* Adds padding on the left side */
+    position: relative;
+    color: #fff;
+    cursor: pointer;
+}
+
+/* =========================================
+   MEDIA QUERY FOR MOBILE (MAX WIDTH: 768PX)
+   ========================================= */
+@media (max-width: 768px) {
+    /* Reduce the margin and ensure no horizontal overflow */
+    .section.intro {
+        margin-top: 12vh; /* Smaller offset so content fits on smaller screens */
+        margin-left: 5vw; /* Reduce the left margin so text doesn't get cut off */
+    }
+
+    /* Adjust text size and line-height for readability on mobile */
+    .text {
+        font-size: 24px; /* Make the font smaller to fit mobile view */
+        line-height: 1.3; /* Slightly increase line-height for readability */
+    }
+
+    /* Adjust spacing and layout for the options */
+    .options {
+        flex-direction: column; /* Stack options vertically */
+        align-items: center;    /* Center them horizontally */
+        gap: 10px;              /* Slightly reduce the gap */
+    }
+
+    .option {
+        font-size: 16px; /* Slightly smaller text for options */
+    }
+
+    /* Navbar height adjustment (optional) */
+    .navbar {
+        height: 15vh; /* Give a bit more vertical space for content on smaller screens */
+    }
 }
