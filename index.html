@@ -9,43 +9,50 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- NAVBAR -->
     <div class="navbar">
-        <div class="brand">J-C</div>
-      </div>
+        <div class="brand desktop">Jacob<span class="dash"></span>Colangelo</div>
+        <div class="brand mobile">J-C</div>
+    </div>
+
+    <!-- CANVAS BACKGROUND -->
     <canvas></canvas>
+
+    <!-- TYPED TEXT CONTAINER -->
     <div class="typed-container">
         <h1 class="heading"></h1>
         <p class="subheading"></p>
     </div>
 
+    <!-- INTRO SECTION -->
     <section class="section intro">
         <div class="content">
-          <div class="gradient-mask left"></div>
-          <div class="gradient-mask right is--visible"></div>
-          <div class="options">
-            <div class="option anyone is--active">For anyone</div>
-            <div class="option recruiters">Recruiters</div>
-            <div class="option sports-admin">Sports Administrators</div>
-            <div class="option promoters">Promoters</div>
-            <div class="option academics">Academics</div>
-            <!-- <div class="option students">Students</div>
-               -->
-          </div>
-      
-          <div class="texts">
-            <h1 class="text anyone is--visible">Hi, I’m Jacob. I work in the sports industry, helping teams and leagues connect with their fans through data and technology. I’m passionate about learning and constantly pushing myself to develop new skills.</h1>
-            <h1 class="text recruiters">I help organisations use data and technology to enhance fan engagement and grow audiences. With expertise in onboarding, strategy, and campaigns, I deliver results and build strong client relationships. I am not actively seeking new roles.</h1>
-            <h1 class="text sports-admin">I have worked with some of the biggest sports properties across Australia, New Zealand, and Asia, developing a deep understanding of the business of sport. My experience spans fan engagement, digital marketing, sponsorship, and broadcast, with a focus on delivering innovative, strategically minded solutions.</h1>
-             <!-- 
-            <h1 class="text students">Hi, I’m Jacob! I used the skills and experiences I gained at university to secure a role in the sports industry, where I now help teams and leagues connect with their fans. It’s proof that leveraging your university experience can lead to rewarding opportunities.</h1>
-              -->
-            <h1 class="text academics">I specialise in sports governance, focusing on best practices for national sporting organisations. My research examines governance practices, board composition, and dynamics, aiming to provide insights that help administrators implement effective strategies aligned with societal expectations.</h1>
-            <h1 class="text promoters">Hi, I’m Jacob Colangelo. With over 10 years of DJing experience, I’ve performed at clubs, festivals, sporting events, weddings, and balls, delivering unforgettable moments. I’ve supported national and international touring artists and played shows across Australia, bringing energy and expertise to every set..</h1>
-          </div>
+            <div class="gradient-mask left"></div>
+            <div class="gradient-mask right is--visible"></div>
+
+            <!-- OPTIONS MENU -->
+            <div class="options">
+                <div class="option anyone is--active">For anyone</div>
+                <div class="option recruiters">Recruiters</div>
+                <div class="option sports-admin">Sports Administrators</div>
+                <div class="option promoters">Promoters</div>
+                <div class="option academics">Academics</div>
+            </div>
+
+            <!-- TEXT CONTENT SWITCHER -->
+            <div class="texts">
+                <h1 class="text anyone is--visible">Hi, I’m Jacob. I work in the sports industry, helping teams and leagues connect with their fans through data and technology. I’m passionate about learning and constantly pushing myself to develop new skills.</h1>
+                <h1 class="text recruiters">I help organisations use data and technology to enhance fan engagement and grow audiences. With expertise in onboarding, strategy, and campaigns, I deliver results and build strong client relationships. I am not actively seeking new roles.</h1>
+                <h1 class="text sports-admin">I have worked with some of the biggest sports properties across Australia, New Zealand, and Asia, developing a deep understanding of the business of sport. My experience spans fan engagement, digital marketing, sponsorship, and broadcast, with a focus on delivering innovative, strategically minded solutions.</h1>
+                <h1 class="text academics">I specialise in sports governance, focusing on best practices for national sporting organisations. My research examines governance practices, board composition, and dynamics, aiming to provide insights that help administrators implement effective strategies aligned with societal expectations.</h1>
+                <h1 class="text promoters">Hi, I’m Jacob Colangelo. With over 10 years of DJing experience, I’ve performed at clubs, festivals, sporting events, weddings, and balls, delivering unforgettable moments. I’ve supported national and international touring artists and played shows across Australia, bringing energy and expertise to every set.</h1>
+            </div>
         </div>
-      </section>
+    </section>
+
     <!-- Typed.js from CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+    
     <!-- Link to external JS -->
     <script src="script.js"></script>
 </body>
