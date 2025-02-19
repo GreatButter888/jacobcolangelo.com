@@ -5,26 +5,34 @@
     font-style: normal;
 }
 
+/* Default Dark Mode */
 body {
     margin: 0;
     padding: 0;
     background: #000;
     color: #fff;
     font-family: 'BDOGrotesk-VF', sans-serif;
+    transition: background 0.3s, color 0.3s;
 }
 
-/* NAVBAR - FIXED ALIGNMENT */
+/* Light Mode */
+body.light-mode {
+    background: #ffffff;
+    color: #121212;
+}
+
+/* NAVBAR */
 .navbar {
     width: 100%;
     height: 10vh;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 1000;
-    padding: 0;
-    margin: 0;
+    padding: 0 10vw;
     background: transparent;
 }
 
@@ -34,14 +42,18 @@ body {
     font-weight: bold;
     color: #fff;
     cursor: pointer;
-    margin-left: 10vw;
     display: flex;
     align-items: center;
 }
 
-/* J—C (mobile) */
+/* Light Mode Brand Color */
+body.light-mode .brand.desktop {
+    color: #121212;
+}
+
+/* Mobile Brand */
 .brand.mobile {
-    display: none; /* Hidden on desktop */
+    display: none;
 }
 
 /* DASH IN NAVBAR */
@@ -54,10 +66,64 @@ body {
     vertical-align: middle;
 }
 
+/* Light Mode Dash */
+body.light-mode .dash {
+    background-color: #121212;
+}
+
+/* ===================== */
+/* THEME TOGGLE BUTTON */
+/* ===================== */
+.theme-toggle {
+    display: block;
+    position: fixed;
+    bottom: 2vh;
+    left: 50%;
+    transform: translateX(-50%);
+    border: none;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 10px 20px;
+    transition: background 0.3s, color 0.3s;
+    border-radius: 5px;
+}
+
+/* Dark Mode Button */
+.dark-btn {
+    background: #000;
+    color: #fff;
+    border: 1px solid #fff;
+}
+
+/* Light Mode Button */
+.light-btn {
+    background: #fff;
+    color: #000;
+    border: 1px solid #000;
+}
+
+/* Dark Mode Hover */
+.dark-btn:hover {
+    background: #222;
+}
+
+/* Light Mode Hover */
+.light-btn:hover {
+    background: #f2f2f2;
+}
+
+/* CANVAS BACKGROUND */
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
 /* INTRO SECTION */
 .section.intro {
     margin-top: 10vh;
-    padding-top: 0;
     padding-left: 10vw;
     max-width: 80vw;
     box-sizing: border-box;
@@ -95,31 +161,42 @@ body {
     color: #fff;
 }
 
+/* Light Mode Text */
+body.light-mode .text {
+    color: #121212;
+}
+
 .text.is--visible {
     display: block;
 }
 
 /* OPTIONS MENU */
 .option {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
     cursor: pointer;
     color: grey;
-    transition: background 0.3s;
+    transition: background 0.3s, color 0.3s;
+}
+
+.option:hover {
+    color: #fff;
+}
+
+body.light-mode .option:hover {
+    color: #121212;
 }
 
 .option.is--active {
     color: #fff;
 }
 
-/* CANVAS BACKGROUND */
-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 0;
+/* Light Mode Active Option */
+body.light-mode .option.is--active {
+    color: #121212;
+}
+
+/* Light Mode Options */
+body.light-mode .option {
+    color: #b1b1b1;
 }
 
 /* SIDEBAR */
@@ -151,39 +228,47 @@ canvas {
     text-decoration: none;
     padding: 10px 15px;
     display: block;
-    transition: background 0.3s;
+    transition: background 0.3s, color 0.3s;
 }
 
+/* Dark Mode Sidebar */
 .sidebar nav ul li a:hover {
     color: #ffffff;
     border-radius: 4px;
 }
+
+/* Light Mode Sidebar */
+body.light-mode .sidebar nav ul li a {
+    color: black;
+}
+
+body.light-mode .sidebar nav ul li a:hover {
+    color: #121212;
+}
+
+/* ===================== */
+/* MOBILE RESPONSIVENESS */
+/* ===================== */
 @media (max-width: 768px) {
-    /* Global fix: Remove right white space */
     html, body {
         width: 100%;
         max-width: 100%;
-        overflow-x: hidden; /* Prevents horizontal scrolling */
+        overflow-x: hidden;
         margin: 0;
         padding: 0;
         display: flex;
         flex-direction: column;
-        align-items: center; /* Ensures everything is centered */
+        align-items: center;
         text-align: center;
     }
 
-    /* Navbar fix: Center "J C" */
+    /* Navbar fix: Center "J-C" */
     .navbar {
         height: 8vh;
-        display: flex;
         justify-content: center;
-        align-items: center;
-        width: 100%;
-        text-align: center;
-        background: transparent;
     }
 
-    /* Hide full name & show J C */
+    /* Hide full name & show J-C */
     .brand.desktop {
         display: none;
     }
@@ -199,6 +284,11 @@ canvas {
         color: #fff;
     }
 
+    /* Light Mode Mobile Brand */
+    body.light-mode .brand.mobile {
+        color: #121212;
+    }
+
     /* Make entire intro section centered */
     .section.intro {
         margin-top: 4vh;
@@ -208,16 +298,13 @@ canvas {
         justify-content: center;
         text-align: center;
         width: 100%;
-        padding: 0 5vw; /* Ensures consistent spacing */
+        padding: 0 5vw;
     }
 
     /* Center the options menu */
     .options {
-        display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        width: 100%;
         gap: 10px;
         margin-bottom: 10px;
         text-align: center;
