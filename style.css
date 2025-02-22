@@ -71,6 +71,50 @@ body.light-mode .dash {
     background-color: #121212;
 }
 
+.footer {
+    text-align: center;
+    padding: 20px;
+    background: #222; /* Dark background */
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Spacing between elements */
+}
+
+.footer-text {
+    font-size: 14px;
+    margin: 0;
+}
+
+.footer a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+.theme-toggle {
+    padding: 8px 12px;
+    font-size: 16px;
+    cursor: pointer;
+    border: 2px solid #fff;
+    background: transparent;
+    color: #fff;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+    background: #fff;
+    color: #222;
+}
+
+
 /* ===================== */
 /* THEME TOGGLE BUTTON */
 /* ===================== */
@@ -123,16 +167,20 @@ canvas {
 
 /* INTRO SECTION */
 .section.intro {
-    margin-top: 10vh;
-    padding-left: 10vw;
-    max-width: 80vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 10vh; /* Pushes it down to avoid overlap with navbar */
+    padding-left: 10vw; /* Ensures consistent spacing from the left */
+    max-width: calc(100vw - 2vh); /* Prevents exceeding full width */
     box-sizing: border-box;
 }
 
 /* CONTENT BLOCK */
 .content {
     position: relative;
-    max-width: 1200px;
+    max-width: calc(100vw - 2vh); /* Prevents exceeding full width */
     margin: 0 auto;
     text-align: center;
 }
@@ -141,9 +189,10 @@ canvas {
 .options {
     display: flex;
     justify-content: flex-start;
-    gap: 15px;
-    margin-bottom: 5px;
+    gap: 8px;
+    margin-bottom: 2px; /* Slight margin for separation */
     padding-bottom: 0;
+    line-height: 1; /* Adjust line height to prevent extra space */
 }
 
 /* TEXT CONTENT */
@@ -151,7 +200,10 @@ canvas {
     position: relative;
     z-index: 2;
     text-align: left;
-    margin-top: 0;
+    margin-top: 5px;
+    margin-top: 0px; /* Remove any top margin */
+    padding-top: 0px; /* Ensure no padding above */
+    line-height: 1.05; /* Slightly tighter line height */
 }
 
 .text {
@@ -159,6 +211,8 @@ canvas {
     font-size: 46px;
     line-height: 1.1;
     color: #fff;
+    margin-top: 10px;
+    padding: 0px; /* Ensure no unnecessary padding */
 }
 
 /* Light Mode Text */
@@ -201,7 +255,6 @@ body.light-mode .option {
 
 /* SIDEBAR */
 .sidebar {
-    width: 10vh;
     color: white;
     height: calc(100vh - 10vh);
     position: fixed;
@@ -211,6 +264,11 @@ body.light-mode .option {
     flex-direction: column;
     padding: 20px 0;
     z-index: 1000;
+    margin-top: 10vh;
+    padding-left: 10vw;
+    width: calc(100vw - 10vw); /* Ensures it adapts dynamically */
+    max-width: 1200px; /* Prevents it from being too wide */
+    box-sizing: border-box;
 }
 
 .sidebar nav ul {
