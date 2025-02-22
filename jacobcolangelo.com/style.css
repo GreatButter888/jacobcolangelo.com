@@ -1,0 +1,390 @@
+@font-face {
+    font-family: 'BDOGrotesk-VF';
+    src: url('fonts/BDOGrotesk-VF.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Default Dark Mode */
+body {
+    margin: 0;
+    padding: 0;
+    background: #000;
+    color: #fff;
+    font-family: 'BDOGrotesk-VF', sans-serif;
+    transition: background 0.3s, color 0.3s;
+}
+
+/* Light Mode */
+body.light-mode {
+    background: #ffffff;
+    color: #121212;
+}
+
+/* NAVBAR */
+.navbar {
+    width: 100%;
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    padding: 0 10vw;
+    background: transparent;
+}
+
+/* Full name (desktop) */
+.brand.desktop {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+/* Light Mode Brand Color */
+body.light-mode .brand.desktop {
+    color: #121212;
+}
+
+/* Mobile Brand */
+.brand.mobile {
+    display: none;
+}
+
+/* DASH IN NAVBAR */
+.dash {
+    display: inline-block;
+    width: 3rem;
+    height: 0.2rem;
+    background-color: #fff;
+    margin: 0 0.2rem;
+    vertical-align: middle;
+}
+
+/* Light Mode Dash */
+body.light-mode .dash {
+    background-color: #121212;
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    background: #222; /* Dark background */
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Spacing between elements */
+}
+
+.footer-text {
+    font-size: 14px;
+    margin: 0;
+}
+
+.footer a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+.theme-toggle {
+    padding: 8px 12px;
+    font-size: 16px;
+    cursor: pointer;
+    border: 2px solid #fff;
+    background: transparent;
+    color: #fff;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+    background: #fff;
+    color: #222;
+}
+
+
+/* ===================== */
+/* THEME TOGGLE BUTTON */
+/* ===================== */
+.theme-toggle {
+    display: block;
+    position: fixed;
+    bottom: 2vh;
+    left: 50%;
+    transform: translateX(-50%);
+    border: none;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 10px 20px;
+    transition: background 0.3s, color 0.3s;
+    border-radius: 5px;
+}
+
+/* Dark Mode Button */
+.dark-btn {
+    background: #000;
+    color: #fff;
+    border: 1px solid #fff;
+}
+
+/* Light Mode Button */
+.light-btn {
+    background: #fff;
+    color: #000;
+    border: 1px solid #000;
+}
+
+/* Dark Mode Hover */
+.dark-btn:hover {
+    background: #222;
+}
+
+/* Light Mode Hover */
+.light-btn:hover {
+    background: #f2f2f2;
+}
+
+/* CANVAS BACKGROUND */
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+/* INTRO SECTION */
+.section.intro {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 10vh; /* Pushes it down to avoid overlap with navbar */
+    padding-left: 10vw; /* Ensures consistent spacing from the left */
+    max-width: calc(100vw - 2vh); /* Prevents exceeding full width */
+    box-sizing: border-box;
+}
+
+/* CONTENT BLOCK */
+.content {
+    position: relative;
+    max-width: calc(100vw - 2vh); /* Prevents exceeding full width */
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* OPTIONS MENU */
+.options {
+    display: flex;
+    justify-content: flex-start;
+    gap: 8px;
+    margin-bottom: 2px; /* Slight margin for separation */
+    padding-bottom: 0;
+    line-height: 1; /* Adjust line height to prevent extra space */
+}
+
+/* TEXT CONTENT */
+.texts {
+    position: relative;
+    z-index: 2;
+    text-align: left;
+    margin-top: 5px;
+    margin-top: 0px; /* Remove any top margin */
+    padding-top: 0px; /* Ensure no padding above */
+    line-height: 1.05; /* Slightly tighter line height */
+}
+
+.text {
+    display: none;
+    font-size: 46px;
+    line-height: 1.1;
+    color: #fff;
+    margin-top: 10px;
+    padding: 0px; /* Ensure no unnecessary padding */
+}
+
+/* Light Mode Text */
+body.light-mode .text {
+    color: #121212;
+}
+
+.text.is--visible {
+    display: block;
+}
+
+/* OPTIONS MENU */
+.option {
+    cursor: pointer;
+    color: grey;
+    transition: background 0.3s, color 0.3s;
+}
+
+.option:hover {
+    color: #fff;
+}
+
+body.light-mode .option:hover {
+    color: #121212;
+}
+
+.option.is--active {
+    color: #fff;
+}
+
+/* Light Mode Active Option */
+body.light-mode .option.is--active {
+    color: #121212;
+}
+
+/* Light Mode Options */
+body.light-mode .option {
+    color: #b1b1b1;
+}
+
+/* SIDEBAR */
+.sidebar {
+    color: white;
+    height: calc(100vh - 10vh);
+    position: fixed;
+    top: 10vh;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+    z-index: 1000;
+    margin-top: 10vh;
+    padding-left: 10vw;
+    width: calc(100vw - 10vw); /* Ensures it adapts dynamically */
+    max-width: 1200px; /* Prevents it from being too wide */
+    box-sizing: border-box;
+}
+
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar nav ul li {
+    margin: 5px 0;
+}
+
+.sidebar nav ul li a {
+    color: grey;
+    text-decoration: none;
+    padding: 10px 15px;
+    display: block;
+    transition: background 0.3s, color 0.3s;
+}
+
+/* Dark Mode Sidebar */
+.sidebar nav ul li a:hover {
+    color: #ffffff;
+    border-radius: 4px;
+}
+
+/* Light Mode Sidebar */
+body.light-mode .sidebar nav ul li a {
+    color: black;
+}
+
+body.light-mode .sidebar nav ul li a:hover {
+    color: #121212;
+}
+
+/* ===================== */
+/* MOBILE RESPONSIVENESS */
+/* ===================== */
+@media (max-width: 768px) {
+    html, body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    /* Navbar fix: Center "J-C" */
+    .navbar {
+        height: 8vh;
+        justify-content: center;
+    }
+
+    /* Hide full name & show J-C */
+    .brand.desktop {
+        display: none;
+    }
+
+    .brand.mobile {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        text-align: center;
+        font-size: 1.5em;
+        font-weight: bold;
+        color: #fff;
+    }
+
+    /* Light Mode Mobile Brand */
+    body.light-mode .brand.mobile {
+        color: #121212;
+    }
+
+    /* Make entire intro section centered */
+    .section.intro {
+        margin-top: 4vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        width: 100%;
+        padding: 0 5vw;
+    }
+
+    /* Center the options menu */
+    .options {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    /* Ensure text is centered and fits */
+    .texts, .text {
+        width: 90%;
+        max-width: 600px;
+        text-align: center;
+        margin: 0 auto;
+        padding: 0;
+    }
+
+    .text {
+        font-size: 24px;
+        line-height: 1.4;
+    }
+
+    /* Ensure no rogue elements cause right spacing */
+    * {
+        box-sizing: border-box;
+        max-width: 100%;
+    }
+}
