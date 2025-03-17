@@ -1,163 +1,181 @@
-// ======================
-// AUTO DARK/LIGHT MODE & TOGGLE
-// ======================
-
 document.addEventListener('DOMContentLoaded', () => {
-  // Theme Toggle Button
-  const toggleButton = document.getElementById("theme-toggle");
-  const body = document.body;
-
-  // Function to toggle theme
-  function toggleTheme() {
-      body.classList.toggle("light-mode");
-
-      if (body.classList.contains("light-mode")) {
-          localStorage.setItem("theme", "light");
-          toggleButton.textContent = "Dark Mode";
-          toggleButton.classList.remove("dark-btn");
-          toggleButton.classList.add("light-btn");
+    // =====================
+    // THEME MANAGEMENT
+    // =====================
+    const toggleButton = document.getElementById("theme-toggle");
+    const body = document.body;
+    
+    // Function to get theme based on time
+    function getThemeBasedOnTime() {
+      const currentHour = new Date().getHours();
+      return (currentHour >= 6 && currentHour < 18) ? "light" : "dark";
+    }
+    
+    // Function to set theme
+    function setTheme(theme) {
+      if (theme === "light") {
+        body.classList.add("light-mode");
+        body.classList.remove("dark-mode");
+        toggleButton.textContent = "Dark Mode";
       } else {
-          localStorage.setItem("theme", "dark");
-          toggleButton.textContent = "Light Mode";
-          toggleButton.classList.remove("light-btn");
-          toggleButton.classList.add("dark-btn");
+        body.classList.remove("light-mode");
+        body.classList.add("dark-mode");
+        toggleButton.textContent = "Light Mode";
       }
-  }
-
-  // Check local storage for theme preference
-  if (localStorage.getItem("theme") === "light") {
-      body.classList.add("light-mode");
-      toggleButton.textContent = "Dark Mode";
-      toggleButton.classList.add("light-btn");
-  } else {
-      toggleButton.textContent = "Light Mode";
-      toggleButton.classList.add("dark-btn");
-  }
-
-  // Toggle theme on button click
-  toggleButton.addEventListener("click", toggleTheme);
-
-  // Toggle theme on "Q" key press
-  document.addEventListener("keydown", (event) => {
+      localStorage.setItem("theme", theme);
+    }
+    
+    // Function to toggle theme
+    function toggleTheme() {
+      const newTheme = body.classList.contains("light-mode") ? "dark" : "light";
+      setTheme(newTheme);
+    }
+    
+    // Initialize theme (preference > time-based)
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) {
+      setTheme(savedTheme);
+    } else {
+      setTheme(getThemeBasedOnTime());
+    }
+    
+    // Toggle theme on button click
+    toggleButton.addEventListener("click", toggleTheme);
+    
+    // Toggle theme on "Q" key press
+    document.addEventListener("keydown", (event) => {
       if (event.key.toLowerCase() === "q") {
-          toggleTheme();
+        toggleTheme();
       }
-  });
-});
-
-
-  // ======================
-  // TEXT CONTENT SWITCHER
-  // ======================
-
-  const options = document.querySelectorAll('.option');
-  const texts = document.querySelectorAll('.text');
-
-  // Remove all active classes
-  options.forEach(option => option.classList.remove('is--active'));
-  texts.forEach(text => text.classList.remove('is--visible'));
-
-  // Set default selection
-  const defaultOption = document.querySelector('.option.anyone');
-  const defaultText = document.querySelector('.text.anyone');
-
-  if (defaultOption && defaultText) {
+    });
+    
+    // =====================
+    // TEXT CONTENT SWITCHER
+    // =====================
+    const options = document.querySelectorAll('.option');
+    const texts = document.querySelectorAll('.text');
+    
+    // Remove all active classes
+    options.forEach(option => option.classList.remove('is--active'));
+    texts.forEach(text => text.classList.remove('is--visible'));
+    
+    // Set default selection
+    const defaultOption = document.querySelector('.option.anyone');
+    const defaultText = document.querySelector('.text.anyone');
+    
+    if (defaultOption && defaultText) {
       defaultOption.classList.add('is--active');
       defaultText.classList.add('is--visible');
-  }
-
-  // Click event for text switcher
-  options.forEach(option => {
-      option.addEventListener('click', () => {
-          options.forEach(opt => opt.classList.remove('is--active'));
-          texts.forEach(text => text.classList.remove('is--visible'));
-
-          option.classList.add('is--active');
-          const selectedText = document.querySelector(`.text.${option.classList[1]}`);
-          if (selectedText) {
-              selectedText.classList.add('is--visible');
-          }
-      });
-  });
-// ======================
-// AUTO DARK/LIGHT MODE 
-// ======================
-
-function getThemeBasedOnTime() {
-  const currentHour = new Date().getHours();
-  return (currentHour >= 6 && currentHour < 18) ? "Light Mode" : "Dark Mode";
-}
-
-function setThemeBasedOnTime() {
-  const theme = getThemeBasedOnTime();
-  
-  if (theme === "Light Mode") {
-      document.body.classList.add("light-mode");
-      document.body.classList.remove("dark-mode");
-  } else {
-      document.body.classList.add("dark-mode");
-      document.body.classList.remove("light-mode");
-  }
-}
-
-// Run the function on page load
-setThemeBasedOnTime();
-
-// ======================
-// SHOW TIME & MODE ON "T" PRESS
-// ======================
-
-document.addEventListener("keydown", function(event) {
-  if (event.key.toLowerCase() === "t") {
-      const now = new Date();
-      const formattedTime = now.toLocaleTimeString(); // Format: HH:MM:SS AM/PM
-      const theme = getThemeBasedOnTime();
+    }
+    
+    // Click event for text switcher
+    options.forEach(option => {
+      // Click handler
+      const handleSelection = () => {
+        options.forEach(opt => opt.classList.remove('is--active'));
+        texts.forEach(text => text.classList.remove('is--visible'));
+        
+        option.classList.add('is--active');
+        const selectedText = document.querySelector(`.text.${option.classList[1]}`);
+        if (selectedText) {
+          selectedText.classList.add('is--visible');
+        }
+      };
       
-      alert(`Current Time: ${formattedTime}\nSuggested Mode: ${theme}`);
-  }
-});
-// ======================
-// SHOW IP, LOCATION & TIMEZONE ON "L" PRESS
-// ======================
-
-document.addEventListener("keydown", async function (event) {
-  if (event.key.toLowerCase() === "l") {
-      try {
+      // Add click event
+      option.addEventListener('click', handleSelection);
+      
+      // Add keyboard support
+      option.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          handleSelection();
+        }
+      });
+    });
+    
+    // =====================
+    // MOBILE SCROLL EFFECTS
+    // =====================
+    const optionsContainer = document.querySelector('.options');
+    const contentContainer = document.querySelector('.content');
+    
+    if (optionsContainer && contentContainer) {
+      // Check scroll position on load
+      checkScroll();
+      
+      // Check scroll position when scrolling
+      optionsContainer.addEventListener('scroll', checkScroll);
+      
+      function checkScroll() {
+        // If scrolled at all, show left fade
+        if (optionsContainer.scrollLeft > 10) {
+          if (!contentContainer.classList.contains('scrolled')) {
+            contentContainer.classList.add('scrolled');
+          }
+        } else {
+          contentContainer.classList.remove('scrolled');
+        }
+      }
+    }
+    
+    // =====================
+    // KEYBOARD SHORTCUTS
+    // =====================
+    
+    // Show time & mode on "T" press
+    document.addEventListener("keydown", function(event) {
+      if (event.key.toLowerCase() === "t") {
+        const now = new Date();
+        const formattedTime = now.toLocaleTimeString();
+        const suggestedTheme = getThemeBasedOnTime() === "light" ? "Light Mode" : "Dark Mode";
+        
+        alert(`Current Time: ${formattedTime}\nSuggested Mode: ${suggestedTheme}`);
+      }
+    });
+    
+    // Show IP, location & timezone on "L" press
+    document.addEventListener("keydown", async function(event) {
+      if (event.key.toLowerCase() === "l") {
+        try {
           const response = await fetch("https://ipapi.co/json/");
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          
           const data = await response.json();
-
+          
           const ip = data.ip;
-          const city = data.city;
-          const region = data.region;
-          const country = data.country_name;
-          const countryCode = data.country_code;
-          const timezone = data.timezone;
-          const latitude = data.latitude;
-          const longitude = data.longitude;
-          const isp = data.org;
-          const asn = data.asn;
-          const postalCode = data.postal;
-          const currency = data.currency;
-          const callingCode = data.country_calling_code;
-          const networkType = data.network;
-
+          const city = data.city || 'Unknown';
+          const region = data.region || 'Unknown';
+          const country = data.country_name || 'Unknown';
+          const countryCode = data.country_code || 'Unknown';
+          const timezone = data.timezone || 'Unknown';
+          const latitude = data.latitude || 'Unknown';
+          const longitude = data.longitude || 'Unknown';
+          const isp = data.org || 'Unknown';
+          const asn = data.asn || 'Unknown';
+          const postalCode = data.postal || 'Unknown';
+          const currency = data.currency || 'Unknown';
+          const callingCode = data.country_calling_code || 'Unknown';
+          const networkType = data.network || 'Unknown';
+          
           alert(
-              `IP Address: ${ip}
-Location: ${city}, ${region}, ${country} (${countryCode})
-Timezone: ${timezone}
-Latitude/Longitude: ${latitude}, ${longitude}
-ISP: ${isp}
-ASN: ${asn}
-Postal Code: ${postalCode}
-Currency: ${currency}
-Calling Code: ${callingCode}
-Network Type: ${networkType}`
+            `IP Address: ${ip}
+  Location: ${city}, ${region}, ${country} (${countryCode})
+  Timezone: ${timezone}
+  Latitude/Longitude: ${latitude}, ${longitude}
+  ISP: ${isp}
+  ASN: ${asn}
+  Postal Code: ${postalCode}
+  Currency: ${currency}
+  Calling Code: ${callingCode}
+  Network Type: ${networkType}`
           );
-      } catch (error) {
+        } catch (error) {
           alert("Failed to retrieve location data. Please check your internet connection.");
           console.error("Error fetching location data:", error);
+        }
       }
-  }
-});
-
-
+    });
+  });
