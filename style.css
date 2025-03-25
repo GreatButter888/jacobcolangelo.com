@@ -128,25 +128,6 @@
     display: block;
   }
   
-  /* Theme Toggle Button */
-  .theme-toggle {
-    display: block;
-    position: fixed;
-    bottom: 2vh;
-    left: 50%;
-    transform: translateX(-50%);
-    border: 1px solid var(--text-color);
-    font-size: var(--font-size-md);
-    font-weight: bold;
-    cursor: pointer;
-    padding: var(--spacing-md) var(--spacing-lg);
-    transition: background var(--transition-speed), color var(--transition-speed);
-    border-radius: var(--border-radius);
-    background: transparent;
-    color: var(--text-color);
-    z-index: 100;
-  }
-  
   .theme-toggle:hover {
     background: rgba(127, 127, 127, 0.1);
   }
