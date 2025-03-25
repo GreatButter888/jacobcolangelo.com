@@ -25,11 +25,30 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.setItem("theme", theme);
     }
     
-    // Function to toggle theme
     function toggleTheme() {
-      const newTheme = body.classList.contains("light-mode") ? "dark" : "light";
+      // Get current theme from body class, fallback to localStorage or time-based
+      let currentTheme;
+      
+      if (body.classList.contains("light-mode")) {
+        currentTheme = "light";
+      } else if (body.classList.contains("dark-mode")) {
+        currentTheme = "dark";
+      } else {
+        // Fallback if no class is set for some reason
+        currentTheme = localStorage.getItem("theme") || getThemeBasedOnTime();
+      }
+      
+      // Toggle to opposite theme
+      const newTheme = currentTheme === "light" ? "dark" : "light";
+      
+      // Force remove both classes before setting the new one
+      body.classList.remove("light-mode", "dark-mode");
+      
+      // Apply the new theme
       setTheme(newTheme);
-    }
+      
+      console.log(`Toggled from ${currentTheme} to ${newTheme}`);
+    }    
     
     // Initialize theme (preference > time-based)
     const savedTheme = localStorage.getItem("theme");

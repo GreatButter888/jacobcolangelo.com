@@ -11,7 +11,6 @@
     --text-color: #fff;
     --secondary-text: #b1b1b1;
     --accent-color: #fff;
-    --transition-speed: 0.3s;
     --spacing-sm: 8px;
     --spacing-md: 16px;
     --spacing-lg: 24px;
@@ -56,7 +55,7 @@
     background: var(--bg-color);
     color: var(--text-color);
     font-family: 'BDOGrotesk-VF', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    transition: background var(--transition-speed), color var(--transition-speed);
+    transition: all var(--transition-speed) ease-in-out;
     overflow-x: hidden;
     line-height: 1.5;
   }
@@ -112,6 +111,7 @@
     width: 20%;
     z-index: 1;
     display: none;
+    transition: all var(--transition-speed) ease-in-out;
   }
   
   .gradient-mask.left {
@@ -194,7 +194,7 @@
   .option {
     cursor: pointer;
     color: var(--secondary-text);
-    transition: color var(--transition-speed);
+    transition: all var(--transition-speed) ease-in-out;
     padding: 5px;
     border-radius: 4px;
   }
@@ -215,6 +215,7 @@
     margin-top: 0;
     padding-top: 0;
     line-height: 1.05;
+    transition: all var(--transition-speed) ease-in-out;
   }
   
   .text {
@@ -224,11 +225,12 @@
     color: var(--text-color);
     margin-top: 10px;
     padding: 0;
+    transition: all var(--transition-speed) ease-in-out;
   }
   
   .text.is--visible {
     display: block;
-    animation: fadeIn 0.5s ease-in-out;
+    transition: all var(--transition-speed) ease-in-out;
   }
   
   /* Typed Container */
