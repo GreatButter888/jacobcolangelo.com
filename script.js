@@ -6,60 +6,69 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Function to get theme based on time
   function getThemeBasedOnTime() {
-    const currentHour = new Date().getHours();
-    return (currentHour >= 6 && currentHour < 18) ? "light" : "dark";
+      const currentHour = new Date().getHours();
+      return (currentHour >= 6 && currentHour < 18) ? "light" : "dark";
   }
   
   // Function to set theme
-  function setTheme(theme) {
-    if (theme === "light") {
-      body.classList.add("light-mode");
-      body.classList.remove("dark-mode");
-    } else {
-      body.classList.remove("light-mode");
-      body.classList.add("dark-mode");
-    }
-    localStorage.setItem("theme", theme);
+  function setTheme(theme, manual = false) {
+      if (theme === "light") {
+          body.classList.add("light-mode");
+          body.classList.remove("dark-mode");
+          if (manual) body.classList.add("theme-manually-toggled");
+      } else {
+          body.classList.remove("light-mode");
+          body.classList.add("dark-mode");
+          if (manual) body.classList.add("theme-manually-toggled");
+      }
+      if (manual) {
+          localStorage.setItem("theme", theme);
+      }
   }
   
   function toggleTheme() {
-    // Get current theme from body class, fallback to localStorage or time-based
-    let currentTheme;
-    
-    if (body.classList.contains("light-mode")) {
-      currentTheme = "light";
-    } else if (body.classList.contains("dark-mode")) {
-      currentTheme = "dark";
-    } else {
-      // Fallback if no class is set for some reason
-      currentTheme = localStorage.getItem("theme") || getThemeBasedOnTime();
-    }
-    
-    // Toggle to opposite theme
-    const newTheme = currentTheme === "light" ? "dark" : "light";
-    
-    // Force remove both classes before setting the new one
-    body.classList.remove("light-mode", "dark-mode");
-    
-    // Apply the new theme
-    setTheme(newTheme);
-    
-    console.log(`Toggled from ${currentTheme} to ${newTheme}`);
+      // Get current theme from body class, fallback to localStorage or time-based
+      let currentTheme;
+      
+      if (body.classList.contains("light-mode")) {
+          currentTheme = "light";
+      } else if (body.classList.contains("dark-mode")) {
+          currentTheme = "dark";
+      } else {
+          // Fallback if no class is set for some reason
+          currentTheme = localStorage.getItem("theme") || getThemeBasedOnTime();
+      }
+      
+      // Toggle to opposite theme
+      const newTheme = currentTheme === "light" ? "dark" : "light";
+      
+      // Apply the new theme
+      setTheme(newTheme, true);
+      
+      console.log(`Toggled from ${currentTheme} to ${newTheme}`);
   }    
   
   // Initialize theme (preference > time-based)
-  const savedTheme = localStorage.getItem("theme");
-  if (savedTheme) {
-    setTheme(savedTheme);
-  } else {
-    setTheme(getThemeBasedOnTime());
+  function initializeTheme() {
+      const savedTheme = localStorage.getItem("theme");
+      const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+      
+      if (savedTheme) {
+          setTheme(savedTheme);
+      } else if (prefersLight) {
+          setTheme("light");
+      } else {
+          setTheme(getThemeBasedOnTime());
+      }
   }
+  
+  initializeTheme();
   
   // Toggle theme on "Q" key press
   document.addEventListener("keydown", (event) => {
-    if (event.key.toLowerCase() === "q") {
-      toggleTheme();
-    }
+      if (event.key.toLowerCase() === "q") {
+          toggleTheme();
+      }
   });
   
   // =====================
