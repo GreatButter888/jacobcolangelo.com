@@ -210,20 +210,38 @@ Network Type: ${networkType}`
     // Click handler for project toggle
     const handleProjectToggle = () => {
       const project = header.parentElement;
+      const iconElement = header.querySelector('.project-toggle i'); // Get the icon element
       const isActive = project.classList.contains('active');
-      
-      // Close all projects first
+
+      // Close all projects first and reset their icons
       const allProjects = document.querySelectorAll('.project');
       allProjects.forEach(p => {
-        p.classList.remove('active');
+        if (p !== project || isActive) { // Don't reset the icon if we are about to open it
+          p.classList.remove('active');
+          const otherIcon = p.querySelector('.project-toggle i');
+          if (otherIcon) {
+            otherIcon.setAttribute('data-lucide', 'chevron-down');
+          }
+        }
       });
-      
-      // If the clicked project wasn't active, open it
+
+      // If the clicked project wasn't active, open it and set icon to chevron-up
       if (!isActive) {
         project.classList.add('active');
+        if (iconElement) {
+          iconElement.setAttribute('data-lucide', 'chevron-up');
+        }
+      } else {
+        // If it was active (meaning we just closed it above), ensure icon is chevron-down
+        if (iconElement) {
+          iconElement.setAttribute('data-lucide', 'chevron-down');
+        }
       }
+
+      // Re-render icons after changing attributes
+      lucide.createIcons();
     };
-    
+
     // Add click event
     header.addEventListener('click', handleProjectToggle);
     
@@ -235,4 +253,160 @@ Network Type: ${networkType}`
       }
     });
   });
+
+  // =====================
+  // SCROLL ANIMATIONS (Intersection Observer)
+  // =====================
+  const animatedElements = document.querySelectorAll('.animate-on-scroll');
+
+  if (animatedElements.length > 0) {
+    const observerOptions = {
+      root: null, // Use the viewport as the root
+      rootMargin: '0px',
+      threshold: 0.1 // Trigger when 10% of the element is visible
+    };
+
+    const observerCallback = (entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target); // Stop observing once visible
+        }
+      });
+    };
+
+    const scrollObserver = new IntersectionObserver(observerCallback, observerOptions);
+
+    animatedElements.forEach(el => {
+      scrollObserver.observe(el);
+    });
+  }
+
+  // Initialize Lucide icons
+  lucide.createIcons();
+
+  // =====================
+  // INITIAL SCROLL POSITION
+  // =====================
+  // Scroll to the top section adjusted for navbar height on load
+  const initialSection = document.querySelector('#about');
+  const navbar = document.querySelector('.navbar');
+  if (initialSection && navbar) {
+    const navbarHeightInitial = navbar.offsetHeight;
+    // Use setTimeout to ensure layout is fully calculated, especially navbar height
+    setTimeout(() => {
+        const sectionTop = initialSection.offsetTop;
+        window.scrollTo({
+            top: sectionTop - navbarHeightInitial - 10, // Adjust with a small buffer if needed
+            behavior: 'auto' // Instant scroll on load
+        });
+
+        // Explicitly set the 'About' link as active after initial scroll
+        const allSidebarLinks = document.querySelectorAll('.sidebar a');
+        const aboutLink = document.querySelector('.sidebar a[href="#about"]');
+        allSidebarLinks.forEach(link => link.classList.remove('active'));
+        if (aboutLink) {
+            aboutLink.classList.add('active');
+        }
+
+    }, 0); // Execute after current execution context
+  }
+
+  // =====================
+  // SIDEBAR ACTIVE LINK HIGHLIGHTING
+  // =====================
+  const sections = document.querySelectorAll('.main-content section[id]');
+  const sidebarLinks = document.querySelectorAll('.sidebar a');
+  const navbarHeight = document.querySelector('.navbar')?.offsetHeight || 0; // Get navbar height for offset
+
+  if (sections.length > 0 && sidebarLinks.length > 0) {
+    const observerOptions = {
+      root: null, // relative to document viewport
+      rootMargin: `-${navbarHeight + 10}px 0px -40% 0px`, // Adjust top margin for navbar, bottom margin to trigger earlier
+      threshold: 0 // Trigger as soon as any part enters the adjusted root margin
+    };
+
+    const observerCallback = (entries) => {
+      entries.forEach(entry => {
+        const correspondingLink = document.querySelector(`.sidebar a[href="#${entry.target.id}"]`);
+        if (entry.isIntersecting) {
+          // When a section enters the observed area, make its link active
+          sidebarLinks.forEach(link => link.classList.remove('active'));
+          if (correspondingLink) {
+            correspondingLink.classList.add('active');
+          }
+        }
+        // Optional: Remove active class if section completely leaves the viewport
+        // else {
+        //   if (correspondingLink) {
+        //     correspondingLink.classList.remove('active');
+        //   }
+        // }
+      });
+
+      // Fallback: If no section is 'intersecting' according to the observer (e.g., at the very top/bottom)
+      // Find the link whose section is closest to the top of the viewport (adjusted for navbar)
+      let closestSectionId = null;
+      let minDistance = Infinity;
+      const scrollPosition = window.scrollY + navbarHeight + 10; // Adjust scroll position check
+
+      sections.forEach(section => {
+          const sectionTop = section.offsetTop;
+          const distance = Math.abs(scrollPosition - sectionTop);
+
+          if (sectionTop <= scrollPosition && scrollPosition < sectionTop + section.offsetHeight) {
+              // If currently within a section, prioritize it
+              closestSectionId = section.id;
+              minDistance = 0; // Ensure this section is chosen
+          } else if (minDistance > 0 && distance < minDistance) {
+              // Otherwise, find the closest one based on top position
+              minDistance = distance;
+              closestSectionId = section.id;
+          }
+      });
+
+      // Check if any link is already active from the observer logic
+      const activeLinkExists = document.querySelector('.sidebar a.active');
+
+      // Only apply fallback if observer didn't set an active link
+      if (!activeLinkExists && closestSectionId) {
+          sidebarLinks.forEach(link => link.classList.remove('active'));
+          const fallbackLink = document.querySelector(`.sidebar a[href="#${closestSectionId}"]`);
+          if (fallbackLink) {
+              fallbackLink.classList.add('active');
+          }
+      }
+    };
+
+    const sectionObserver = new IntersectionObserver(observerCallback, observerOptions);
+
+    sections.forEach(section => {
+      sectionObserver.observe(section);
+    });
+  }
+
+  // =====================
+  // MOBILE MENU TOGGLE
+  // =====================
+  const menuToggle = document.querySelector('.mobile-menu-toggle');
+  const mobileSidebar = document.querySelector('.sidebar'); // Re-select sidebar for this scope
+
+  if (menuToggle && mobileSidebar) {
+    menuToggle.addEventListener('click', () => {
+      mobileSidebar.classList.toggle('is-open');
+      // Toggle aria-expanded attribute for accessibility
+      const isExpanded = mobileSidebar.classList.contains('is-open');
+      menuToggle.setAttribute('aria-expanded', isExpanded);
+    });
+
+    // Close menu when a link inside is clicked
+    const sidebarLinksMobile = mobileSidebar.querySelectorAll('a');
+    sidebarLinksMobile.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileSidebar.classList.remove('is-open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
 });
