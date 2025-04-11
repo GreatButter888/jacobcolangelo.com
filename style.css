@@ -23,6 +23,11 @@
   --border-radius: 5px;
   --navbar-height: 10vh;
   --side-padding: 10vw;
+  
+  /* Backdrop filter variables */
+  --overlay-color-rgb: 0, 0, 0; /* Default to black components */
+  --overlay-alpha: 0.5;
+  --blur-intensity: 10px;
 }
 
 /* Light Mode Variables */
@@ -33,6 +38,10 @@ body.light-mode {
   --text-color-rgb: 18, 18, 18;
   --secondary-text: #5a5a5a;
   --accent-color: #121212;
+  
+  /* Light mode overlay values */
+  --overlay-color-rgb: 255, 255, 255; /* White overlay for light mode */
+  --overlay-alpha: 0.5;
 }
 
 /* System Preference Detection */
@@ -44,6 +53,10 @@ body.light-mode {
     --text-color-rgb: 18, 18, 18;
     --secondary-text: #5a5a5a;
     --accent-color: #121212;
+    
+    /* Light mode overlay values */
+    --overlay-color-rgb: 255, 255, 255; /* White overlay for light mode */
+    --overlay-alpha: 0.5;
   }
 }
 
@@ -84,8 +97,9 @@ body {
   left: 0;
   z-index: 1000;
   padding: 0 var(--side-padding);
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(10px);
+  background: rgba(var(--overlay-color-rgb), var(--overlay-alpha));
+  backdrop-filter: blur(var(--blur-intensity));
+  -webkit-backdrop-filter: blur(var(--blur-intensity));
 }
 
 .brand.desktop {
