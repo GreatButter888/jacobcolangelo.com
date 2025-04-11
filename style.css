@@ -5,6 +5,12 @@
   padding: 0;
 }
 
+html, body {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
 /* CSS Variables */
 :root {
   --bg-color: #000;
@@ -19,7 +25,7 @@
   --font-size-sm: 0.9rem;
   --font-size-md: 1rem;
   --font-size-lg: 1.5rem;
-  --font-size-xl: 3rem;
+  --font-size-xl: clamp(2rem, 5vw, 3rem);
   --border-radius: 5px;
   --navbar-height: 10vh;
   --side-padding: 10vw;
@@ -60,6 +66,20 @@ body.light-mode {
   }
 }
 
+/* Section Scroll Offset */
+#about, #projects, #career { /* Updated ID */
+  scroll-margin-top: calc(var(--navbar-height) + 20px); /* Add space for fixed navbar */
+}
+
+/* Career Journey Section - Basic Padding */
+#career { /* Updated ID */
+  /* padding: 5rem var(--side-padding) 3rem; /* Padding handled by general section rules */
+  position: relative; /* Keep for potential absolute positioning inside */
+  z-index: 2; /* Keep for stacking */
+}
+
+/* All specific timeline styles removed */
+
 /* Font Loading */
 @font-face {
   font-family: 'BDOGrotesk-VF';
@@ -79,6 +99,10 @@ body {
   line-height: 1.5;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 /* Accessibility */
 :focus-visible {
   outline: 2px solid var(--text-color);
@@ -96,7 +120,8 @@ body {
   top: 0;
   left: 0;
   z-index: 1000;
-  padding: 0 var(--side-padding);
+  /* Default padding (mobile first) */
+  padding: 0 15px;
   background: rgba(var(--overlay-color-rgb), var(--overlay-alpha));
   backdrop-filter: blur(var(--blur-intensity));
   -webkit-backdrop-filter: blur(var(--blur-intensity));
@@ -124,6 +149,230 @@ body {
   vertical-align: middle;
 }
 
+/* Mobile Menu Toggle Button (Hidden on Desktop) */
+.mobile-menu-toggle {
+  display: none; /* Hidden by default */
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin-left: auto; /* Push to the right side on mobile */
+  cursor: pointer;
+  z-index: 1101; /* Above sidebar */
+}
+
+.mobile-menu-toggle span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: var(--text-color);
+  margin: 5px 0;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Desktop Styles */
+@media (min-width: 769px) {
+  :root { /* Define variable within this media query scope */
+    --sidebar-width: clamp(150px, 12vw, 220px); /* Variable width */
+  }
+
+  /* Desktop Navbar Padding */
+  .navbar {
+    padding: 0 var(--side-padding) 0 var(--sidebar-width); /* Use variable width */
+  }
+
+  /* Desktop Sidebar */
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: var(--navbar-height);
+    width: var(--sidebar-width); /* Use variable width */
+    height: calc(100vh - var(--navbar-height));
+    background: rgba(var(--overlay-color-rgb), var(--overlay-alpha));
+    backdrop-filter: blur(var(--blur-intensity));
+    -webkit-backdrop-filter: blur(var(--blur-intensity));
+    padding: var(--spacing-md); /* Keep padding */
+    z-index: 900;
+    overflow-y: auto; /* Allow scrolling if content overflows */
+    display: flex; /* Enable flexbox */
+    flex-direction: column; /* Stack links vertically */
+    justify-content: center; /* Center links vertically */
+  }
+
+  .sidebar a {
+    display: block;
+    padding: 10px 15px;
+    color: var(--secondary-text);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border-radius: var(--border-radius);
+    margin-bottom: 4px; /* Reduced vertical margin */
+  }
+
+  .sidebar a:hover {
+    color: var(--text-color);
+    background-color: rgba(var(--text-color-rgb), 0.1);
+  }
+
+  .sidebar a.active {
+    color: var(--text-color);
+    font-weight: bold;
+    /* background-color: rgba(var(--text-color-rgb), 0.15); /* Removed */
+  }
+
+  /* Desktop Main Content Margin */
+  .main-content {
+    margin-left: var(--sidebar-width); /* Use variable width */
+  }
+
+  /* Ensure section horizontal padding uses desktop variable, remove left padding */
+  /* Standardized padding for all sections on desktop */
+  .section.intro,
+  .section.projects,
+  #career { /* Updated ID */
+      padding-left: 0; /* Remove left padding, rely on main-content margin */
+      padding-right: var(--side-padding); /* Consistent right padding */
+      box-sizing: border-box; /* Ensure padding is included in width calculation */
+  }
+
+   /* Specific vertical padding */
+   .section.projects {
+    padding-top: 5rem; /* Keep specific vertical padding */
+    padding-bottom: 2rem; /* Keep specific vertical padding */
+   }
+   #career { /* Updated ID */
+    padding-top: 5rem; /* Keep specific vertical padding */
+    padding-bottom: 3rem; /* Keep specific vertical padding */
+  }
+   .section.intro {
+     /* Vertical padding adjusted below for centering */
+     padding-top: 0; /* Remove fixed top padding */
+     padding-bottom: 0; /* Remove fixed bottom padding */
+     min-height: calc(100vh - var(--navbar-height)); /* Ensure it takes vertical space */
+     display: flex; /* Enable flexbox for centering */
+     flex-direction: column; /* Stack children vertically */
+     justify-content: center; /* Center content vertically */
+   }
+
+   /* Ensure the .content div within intro section doesn't restrict width */
+   .section.intro .content {
+       width: 100%; /* Allow content to use available space */
+       max-width: 100%; /* Override any potential max-width restriction */
+       text-align: left; /* Align text left on desktop */
+       margin: 0; /* Remove auto margins if any */
+   }
+
+   /* Adjust Typed Container positioning within the flex container */
+   .typed-container {
+       margin-top: 0; /* Remove top margin */
+       padding-left: 0; /* Remove left padding */
+       /* No specific vertical alignment needed here, handled by parent flex */
+   }
+
+   /* #career-journey .content specific desktop styles removed */
+
+}
+/* Ensure .sidebar base styles don't conflict if needed outside media queries */
+/* (Currently okay as mobile styles completely override position/display) */
+
+/* ================================= */
+/*          CAREER JOURNEY           */
+/* ================================= */
+
+.career .content { /* Updated selector */
+  /* max-width: 900px; /* Removed to allow full width like Projects */
+  /* margin: 0 auto; /* Removed to align title left like Projects */
+}
+
+.timeline {
+  position: relative;
+  padding: 2rem 0;
+}
+
+/* The actual timeline line */
+.timeline::after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  background-color: var(--secondary-text);
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  margin-left: -1px; /* Center the line */
+  z-index: -1; /* Behind content */
+}
+
+/* Container around content */
+.timeline-item {
+  padding: 10px 40px;
+  position: relative;
+  background-color: inherit;
+  width: 50%;
+  margin-bottom: 30px; /* Space between items */
+}
+
+/* The circles on the timeline */
+.timeline-item::after {
+  content: '';
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  right: -8px; /* Adjust position to sit on the line */
+  background-color: var(--bg-color);
+  border: 2px solid var(--secondary-text);
+  top: 25px; /* Adjust vertical alignment */
+  border-radius: 50%;
+  z-index: 1;
+}
+
+/* Place the container to the left */
+.timeline-item.left {
+  left: 0;
+}
+
+/* Place the container to the right */
+.timeline-item.right {
+  left: 50%;
+}
+
+/* Fix the circle for right containers */
+.timeline-item.right::after {
+  left: -8px; /* Adjust position for right side */
+}
+
+/* The actual content box */
+.timeline-content {
+  padding: 1.2rem 1.5rem;
+  background-color: rgba(var(--bg-color-rgb, 0, 0, 0), 0.5);
+  border: 1px solid rgba(var(--text-color-rgb, 255, 255, 255), 0.1);
+  position: relative;
+  border-radius: var(--border-radius);
+}
+
+.timeline-content h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+}
+
+.timeline-content p {
+  font-size: var(--font-size-sm);
+  color: var(--secondary-text);
+  margin-bottom: 0.3rem;
+  line-height: 1.4;
+}
+
+.timeline-content p:last-child {
+  margin-bottom: 0;
+}
+
+.timeline-content .date {
+  font-size: 0.8rem;
+  font-style: italic;
+  color: var(--secondary-text);
+  margin-top: 0.5rem;
+}
+
+
 /* Gradient Masks */
 .gradient-mask {
   position: absolute;
@@ -149,6 +398,13 @@ body {
   display: block;
 }
 
+/* Main Content Area */
+.main-content {
+  /* margin-left: 180px; /* Removed */
+  position: relative; /* Needed for z-index stacking if sections overlap */
+  z-index: 1; /* Ensure content is above canvas but below navbar/sidebar */
+}
+
 /* Canvas Background */
 canvas {
   position: fixed;
@@ -159,24 +415,26 @@ canvas {
   height: 100%;
 }
 
-/* Intro Section */
+/* Intro Section - Base Styles (Mobile First) */
 .section.intro {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  margin-top: var(--navbar-height);
-  padding-left: var(--side-padding);
-  max-width: 100%;
+  justify-content: center; /* Center vertically */
+  align-items: center; /* Center horizontally by default for mobile */
+  /* padding: 40px var(--side-padding) 0; /* Removed as requested */
+  min-height: calc(80vh - var(--navbar-height)); /* Give some height on mobile too */
+  width: 100%; /* Ensure full width */
   box-sizing: border-box;
+  text-align: center; /* Center text on mobile */
 }
 
-/* Content Block */
+/* Content Block - Base Styles */
 .content {
   position: relative;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
+  width: 100%; /* Use full width */
+  max-width: 100%; /* Ensure it can span */
+  margin: 0 auto; /* Center block */
+  /* text-align is set per section/breakpoint */
 }
 
 /* Options Menu */
@@ -218,12 +476,15 @@ canvas {
 
 .text {
   display: none;
-  font-size: 46px;
-  line-height: 1.1;
+  font-size: clamp(1.25rem, 5vw, 2.875rem); /* Fluid typography from 20px to 46px */
+  line-height: 1.2;
   color: var(--text-color);
   margin-top: 10px;
   padding: 0;
   transition: all var(--transition-speed) ease-in-out;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .text.is--visible {
@@ -235,9 +496,18 @@ canvas {
 .typed-container {
   position: relative;
   z-index: 2;
-  margin-top: 15vh;
-  padding-left: var(--side-padding);
+  margin-top: 15vh; /* Default margin */
+  /* padding-left: var(--side-padding); /* Default padding */
 }
+
+/* Adjust Typed Container for Desktop */
+@media (min-width: 769px) {
+  .typed-container {
+    margin-top: 0; /* Remove top margin as section has padding now */
+    padding-left: 0; /* Remove left padding as it's inside main-content */
+  }
+}
+
 
 .heading {
   font-size: var(--font-size-xl);
@@ -256,7 +526,7 @@ canvas {
 }
 /* Projects Section */
 .section.projects {
-  padding: 5rem var(--side-padding) 2rem;
+  /* padding: 5rem var(--side-padding) 2rem; /* Removed as requested */
   position: relative;
   z-index: 2;
 }
@@ -299,14 +569,27 @@ canvas {
 }
 
 .project-toggle {
-  font-size: 1.5rem;
-  font-weight: bold;
-  transition: transform 0.3s ease;
+  /* font-size and font-weight removed as they don't directly style the SVG */
+  transition: transform 0.3s ease; /* Keep transition for potential future use, though rotate is removed */
+  display: inline-flex; /* Helps with alignment */
+  align-items: center; /* Vertically center icon if needed */
 }
 
+/* Style the SVG icon directly */
+.project-toggle svg {
+  width: 1.2rem; /* Control icon size */
+  height: 1.2rem; /* Control icon size */
+  stroke: currentColor; /* Use the parent text color */
+  stroke-width: 2; /* Default Lucide stroke width */
+  vertical-align: middle; /* Align icon nicely */
+}
+
+/* Rotation is no longer needed as we swap icons */
+/*
 .project.active .project-toggle {
   transform: rotate(45deg);
 }
+*/
 
 .project-details {
   max-height: 0;
@@ -333,7 +616,7 @@ canvas {
 }
 
 /* Mobile Responsiveness */
-/* Mobile Responsiveness */
+  /* Mobile Responsiveness */
 @media (max-width: 768px) {
   :root {
     --navbar-height: 6vh;
@@ -341,21 +624,25 @@ canvas {
   }
 
   body {
-    width: 100%;
+    /* Ensure body itself doesn't cause overflow */
     max-width: 100%;
     overflow-x: hidden;
+    /* Other styles remain */
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
   }
 
-  /* Navbar adjustments - moved to top left */
+  /* Navbar adjustments for mobile (already set globally, confirm no override needed) */
   .navbar {
-    justify-content: flex-start;
-    padding: 0 15px;
+    /* padding: 0 15px; /* Already default */
+    /* justify-content: space-between; /* Already set */
     width: 100%;
     height: var(--navbar-height);
+    /* Ensure space for menu button */
+    justify-content: space-between; /* Space between logo and button */
   }
 
   .brand.desktop {
@@ -363,6 +650,7 @@ canvas {
   }
 
   .brand.mobile {
+    /* No change needed */
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -372,36 +660,86 @@ canvas {
     color: var(--text-color);
   }
 
+  /* Show Mobile Menu Toggle Button */
+  .mobile-menu-toggle {
+    display: block; /* Show the button */
+  }
+
   /* Hide typed container on mobile */
   .typed-container {
     display: none; /* Hide this container on mobile */
   }
 
-  /* REDUCED SPACING between JC and options */
+  /* Intro Section Mobile Specific Adjustments */
   .section.intro {
-    margin-top: 0;
-    padding-top: 40px;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    width: 100%;
-    padding-left: 0;
-    padding-right: 0;
+    /* padding-top: 40px; /* Already set in base */
+    /* align-items: center; /* Already set in base */
+    /* justify-content: center; /* Already set in base */
+    /* text-align: center; /* Already set in base */
+    width: 100%; /* Already set in base */
+    padding-left: var(--side-padding); /* Use mobile side padding */
+    padding-right: var(--side-padding); /* Use mobile side padding */
+    min-height: calc(80vh - var(--navbar-height)); /* Keep mobile height */
   }
 
-  /* Hide sidebar elements */
-  .sidebar, 
-  .left-nav,
+  /* Mobile Sidebar (Slide-in Panel) */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 80%; /* Adjust width as needed */
+    max-width: 300px;
+    height: 100%;
+    background-color: var(--bg-color); /* Solid background */
+    z-index: 1100; /* Above content, below toggle button */
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    padding: var(--spacing-lg);
+    padding-top: calc(var(--navbar-height) + 20px); /* Space below navbar */
+    box-shadow: 2px 0 5px rgba(0,0,0,0.2); /* Optional shadow */
+    overflow-y: auto;
+  }
+
+  .sidebar.is-open {
+    transform: translateX(0);
+  }
+
+  /* Mobile Sidebar Link Styling */
+  .sidebar a {
+    display: block;
+    padding: 15px 20px; /* Larger touch targets */
+    color: var(--secondary-text);
+    text-decoration: none;
+    font-size: var(--font-size-lg); /* Larger text */
+    text-align: center;
+    border-bottom: 1px solid rgba(var(--text-color-rgb), 0.1);
+    transition: background-color 0.2s ease;
+  }
+
+   .sidebar a:last-child {
+     border-bottom: none;
+   }
+
+  .sidebar a:hover,
+  .sidebar a.active {
+    color: var(--text-color);
+    background-color: rgba(var(--text-color-rgb), 0.05); /* Subtle hover/active background */
+    font-weight: bold; /* Keep active bold */
+  }
+
+  /* .main-content margin-left is already 0 implicitly */
+
+  /* Hide desktop-specific gradient mask */
   .gradient-mask.left {
     display: none !important;
   }
 
-  /* Full width content with reduced top margin */
+  /* Full width content, relying on section padding */
   .content {
     width: 100%;
-    max-width: 100%;
+    max-width: 100%; /* Use full available width within parent padding */
     padding: 0;
-    margin: 0;
+    margin: 0 auto;
     position: relative;
   }
 
@@ -412,7 +750,7 @@ canvas {
     justify-content: flex-start;
     overflow-x: auto;
     white-space: nowrap;
-    width: 95%;
+    width: 100%; /* Use full width, rely on parent padding */
     margin: 0 auto 10px auto;
     -webkit-overflow-scrolling: touch;
     gap: 15px;
@@ -420,9 +758,9 @@ canvas {
     -ms-overflow-style: none;
     text-align: left;
     padding: 5px 0;
-    padding-right: 25%
+    /* Removed potentially problematic commented-out padding */
   }
-  
+
   .options::-webkit-scrollbar {
     display: none;
   }
@@ -456,41 +794,82 @@ canvas {
     background: linear-gradient(to right, transparent, var(--bg-color));
     pointer-events: none;
     z-index: 3;
+    display: none; /* Hide fade effect */
   }
 
-  /* Left fade effect when scrolled */
-  .content.scrolled::before {
-    content: '';
-    position: absolute;
-    top: 10px;
-    left: 0;
-    height: 40px;
-    width: 30px;
-    background: linear-gradient(to left, transparent, var(--bg-color));
-    pointer-events: none;
-    z-index: 3;
-  }
+  /* Left fade effect when scrolled - REMOVED */
+  /* .content.scrolled::before { ... } */
 
-  /* Center text content */
-  .texts, .text {
-    width: 95%;
-    max-width: 600px;
-    text-align: center;
-    margin: 0 auto;
+  /* Center text content on Mobile */
+  .texts { /* Container for the switching text */
+    width: 100%; /* Take full width of parent */
+    max-width: 600px; /* Limit line length */
+    text-align: center; /* Center text block */
+    margin: 0 auto; /* Center block */
     padding: 0;
   }
-
-  .text {
-    font-size: 24px;
-    line-height: 1.4;
+  .text { /* Individual text lines */
+     width: 100%; /* Ensure text block uses available width */
+     text-align: center; /* Center text within its block */
+     margin: 0 auto; /* Center block */
+     padding: 0;
+     font-size: clamp(1rem, 4vw, 1.375rem); /* Fluid typography from 16px to 22px */
+     line-height: 1.4;
+     word-wrap: break-word;
+     overflow-wrap: break-word;
+     hyphens: auto;
   }
 
-  /* Projects section mobile styles */
-  .section.projects {
-    padding: 3rem 5vw 2rem;
+  /* Adjust section padding specifically for mobile */
+  .section.intro,
+  .section.projects,
+  #career { /* Updated ID */
+    width: 100%; /* Ensure section takes full container width */
+    max-width: 100%; /* Prevent section from exceeding container width */
+    padding-left: 5vw; /* Use mobile side padding */
+    padding-right: 5vw; /* Use mobile side padding */
+    /* box-sizing: border-box; is applied globally */
   }
-
-  .section-title {
+  /* Keep specific vertical padding for projects */
+   .section.projects {
+    padding-top: 3rem;
+    padding-bottom: 2rem;
+  }
+   /* Keep specific vertical padding for career */
+  #career { /* Updated ID */
+      padding-top: 3rem; /* Adjust as needed for mobile */
+       padding-bottom: 2rem; /* Adjust as needed for mobile */
+   }
+ 
+   /* --- Career Journey Mobile --- */
+   .timeline::after {
+     display: none; /* Hide the center line */
+   }
+ 
+   .timeline-item {
+     width: 100%; /* Full width */
+     padding-left: 15px; /* Adjust padding */
+     padding-right: 15px;
+     margin-bottom: 20px; /* Adjust spacing */
+   }
+ 
+   /* Move all items to the left side (effectively stacking them) */
+   .timeline-item.left,
+   .timeline-item.right {
+     left: 0%;
+   }
+ 
+   /* Hide the timeline circles */
+   .timeline-item::after {
+     display: none;
+   }
+ 
+   .timeline-content {
+     padding: 1rem; /* Adjust padding */
+   }
+   /* --- End Career Journey Mobile --- */
+ 
+   .section-title {
     font-size: 2rem;
     text-align: center;
     margin-bottom: 1.5rem;
@@ -499,16 +878,3 @@ canvas {
   .project-header {
     padding: 1rem;
   }
-
-  .project-title {
-    font-size: 1.1rem;
-  }
-
-  .project-details {
-    padding: 0 1rem;
-  }
-
-  .project.active .project-details {
-    padding: 0 1rem 1rem;
-  }
-}
