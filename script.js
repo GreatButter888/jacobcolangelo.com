@@ -200,4 +200,39 @@ Network Type: ${networkType}`
       }
     }
   });
+
+  // =====================
+  // PROJECTS TOGGLE
+  // =====================
+  const projectHeaders = document.querySelectorAll('.project-header');
+  
+  projectHeaders.forEach(header => {
+    // Click handler for project toggle
+    const handleProjectToggle = () => {
+      const project = header.parentElement;
+      const isActive = project.classList.contains('active');
+      
+      // Close all projects first
+      const allProjects = document.querySelectorAll('.project');
+      allProjects.forEach(p => {
+        p.classList.remove('active');
+      });
+      
+      // If the clicked project wasn't active, open it
+      if (!isActive) {
+        project.classList.add('active');
+      }
+    };
+    
+    // Add click event
+    header.addEventListener('click', handleProjectToggle);
+    
+    // Add keyboard support
+    header.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        handleProjectToggle();
+      }
+    });
+  });
 });
