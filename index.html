@@ -33,23 +33,37 @@
     <div class="navbar">
         <div class="brand desktop">Jacob<span class="dash"></span>Colangelo</div>
         <div class="brand mobile">J-C</div>
-        
+        <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+            <span></span> <!-- These spans will be styled into a hamburger icon -->
+            <span></span>
+            <span></span>
+        </button>
         <!-- Dark Mode Toggle Button removed -->
     </div>
+
+    <!-- SIDEBAR -->
+    <nav class="sidebar">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#career">Career</a>
+    </nav>
 
     <!-- CANVAS BACKGROUND -->
     <canvas></canvas>
 
-    <!-- TYPED TEXT CONTAINER -->
-    <div class="typed-container">
-        <h1 class="heading"></h1>
-        <p class="subheading"></p>
-    </div>
+    <!-- MAIN CONTENT WRAPPER -->
+    <main class="main-content">
 
-    <!-- INTRO SECTION -->
-    <section class="section intro">
-        <div class="content">
-            <div class="gradient-mask left"></div>
+        <!-- TYPED TEXT CONTAINER (Moved Inside Main Content) -->
+        <div class="typed-container">
+            <h1 class="heading"></h1>
+            <p class="subheading"></p>
+        </div>
+
+        <!-- INTRO SECTION (ABOUT) -->
+        <section id="about" class="section intro">
+            <div class="content">
+                <div class="gradient-mask left"></div>
             <div class="gradient-mask right is--visible"></div>
 
             <!-- OPTIONS MENU -->
@@ -69,19 +83,19 @@
                 <h1 class="text academics">I specialise in sports governance, focusing on best practices for national sporting organisations. My research examines governance practices, board composition, and dynamics, aiming to provide insights that help administrators implement effective strategies aligned with societal expectations.</h1>
                 <h1 class="text promoters">Hi, I'm Jacob Colangelo. With over 10 years of DJing experience, I've performed at clubs, festivals, sporting events, weddings, and balls, delivering unforgettable moments. I've supported national and international touring artists and played shows across Australia, bringing energy and expertise to every set.</h1>
             </div>
-        </div>
-    </section>
+            </div>
+        </section>
 
-    <!-- PROJECTS SECTION -->
-    <section class="section projects">
-        <div class="content">
-            <h2 class="section-title">Projects</h2>
+        <!-- PROJECTS SECTION -->
+        <section id="projects" class="section projects">
+            <div class="content">
+                <h2 class="section-title">Projects</h2>
             <div class="projects-list">
                 <!-- Project 1 -->
                 <div class="project">
                     <div class="project-header" role="button" tabindex="0">
                         <h3 class="project-title">Sports Fan Engagement Platform</h3>
-                        <span class="project-toggle">+</span>
+                        <span class="project-toggle"><i data-lucide="chevron-down"></i></span>
                     </div>
                     <div class="project-details">
                         <p>A comprehensive platform designed to enhance fan engagement for professional sports teams. Features include real-time analytics, personalized content delivery, and interactive fan experiences.</p>
@@ -97,7 +111,7 @@
                 <div class="project">
                     <div class="project-header" role="button" tabindex="0">
                         <h3 class="project-title">Sports Governance Research Initiative</h3>
-                        <span class="project-toggle">+</span>
+                        <span class="project-toggle"><i data-lucide="chevron-down"></i></span>
                     </div>
                     <div class="project-details">
                         <p>An academic research project focused on best practices in sports governance for national sporting organizations. The study examines governance structures, board composition, and organizational dynamics.</p>
@@ -113,7 +127,7 @@
                 <div class="project">
                     <div class="project-header" role="button" tabindex="0">
                         <h3 class="project-title">Digital Marketing Campaign for Major League</h3>
-                        <span class="project-toggle">+</span>
+                        <span class="project-toggle"><i data-lucide="chevron-down"></i></span>
                     </div>
                     <div class="project-details">
                         <p>Developed and executed a comprehensive digital marketing strategy for a major sports league, focusing on audience growth and engagement across multiple platforms.</p>
@@ -128,8 +142,60 @@
         </div>
     </section>
 
+        <!-- CAREER JOURNEY SECTION -->
+        <section id="career" class="section career">
+            <div class="content">
+                <h2 class="section-title">Career</h2>
+                <div class="timeline">
+                    <!-- Timeline Item 1 -->
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <h3>Tradable Bits</h3>
+                            <p>Customer Success Manager</p>
+                            <p>Melbourne, Australia</p>
+                            <p class="date">Sept 2023 - Present</p>
+                        </div>
+                    </div>
+                    <!-- Timeline Item 2 -->
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <h3>Career Gap</h3>
+                            <p>Personal Development / Travel</p>
+                            <p class="date">June 2022 - Sept 2023</p>
+                        </div>
+                    </div>
+                    <!-- Timeline Item 3 -->
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <h3>Placeholder Company A</h3>
+                            <p>Previous Role Title</p>
+                            <p>Previous City, Country</p>
+                            <p class="date">Jan 2021 - May 2022</p>
+                        </div>
+                    </div>
+                    <!-- Timeline Item 4 -->
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <h3>Placeholder Company B</h3>
+                            <p>Earlier Role Title</p>
+                            <p>Earlier City, Country</p>
+                            <p class="date">Mar 2019 - Dec 2020</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main> <!-- END MAIN CONTENT WRAPPER -->
+
     <!-- Typed.js from CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+    <!-- Typed.js from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+    <!-- Lucide Icons from CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 
     <!-- Link to external JS -->
     <script src="script.js"></script>
