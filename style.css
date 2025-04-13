@@ -634,8 +634,8 @@ canvas {
 }
 
 .project.active .project-details {
-  max-height: 500px;
-  padding: 0 1.5rem 1.5rem;
+  max-height: 1000px; /* Increased max-height */
+  padding: 1.2rem 1.5rem 1.2rem; /* Add top and bottom padding */
 }
 
 .project-details p {
@@ -916,3 +916,41 @@ canvas {
     padding: 1rem;
   }
 } /* Added missing closing brace for @media (max-width: 768px) */
+
+/* Add spacing above the final italicized paragraph in project details */
+.projects-list .project .project-details p:last-of-type {
+  margin-top: 2em; /* Adjust value as needed */
+}
+
+/* Remove default top margin from the first paragraph in project details */
+.projects-list .project .project-details p:first-of-type {
+  margin-top: 0;
+}
+
+/* Spacing for Tradable Bits timeline entry */
+.tradable-bits-entry h3 {
+  margin-bottom: 8px; /* Space below the main heading */
+}
+
+.tradable-bits-entry hr.role-separator {
+  margin-top: 8px;    /* Space above the separator (below the date) */
+  margin-bottom: 8px; /* Space below the separator (above the next role) */
+  border: none; /* Remove default border */
+  height: 1px; /* Define height for the line */
+  background-color: var(--secondary-text); /* Use theme color */
+  opacity: 0.5; /* Make it slightly subtle */
+}
+
+/* Spacing for Softball WA timeline entry */
+.softball-wa-entry h3 {
+  margin-bottom: 8px; /* Space below the main heading */
+}
+
+.softball-wa-entry hr.role-separator {
+  margin-top: 8px;    /* Space above the separator (below the date) */
+  margin-bottom: 8px; /* Space below the separator (above the next role) */
+  border: none; /* Remove default border */
+  height: 1px; /* Define height for the line */
+  background-color: var(--secondary-text); /* Use theme color */
+  opacity: 0.5; /* Make it slightly subtle */
+}
