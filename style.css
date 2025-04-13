@@ -431,7 +431,7 @@ canvas {
   /* min-height removed */
   width: 100%; /* Ensure full width */
   box-sizing: border-box;
-  text-align: center; /* Center text on mobile */
+  /* text-align: center; */ /* Alignment handled in media queries */
 }
 
 /* Content Block - Base Styles */
@@ -670,10 +670,9 @@ canvas {
     /* text-align: center; */ /* Removed */
   }
 
-  /* Navbar adjustments for mobile (already set globally, confirm no override needed) */
+  /* Navbar adjustments for mobile */
   .navbar {
-    /* padding: 0 15px; /* Already default */
-    /* justify-content: space-between; /* Already set */
+    padding: 0 var(--side-padding); /* Use mobile side padding */
     width: 100%;
     height: var(--navbar-height);
     /* Ensure space for menu button */
@@ -835,17 +834,17 @@ canvas {
   /* Left fade effect when scrolled - REMOVED */
   /* .content.scrolled::before { ... } */
 
-  /* Center text content on Mobile */
+  /* Align text content on Mobile */
   .texts { /* Container for the switching text */
     /* width: 100%; */ /* Removed */
-    max-width: 600px; /* Limit line length */
-    text-align: center; /* Center text block */
-    margin: 0 auto; /* Center block */
+    /* max-width: 600px; /* Removed to allow full width */
+    text-align: left; /* Align text left */
+    /* margin: 0 auto; /* Removed to prevent centering */
     padding: 0;
   }
   .text { /* Individual text lines */
      /* width: 100%; */ /* Removed */
-     text-align: center; /* Center text within its block */
+     text-align: left; /* Align text left */
      margin: 0 auto; /* Center block */
      padding: 0;
      font-size: clamp(1rem, 4vw, 1.375rem); /* Fluid typography from 16px to 22px */
@@ -886,8 +885,8 @@ canvas {
  
    .timeline-item {
      width: 100%; /* Full width */
-     padding-left: 15px; /* Adjust padding */
-     padding-right: 15px;
+     padding-left: 0; /* Remove padding */
+     padding-right: 0; /* Remove padding */
      margin-bottom: 20px; /* Adjust spacing */
    }
  
