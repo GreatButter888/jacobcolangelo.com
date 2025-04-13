@@ -96,14 +96,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const handleSelection = () => {
       options.forEach(opt => opt.classList.remove('is--active'));
       texts.forEach(text => text.classList.remove('is--visible'));
-      
+
       option.classList.add('is--active');
       const selectedText = document.querySelector(`.text.${option.classList[1]}`);
       if (selectedText) {
         selectedText.classList.add('is--visible');
       }
+
+      // Auto-scroll the clicked option into view
+      option.scrollIntoView({ behavior: 'smooth', inline: 'nearest', block: 'nearest' });
     };
-    
+
     // Add click event
     option.addEventListener('click', handleSelection);
     
@@ -117,28 +120,66 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   
   // =====================
-  // MOBILE SCROLL EFFECTS
+  // OPTIONS BAR SCROLLING & GRADIENTS (Based on Example)
   // =====================
   const optionsContainer = document.querySelector('.options');
-  const contentContainer = document.querySelector('.content');
-  
-  if (optionsContainer && contentContainer) {
-    // Check scroll position on load
-    checkScroll();
-    
-    // Check scroll position when scrolling
-    optionsContainer.addEventListener('scroll', checkScroll);
-    
-    function checkScroll() {
-      // If scrolled at all, show left fade
-      if (optionsContainer.scrollLeft > 10) {
-        if (!contentContainer.classList.contains('scrolled')) {
-          contentContainer.classList.add('scrolled');
-        }
-      } else {
-        contentContainer.classList.remove('scrolled');
-      }
-    }
+  // Need to select the masks within the specific intro section's content area
+  const introContent = document.querySelector('.section.intro .content');
+  const leftMask = introContent?.querySelector('.gradient-mask.left');
+  const rightMask = introContent?.querySelector('.gradient-mask.right');
+
+  if (optionsContainer && leftMask && rightMask) {
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    // Function to update gradient visibility
+    const updateGradients = () => {
+      const maxScrollLeft = optionsContainer.scrollWidth - optionsContainer.clientWidth;
+      // Show left gradient if scrolled away from the start
+      leftMask.classList.toggle('is--visible', optionsContainer.scrollLeft > 1);
+      // Show right gradient if not scrolled to the very end
+      rightMask.classList.toggle('is--visible', optionsContainer.scrollLeft < maxScrollLeft - 1);
+    };
+
+    // Initial check
+    updateGradients();
+
+    // Update gradients on scroll
+    optionsContainer.addEventListener('scroll', updateGradients, { passive: true }); // Use passive listener
+
+    // Click and Drag Logic
+    optionsContainer.addEventListener('mousedown', (e) => {
+      isDown = true;
+      optionsContainer.style.cursor = 'grabbing';
+      startX = e.pageX - optionsContainer.offsetLeft;
+      scrollLeft = optionsContainer.scrollLeft;
+      e.preventDefault(); // Prevent text selection/drag behavior
+    });
+
+    optionsContainer.addEventListener('mouseleave', () => {
+      if (!isDown) return;
+      isDown = false;
+      optionsContainer.style.cursor = 'grab';
+    });
+
+    optionsContainer.addEventListener('mouseup', () => {
+      if (!isDown) return;
+      isDown = false;
+      optionsContainer.style.cursor = 'grab';
+    });
+
+    optionsContainer.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - optionsContainer.offsetLeft;
+      const walk = (x - startX) * 2; // Adjust multiplier for scroll speed if needed
+      optionsContainer.scrollLeft = scrollLeft - walk;
+      // No need to call updateGradients here, scroll event handles it
+    });
+
+    // Note: The auto-scroll on click logic was added directly into the
+    // handleSelection function within the TEXT CONTENT SWITCHER section above.
   }
   
   // =====================
