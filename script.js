@@ -242,6 +242,7 @@ Network Type: ${networkType}`
     }
   });
 
+
   // =====================
   // PROJECTS TOGGLE
   // =====================
