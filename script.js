@@ -118,7 +118,74 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
-  
+
+  // =====================
+  // DYNAMIC INTRO TEXT HEIGHT
+  // =====================
+  const setIntroTextContainerHeight = () => {
+    const textsContainer = document.querySelector('.texts');
+    const textElements = document.querySelectorAll('.texts .text');
+    if (!textsContainer || textElements.length === 0) return;
+
+    let maxHeight = 0;
+
+    // Store original styles to reset later
+    const originalStyles = new Map();
+
+    textElements.forEach(text => {
+      const style = text.style;
+      originalStyles.set(text, {
+        position: style.position,
+        visibility: style.visibility,
+        display: style.display,
+        height: style.height // Store original height if any
+      });
+
+      // Apply temporary styles for measurement
+      style.position = 'absolute'; // Take out of flow
+      style.visibility = 'hidden'; // Keep invisible
+      style.display = 'block';     // Ensure it's block for scrollHeight
+      style.height = 'auto';       // Allow natural height calculation
+
+      maxHeight = Math.max(maxHeight, text.scrollHeight);
+
+      // Reset styles
+      const original = originalStyles.get(text);
+      style.position = original.position;
+      style.visibility = original.visibility;
+      style.display = original.display;
+      style.height = original.height;
+    });
+
+    // Apply the calculated max height as min-height to the container
+    if (maxHeight > 0) {
+      textsContainer.style.minHeight = `${maxHeight}px`;
+      console.log(`Set .texts min-height to: ${maxHeight}px`);
+    } else {
+      textsContainer.style.minHeight = ''; // Clear if no height found
+      console.log("Could not determine max height for .texts");
+    }
+  };
+
+  // Debounce function
+  const debounce = (func, wait) => {
+    let timeout;
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  };
+
+  // Calculate height initially on load
+  setIntroTextContainerHeight();
+
+  // Recalculate on window resize (debounced)
+  window.addEventListener('resize', debounce(setIntroTextContainerHeight, 250));
+
   // =====================
   // OPTIONS BAR SCROLLING & GRADIENTS (Based on Example)
   // =====================

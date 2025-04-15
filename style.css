@@ -34,6 +34,9 @@ html, body {
   --overlay-color-rgb: 0, 0, 0; /* Default to black components */
   --overlay-alpha: 0.5;
   --blur-intensity: 10px;
+
+  /* Border color variable */
+  --border-color: rgba(var(--text-color-rgb), 0.1); /* Default (dark mode) */
 }
 
 /* Light Mode Variables */
@@ -48,6 +51,9 @@ body.light-mode {
   /* Light mode overlay values */
   --overlay-color-rgb: 255, 255, 255; /* White overlay for light mode */
   --overlay-alpha: 0.5;
+
+  /* Light mode border color */
+  --border-color: rgba(var(--text-color-rgb), 0.2); /* Darker border for light mode */
 }
 
 /* System Preference Detection */
@@ -63,6 +69,9 @@ body.light-mode {
     /* Light mode overlay values */
     --overlay-color-rgb: 255, 255, 255; /* White overlay for light mode */
     --overlay-alpha: 0.5;
+
+    /* Light mode border color (system preference) */
+    --border-color: rgba(var(--text-color-rgb), 0.2); /* Darker border for light mode */
   }
 }
 
@@ -343,7 +352,7 @@ html {
 .timeline-content {
   padding: 1.2rem 1.5rem;
   background-color: rgba(var(--bg-color-rgb, 0, 0, 0), 0.5);
-  border: 1px solid rgba(var(--text-color-rgb, 255, 255, 255), 0.1);
+  border: 1px solid var(--border-color); /* Use variable */
   position: relative;
   border-radius: var(--border-radius);
 }
@@ -509,7 +518,7 @@ canvas {
 
 .text {
   /* min-height: calc(1em * 0.975 * 7); /* From example - adjust multiplier if needed */
-  min-height: 7em; /* Simplified min-height to prevent layout shift */
+  /* min-height: 7em; /* REMOVED - Height is now set dynamically on .texts container */
   display: none;
   font-size: clamp(1.25rem, 5vw, 2.875rem); /* Fluid typography from 20px to 46px */
   line-height: 1.2;
@@ -580,7 +589,7 @@ canvas {
 
 .project {
   background-color: rgba(var(--bg-color-rgb, 0, 0, 0), 0.5);
-  border: 1px solid rgba(var(--text-color-rgb, 255, 255, 255), 0.1);
+  border: 1px solid var(--border-color); /* Use variable */
   border-radius: var(--border-radius);
   overflow: hidden;
 }
