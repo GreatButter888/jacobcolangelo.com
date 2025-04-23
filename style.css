@@ -979,6 +979,10 @@ footer {
 .footer-content {
   max-width: 1200px; /* Optional: constrain width */
   margin: 0 auto; /* Center content */
+  display: flex; /* Use flexbox */
+  flex-direction: column; /* Stack children vertically */
+  align-items: center; /* Center children horizontally */
+  gap: var(--spacing-sm); /* Add gap between icons and link */
 }
 
 .social-links {
@@ -1106,4 +1110,83 @@ footer {
   .subscribe-form {
     width: 100%; /* Make form take full width */
   }
+}
+
+/* Style for the Privacy Policy link in the footer */
+.footer-content p a {
+  color: var(--secondary-text); /* Match social icon color */
+  text-decoration: none;      /* Remove underline */
+  transition: color 0.3s ease; /* Smooth hover effect */
+}
+
+/* Keep the color the same after clicking */
+.footer-content p a:visited {
+  color: var(--secondary-text);
+}
+
+/* Style on hover */
+.footer-content p a:hover {
+  color: var(--text-color);     /* Match social icon hover color */
+}
+
+/* Add padding to the header within main-content on privacy page */
+.main-content > header {
+  padding-top: var(--navbar-height); /* Push header below navbar */
+  padding-left: var(--side-padding); /* Add side padding (mobile) */
+  padding-right: var(--side-padding); /* Add side padding (mobile) */
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* Adjust header padding for desktop view */
+@media (min-width: 769px) {
+  .main-content > header {
+    padding-left: 0; /* Remove left padding as .main-content margin handles it */
+    padding-right: 0; /* Remove right padding as .main-content margin handles it */
+    /* padding-top is still needed */
+  }
+}
+
+/* Style inner main content area on privacy page */
+.main-content > main {
+  /* padding-top: var(--navbar-height); /* REMOVED - Header now handles top spacing */
+  padding-left: var(--side-padding); /* Keep side padding (mobile) */
+  padding-right: var(--side-padding); /* Keep side padding (mobile) */
+  box-sizing: border-box; /* Ensure padding is included in width */
+  width: 100%; /* Ensure it takes full width within the wrapper */
+}
+
+/* Adjust inner main padding for desktop view */
+@media (min-width: 769px) {
+  .main-content > main {
+    padding-left: 0; /* Keep removal */
+    padding-right: 0; /* Keep removal */
+    /* padding-top was already removed */
+  }
+}
+
+/* Add space below the 'Last Updated' paragraph on the privacy page */
+.main-content > main > p:first-of-type {
+  margin-bottom: 1.5em; /* Creates space below the 'Last Updated' paragraph */
+}
+
+/* Add space below the introductory paragraph on the privacy page */
+.main-content > main > p:nth-of-type(2) {
+  margin-bottom: 1.5em; /* Adjust value as needed */
+}
+
+/* Add space below each section on the privacy page */
+.main-content > main > section {
+  margin-bottom: 1.5em; /* Adjust value as needed */
+}
+
+/* Ensure bullet points and indentation appear for lists in privacy policy */
+.main-content > main ul {
+  list-style: disc; /* Explicitly set the bullet style */
+  padding-left: 40px; /* Add standard indentation */
+}
+
+/* Optional: Add margin below each list item for better spacing */
+.main-content > main li {
+  margin-bottom: 0.5em;
 }
