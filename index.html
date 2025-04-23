@@ -213,13 +213,15 @@
         <section class="subscribe-section">
           <div class="subscribe-container">
             <div class="subscribe-text">
-              <h2>Join 1K+ Readers</h2>
-              <p>Sent out every two weeks. No spam.</p>
+            <h2>Join My Mailing List</h2>
+            <p>Sporadic emails about cool stuff.</p>
+            <p>You’ll probably enjoy it. Maybe.</p>
             </div>
-            <form action="https://formspree.io/f/xldbenr" method="POST">
-                <input type="email" name="email" placeholder="Enter your email" required>
-                <button type="submit">Subscribe</button>
-              </form>              
+            <form id="my-form" class="subscribe-form" action="https://formspree.io/f/xldbenra" method="POST">
+              <input type="email" name="email" placeholder="Your Email" />
+              <button id="my-form-button" type="submit">Submit</button>
+              <p id="my-form-status"></p>
+            </form>
           </div>
         </section>
 
