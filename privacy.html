@@ -4,9 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy - Jacob Colangelo</title> <!-- Updated Title -->
+
+    <!-- Inline script to set theme before CSS loads -->
+    <script>
+      (function() {
+        try {
+          const theme = localStorage.getItem('theme');
+          if (theme === 'light') {
+            // Apply light mode class to the root <html> element
+            document.documentElement.classList.add('light-mode');
+            // Explicitly remove dark mode class if light is set
+            document.documentElement.classList.remove('dark-mode');
+          } else {
+            // Default to dark mode if no theme is stored or if it's explicitly 'dark'
+            document.documentElement.classList.add('dark-mode');
+             // Explicitly remove light mode class
+            document.documentElement.classList.remove('light-mode');
+          }
+        } catch (e) {
+          // Fallback in case localStorage is unavailable or throws an error
+          console.error('Error accessing localStorage for theme:', e);
+          document.documentElement.classList.add('dark-mode'); // Default to dark on error
+        }
+      })();
+    </script>
+
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="dark-mode"> <!-- Added class to match index.html -->
+<body> <!-- Removed default dark-mode class -->
     <!-- NAVBAR -->
     <div class="navbar">
         <div class="brand desktop">Jacob<span class="dash"></span>Colangelo</div>

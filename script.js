@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // =====================
   // THEME MANAGEMENT
   // =====================
-  const body = document.body;
+  const htmlElement = document.documentElement; // Target <html> instead of body
   
   // Function to get theme based on time
   function getThemeBasedOnTime() {
@@ -13,13 +13,15 @@ document.addEventListener('DOMContentLoaded', () => {
   // Function to set theme
   function setTheme(theme, manual = false) {
       if (theme === "light") {
-          body.classList.add("light-mode");
-          body.classList.remove("dark-mode");
-          if (manual) body.classList.add("theme-manually-toggled");
+          htmlElement.classList.add("light-mode");
+          htmlElement.classList.remove("dark-mode");
+          if (manual) htmlElement.classList.add("theme-manually-toggled");
+          else htmlElement.classList.remove("theme-manually-toggled"); // Ensure manual toggle class is removed if not manual
       } else {
-          body.classList.remove("light-mode");
-          body.classList.add("dark-mode");
-          if (manual) body.classList.add("theme-manually-toggled");
+          htmlElement.classList.remove("light-mode");
+          htmlElement.classList.add("dark-mode");
+          if (manual) htmlElement.classList.add("theme-manually-toggled");
+          else htmlElement.classList.remove("theme-manually-toggled"); // Ensure manual toggle class is removed if not manual
       }
       if (manual) {
           localStorage.setItem("theme", theme);
@@ -27,15 +29,15 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   
   function toggleTheme() {
-      // Get current theme from body class, fallback to localStorage or time-based
+      // Get current theme from html class, fallback to localStorage or time-based
       let currentTheme;
       
-      if (body.classList.contains("light-mode")) {
+      if (htmlElement.classList.contains("light-mode")) {
           currentTheme = "light";
-      } else if (body.classList.contains("dark-mode")) {
+      } else if (htmlElement.classList.contains("dark-mode")) {
           currentTheme = "dark";
       } else {
-          // Fallback if no class is set for some reason
+          // Fallback if no class is set (shouldn't happen with inline script)
           currentTheme = localStorage.getItem("theme") || getThemeBasedOnTime();
       }
       

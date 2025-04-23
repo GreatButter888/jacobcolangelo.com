@@ -46,7 +46,7 @@ html, body {
 }
 
 /* Light Mode Variables */
-body.light-mode {
+html.light-mode {
   --bg-color: #ffffff;
   --bg-color-rgb: 255, 255, 255;
   --text-color: #121212;
@@ -70,7 +70,7 @@ body.light-mode {
 
 /* System Preference Detection */
 @media (prefers-color-scheme: light) {
-  body:not(.theme-manually-toggled) {
+  html:not(.theme-manually-toggled) {
     --bg-color: #ffffff;
     --bg-color-rgb: 255, 255, 255;
     --text-color: #121212;
