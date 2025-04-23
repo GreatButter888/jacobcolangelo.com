@@ -29,7 +29,7 @@ html, body {
   --border-radius: 5px;
   --navbar-height: 10vh;
   --side-padding: 10vw;
-  
+
   /* Backdrop filter variables */
   --overlay-color-rgb: 0, 0, 0; /* Default to black components */
   --overlay-alpha: 0.5;
@@ -37,6 +37,12 @@ html, body {
 
   /* Border color variable */
   --border-color: rgba(var(--text-color-rgb), 0.1); /* Default (dark mode) */
+
+  /* Subscribe Bar Colors (Dark Mode Defaults) */
+  --subscribe-bg-color: #222;
+  --subscribe-input-bg-color: #444;
+  --subscribe-button-bg-color: #555;
+  --subscribe-button-hover-bg-color: #666;
 }
 
 /* Light Mode Variables */
@@ -47,13 +53,19 @@ body.light-mode {
   --text-color-rgb: 18, 18, 18;
   --secondary-text: #5a5a5a;
   --accent-color: #121212;
-  
+
   /* Light mode overlay values */
   --overlay-color-rgb: 255, 255, 255; /* White overlay for light mode */
   --overlay-alpha: 0.5;
 
   /* Light mode border color */
   --border-color: rgba(var(--text-color-rgb), 0.2); /* Darker border for light mode */
+
+  /* Subscribe Bar Colors (Light Mode Overrides) */
+  --subscribe-bg-color: #e0e0e0;          /* Darker container */
+  --subscribe-input-bg-color: #fff;
+  --subscribe-button-bg-color: #bdbdbd; /* Darker button */
+  --subscribe-button-hover-bg-color: #adadad; /* Darker button hover */
 }
 
 /* System Preference Detection */
@@ -65,7 +77,7 @@ body.light-mode {
     --text-color-rgb: 18, 18, 18;
     --secondary-text: #5a5a5a;
     --accent-color: #121212;
-    
+
     /* Light mode overlay values */
     --overlay-color-rgb: 255, 255, 255; /* White overlay for light mode */
     --overlay-alpha: 0.5;
@@ -237,7 +249,8 @@ html {
   /* Standardized padding for all sections on desktop */
   .section.intro,
   .section.projects,
-  #career { /* Updated ID */
+  #career,
+  .subscribe-section { /* Added subscribe section */
       padding-left: 0; /* Remove left padding, rely on main-content margin */
       padding-right: var(--side-padding); /* Consistent right padding */
       box-sizing: border-box; /* Ensure padding is included in width calculation */
@@ -807,7 +820,7 @@ canvas {
   .options::-webkit-scrollbar {
     display: none;
   }
-  
+
   .option {
     flex: 0 0 auto;
     background: none;
@@ -819,7 +832,7 @@ canvas {
     display: flex;
     align-items: center;
   }
-  
+
   .option.is--active {
     color: var(--text-color);
     background: none;
@@ -862,11 +875,12 @@ canvas {
       overflow-wrap: break-word;
       hyphens: none; /* Changed from auto */
    }
- 
+
    /* Adjust section padding specifically for mobile */
   .section.intro,
   .section.projects,
-  #career { /* Updated ID */
+  #career,
+  .subscribe-section { /* Added subscribe section */
     /* width: 100%; */ /* Removed */
     width: auto; /* Allow natural width */
     margin-left: auto; /* Center block */
@@ -886,35 +900,35 @@ canvas {
       padding-top: 3rem; /* Adjust as needed for mobile */
        padding-bottom: 2rem; /* Adjust as needed for mobile */
    }
- 
+
    /* --- Career Journey Mobile --- */
    .timeline::after {
      display: none; /* Hide the center line */
    }
- 
+
    .timeline-item {
      width: 100%; /* Full width */
      padding-left: 0; /* Remove padding */
      padding-right: 0; /* Remove padding */
      margin-bottom: 20px; /* Adjust spacing */
    }
- 
+
    /* Move all items to the left side (effectively stacking them) */
    .timeline-item.left,
    .timeline-item.right {
      left: 0%;
    }
- 
+
    /* Hide the timeline circles */
    .timeline-item::after {
      display: none;
    }
- 
+
    .timeline-content {
      padding: 1rem; /* Adjust padding */
    }
    /* --- End Career Journey Mobile --- */
- 
+
    .section-title {
     font-size: 2rem;
     text-align: center;
@@ -950,6 +964,46 @@ canvas {
   opacity: 0.5; /* Make it slightly subtle */
 }
 
+/* ================================= */
+/*             FOOTER                */
+/* ================================= */
+
+footer {
+  padding: var(--spacing-lg) var(--side-padding); /* Use existing variables for padding */
+  border-top: 1px solid var(--border-color); /* Theme-aware border */
+  margin-top: 3rem; /* Add some space above the footer */
+  position: relative; /* Ensure it's part of the normal flow */
+  z-index: 2; /* Keep above canvas */
+}
+
+.footer-content {
+  max-width: 1200px; /* Optional: constrain width */
+  margin: 0 auto; /* Center content */
+}
+
+.social-links {
+  display: flex;
+  justify-content: center; /* Center icons horizontally */
+  align-items: center;
+  gap: var(--spacing-lg); /* Space between icons */
+}
+
+.social-links a {
+  color: var(--secondary-text); /* Use theme variable for icon color */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+  color: var(--text-color); /* Use theme variable for hover color */
+}
+
+.social-links svg {
+  width: 1.5rem; /* Icon size */
+  height: 1.5rem; /* Icon size */
+  stroke-width: 1.5; /* Slightly thinner stroke */
+}
+
 /* Spacing for Softball WA timeline entry */
 .softball-wa-entry h3 {
   margin-bottom: 8px; /* Space below the main heading */
@@ -962,4 +1016,94 @@ canvas {
   height: 1px; /* Define height for the line */
   background-color: var(--secondary-text); /* Use theme color */
   opacity: 0.5; /* Make it slightly subtle */
+}
+
+/* ================================= */
+/*         SUBSCRIBE SECTION         */
+/* ================================= */
+
+.subscribe-section {
+  padding-top: 3rem; /* Add some space above */
+  padding-bottom: 3rem; /* Add some space below */
+  position: relative;
+  z-index: 2;
+}
+
+.subscribe-container {
+  background-color: var(--subscribe-bg-color); /* Use variable */
+  color: var(--text-color); /* Use variable */
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius);
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-md);
+  width: 66%; /* Set width to 66% */
+  margin-left: auto; /* Center horizontally */
+  margin-right: auto; /* Center horizontally */
+}
+
+.subscribe-text h2 {
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--spacing-sm);
+  color: var(--text-color); /* Ensure main text color */
+}
+
+.subscribe-text p {
+  font-size: var(--font-size-sm);
+  color: var(--secondary-text); /* Use secondary text color */
+  margin: 0;
+}
+
+.subscribe-form {
+  display: flex;
+  gap: var(--spacing-sm);
+  flex-grow: 1; /* Allow form to take available space */
+  min-width: 250px; /* Prevent form from getting too small */
+}
+
+.subscribe-form input[type="email"] {
+  flex-grow: 1; /* Allow input to expand */
+  padding: 10px 15px;
+  border: 1px solid var(--border-color); /* Add subtle border */
+  border-radius: var(--border-radius);
+  background-color: var(--subscribe-input-bg-color); /* Use variable */
+  color: var(--text-color); /* Use variable */
+  font-size: var(--font-size-md);
+}
+
+.subscribe-form input[type="email"]::placeholder {
+  color: var(--secondary-text); /* Use variable */
+  opacity: 0.8;
+}
+
+.subscribe-form button[type="submit"] {
+  padding: 10px 20px;
+  border: none;
+  border-radius: var(--border-radius);
+  background-color: var(--subscribe-button-bg-color); /* Use variable */
+  color: var(--text-color); /* Use variable */
+  font-size: var(--font-size-md);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.subscribe-form button[type="submit"]:hover {
+  background-color: var(--subscribe-button-hover-bg-color); /* Use variable */
+}
+
+/* Responsive adjustments for subscribe bar */
+@media (max-width: 768px) {
+  .subscribe-container {
+    flex-direction: column; /* Stack elements vertically */
+    align-items: flex-start; /* Align items to the start */
+    width: auto; /* Reset width for mobile */
+    margin-left: 0; /* Remove centering */
+    margin-right: 0; /* Remove centering */
+  }
+
+  .subscribe-form {
+    width: 100%; /* Make form take full width */
+  }
 }
