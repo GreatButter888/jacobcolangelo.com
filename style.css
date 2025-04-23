@@ -1,4 +1,3 @@
-/* CSS Reset */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -11,7 +10,7 @@ html, body {
   overflow-x: hidden;
 }
 
-/* CSS Variables */
+/* --- CSS Variables --- */
 :root {
   --bg-color: #000;
   --bg-color-rgb: 0, 0, 0;
@@ -30,22 +29,22 @@ html, body {
   --navbar-height: 10vh;
   --side-padding: 10vw;
 
-  /* Backdrop filter variables */
+  /* Backdrop filter */
   --overlay-color-rgb: 0, 0, 0; /* Default to black components */
   --overlay-alpha: 0.5;
   --blur-intensity: 10px;
 
-  /* Border color variable */
+  /* Border color */
   --border-color: rgba(var(--text-color-rgb), 0.1); /* Default (dark mode) */
 
-  /* Subscribe Bar Colors (Dark Mode Defaults) */
+  /* Subscribe Bar Colors (Dark) */
   --subscribe-bg-color: #222;
   --subscribe-input-bg-color: #444;
   --subscribe-button-bg-color: #555;
   --subscribe-button-hover-bg-color: #666;
 }
 
-/* Light Mode Variables */
+/* --- Light Mode Variables --- */
 html.light-mode {
   --bg-color: #ffffff;
   --bg-color-rgb: 255, 255, 255;
@@ -54,21 +53,21 @@ html.light-mode {
   --secondary-text: #5a5a5a;
   --accent-color: #121212;
 
-  /* Light mode overlay values */
+  /* Light mode overlay */
   --overlay-color-rgb: 255, 255, 255; /* White overlay for light mode */
   --overlay-alpha: 0.5;
 
-  /* Light mode border color */
+  /* Light mode border */
   --border-color: rgba(var(--text-color-rgb), 0.2); /* Darker border for light mode */
 
-  /* Subscribe Bar Colors (Light Mode Overrides) */
+  /* Subscribe Bar Colors (Light) */
   --subscribe-bg-color: #e0e0e0;          /* Darker container */
   --subscribe-input-bg-color: #fff;
   --subscribe-button-bg-color: #bdbdbd; /* Darker button */
   --subscribe-button-hover-bg-color: #adadad; /* Darker button hover */
 }
 
-/* System Preference Detection */
+/* --- System Preference Detection --- */
 @media (prefers-color-scheme: light) {
   html:not(.theme-manually-toggled) {
     --bg-color: #ffffff;
@@ -76,32 +75,29 @@ html.light-mode {
     --text-color: #121212;
     --text-color-rgb: 18, 18, 18;
     --secondary-text: #5a5a5a;
-    --accent-color: #121212;
+  --accent-color: #121212;
 
-    /* Light mode overlay values */
+  /* Light mode overlay */
     --overlay-color-rgb: 255, 255, 255; /* White overlay for light mode */
-    --overlay-alpha: 0.5;
+  --overlay-alpha: 0.5;
 
-    /* Light mode border color (system preference) */
+  /* Light mode border (system preference) */
     --border-color: rgba(var(--text-color-rgb), 0.2); /* Darker border for light mode */
   }
 }
 
-/* Section Scroll Offset */
+/* --- Section Scroll Offset --- */
 #about, #projects, #career { /* Updated ID */
-  scroll-margin-top: calc(var(--navbar-height) + 20px); /* Add space for fixed navbar */
+  scroll-margin-top: calc(var(--navbar-height) + 20px); /* Space for fixed navbar */
 }
 
-/* Career Journey Section - Basic Padding */
+/* Career Section Padding */
 #career { /* Updated ID */
-  /* padding: 5rem var(--side-padding) 3rem; /* Padding handled by general section rules */
   position: relative; /* Keep for potential absolute positioning inside */
   z-index: 2; /* Keep for stacking */
 }
 
-/* All specific timeline styles removed */
-
-/* Font Loading */
+/* --- Font Loading --- */
 @font-face {
   font-family: 'BDOGrotesk-VF';
   src: url('fonts/BDOGrotesk-VF.woff2') format('woff2');
@@ -110,7 +106,7 @@ html.light-mode {
   font-display: swap;
 }
 
-/* Base Styles */
+/* --- Base Styles --- */
 body {
   background: var(--bg-color);
   color: var(--text-color);
@@ -124,13 +120,13 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Accessibility */
+/* --- Accessibility --- */
 :focus-visible {
   outline: 2px solid var(--text-color);
   outline-offset: 2px;
 }
 
-/* Navbar */
+/* --- Navbar --- */
 .navbar {
   width: 100%;
   height: var(--navbar-height);
@@ -170,7 +166,51 @@ html {
   vertical-align: middle;
 }
 
-/* Mobile Menu Toggle Button (Hidden on Desktop) */
+/* --- Theme Toggle Button --- */
+.theme-toggle {
+  background: transparent;
+  border: none;
+  color: var(--text-color); /* Ensure this is set for currentColor inheritance */
+  cursor: pointer;
+  padding: 0;
+  margin-left: var(--spacing-md); /* Add some space from the brand/menu */
+  display: inline-flex; /* Align icon nicely */
+  align-items: center;
+  /* Ensure button itself doesn't have extra height/width */
+  line-height: 0;
+}
+
+/* Icons within the button */
+.theme-toggle .icon {
+  width: 1.2rem; /* Adjust size as needed */
+  height: 1.2rem;
+  display: block; /* Ensure icons behave predictably */
+  transition: transform 0.2s ease-in-out; /* Animation */
+}
+
+/* Animation on press */
+.theme-toggle:active .icon {
+  transform: scale(0.9) rotate(90deg); /* Scale down and rotate */
+}
+
+/* Dark Mode: Show Sun, Hide Moon */
+.theme-toggle .icon-sun {
+  display: block;
+}
+.theme-toggle .icon-moon {
+  display: none;
+}
+
+/* Light Mode: Show Moon, Hide Sun */
+html.light-mode .theme-toggle .icon-sun {
+  display: none;
+}
+html.light-mode .theme-toggle .icon-moon {
+  display: block;
+}
+
+
+/* --- Mobile Menu Toggle (Hidden Desktop) --- */
 .mobile-menu-toggle {
   display: none; /* Hidden by default */
   background: transparent;
@@ -190,18 +230,18 @@ html {
   transition: all 0.3s ease-in-out;
 }
 
-/* Desktop Styles */
+/* --- Desktop Styles --- */
 @media (min-width: 769px) {
   :root { /* Define variable within this media query scope */
     --sidebar-width: clamp(150px, 12vw, 220px); /* Variable width */
   }
 
-  /* Desktop Navbar Padding */
+  /* Navbar Padding */
   .navbar {
-    padding: 0 var(--side-padding) 0 var(--sidebar-width); /* Use variable width */
+    padding: 0 var(--side-padding) 0 var(--sidebar-width);
   }
 
-  /* Desktop Sidebar */
+  /* Sidebar */
   .sidebar {
     position: fixed;
     left: 0;
@@ -226,7 +266,7 @@ html {
     text-decoration: none;
     transition: all 0.3s ease;
     border-radius: var(--border-radius);
-    margin-bottom: 4px; /* Reduced vertical margin */
+    margin-bottom: 4px;
   }
 
   .sidebar a:hover {
@@ -237,23 +277,21 @@ html {
   .sidebar a.active {
     color: var(--text-color);
     font-weight: bold;
-    /* background-color: rgba(var(--text-color-rgb), 0.15); /* Removed */
   }
 
-  /* Desktop Main Content Margin */
+  /* Main Content Margin */
   .main-content {
-    margin-left: var(--sidebar-width); /* Use variable width */
+    margin-left: var(--sidebar-width);
   }
 
-  /* Ensure section horizontal padding uses desktop variable, remove left padding */
-  /* Standardized padding for all sections on desktop */
+  /* Standardized section padding */
   .section.intro,
   .section.projects,
   #career,
-  .subscribe-section { /* Added subscribe section */
-      padding-left: 0; /* Remove left padding, rely on main-content margin */
+  .subscribe-section {
+      padding-left: 0; /* Rely on main-content margin */
       padding-right: var(--side-padding); /* Consistent right padding */
-      box-sizing: border-box; /* Ensure padding is included in width calculation */
+      box-sizing: border-box;
   }
 
    /* Specific vertical padding */
@@ -263,46 +301,35 @@ html {
    }
    #career { /* Updated ID */
     padding-top: 5rem; /* Keep specific vertical padding */
-    padding-bottom: 3rem; /* Keep specific vertical padding */
+    padding-bottom: 3rem;
   }
    .section.intro {
-     /* Vertical padding adjusted below */
      padding-top: var(--navbar-height); /* Position below navbar */
-     padding-bottom: 0; /* Remove fixed bottom padding */
-     /* min-height removed */
-     display: flex; /* Enable flexbox */
-     flex-direction: column; /* Stack children vertically */
+     padding-bottom: 0;
+     display: flex;
+     flex-direction: column;
      justify-content: flex-start; /* Align content to top */
    }
 
-   /* Ensure the .content div within intro section doesn't restrict width */
+   /* Ensure intro .content div uses available width */
    .section.intro .content {
        width: 100%; /* Allow content to use available space */
-       max-width: 100%; /* Override any potential max-width restriction */
+       max-width: 100%;
        text-align: left; /* Align text left on desktop */
-       margin: 0; /* Remove auto margins if any */
+       margin: 0;
    }
 
-   /* Adjust Typed Container positioning within the flex container */
+   /* Typed Container positioning */
    .typed-container {
        margin-top: 0; /* Remove top margin */
-       padding-left: 0; /* Remove left padding */
-       /* No specific vertical alignment needed here, handled by parent flex */
+       padding-left: 0;
    }
 
-   /* #career-journey .content specific desktop styles removed */
-
 }
-/* Ensure .sidebar base styles don't conflict if needed outside media queries */
-/* (Currently okay as mobile styles completely override position/display) */
 
-/* ================================= */
-/*          CAREER JOURNEY           */
-/* ================================= */
+/* --- CAREER JOURNEY --- */
 
 .career .content { /* Updated selector */
-  /* max-width: 900px; /* Removed to allow full width like Projects */
-  /* margin: 0 auto; /* Removed to align title left like Projects */
 }
 
 .timeline {
@@ -310,7 +337,7 @@ html {
   padding: 2rem 0;
 }
 
-/* The actual timeline line */
+/* Timeline line */
 .timeline::after {
   content: '';
   position: absolute;
@@ -323,7 +350,7 @@ html {
   z-index: -1; /* Behind content */
 }
 
-/* Container around content */
+/* Timeline item container */
 .timeline-item {
   padding: 10px 40px;
   position: relative;
@@ -332,7 +359,7 @@ html {
   margin-bottom: 30px; /* Space between items */
 }
 
-/* The circles on the timeline */
+/* Timeline circles */
 .timeline-item::after {
   content: '';
   position: absolute;
@@ -346,22 +373,22 @@ html {
   z-index: 1;
 }
 
-/* Place the container to the left */
+/* Left container */
 .timeline-item.left {
   left: 0;
 }
 
-/* Place the container to the right */
+/* Right container */
 .timeline-item.right {
   left: 50%;
 }
 
-/* Fix the circle for right containers */
+/* Circle for right containers */
 .timeline-item.right::after {
-  left: -8px; /* Adjust position for right side */
+  left: -8px; /* Adjust position */
 }
 
-/* The actual content box */
+/* Timeline content box */
 .timeline-content {
   padding: 1.2rem 1.5rem;
   background-color: rgba(var(--bg-color-rgb, 0, 0, 0), 0.5);
@@ -395,7 +422,7 @@ html {
 }
 
 
-/* Gradient Masks (Based on Example) */
+/* --- Gradient Masks (Options Bar) --- */
 .gradient-mask {
   width: 80px; /* From example */
   height: 44px; /* From example (adjust if needed based on .option height) */
@@ -405,35 +432,30 @@ html {
   opacity: 0; /* Start hidden */
   z-index: 10; /* From example */
   transition: opacity 0.3s ease; /* From example */
-  /* bottom: 0; /* Removed */
-  /* display: none; /* Removed, using opacity */
 }
 
 .gradient-mask.left {
   left: 0;
-  /* Using example gradient with existing color vars */
   background: linear-gradient(to right, var(--bg-color) 2%, rgba(var(--bg-color-rgb), 0) 100%);
 }
 
 .gradient-mask.right {
   right: 0;
-   /* Using example gradient with existing color vars */
   background: linear-gradient(to left, var(--bg-color) 2%, rgba(var(--bg-color-rgb), 0) 100%);
 }
 
 .gradient-mask.is--visible {
   opacity: 1; /* Show mask */
-  /* display: block; /* Removed */
 }
 
-/* Main Content Area */
+/* --- Main Content Area --- */
 .main-content {
   /* margin-left: 180px; /* Removed */
   position: relative; /* Needed for z-index stacking if sections overlap */
-  z-index: 1; /* Ensure content is above canvas but below navbar/sidebar */
+  z-index: 1; /* Above canvas, below navbar/sidebar */
 }
 
-/* Canvas Background */
+/* --- Canvas Background --- */
 canvas {
   position: fixed;
   top: 0;
@@ -443,7 +465,7 @@ canvas {
   height: 100%;
 }
 
-/* Intro Section - Base Styles (Mobile First) */
+/* --- Intro Section (Mobile First) --- */
 .section.intro {
   display: flex;
   flex-direction: column;
@@ -453,19 +475,17 @@ canvas {
   /* min-height removed */
   width: 100%; /* Ensure full width */
   box-sizing: border-box;
-  /* text-align: center; */ /* Alignment handled in media queries */
 }
 
-/* Content Block - Base Styles */
+/* --- Content Block (Base) --- */
 .content {
   position: relative;
   width: 100%; /* Use full width */
   max-width: 100%; /* Ensure it can span */
   margin: 0 auto; /* Center block */
-  /* text-align is set per section/breakpoint */
 }
 
-/* Options Menu (Based on Example) */
+/* --- Options Menu --- */
 .options {
   position: relative; /* Needed for gradient masks */
   display: flex;
@@ -482,42 +502,37 @@ canvas {
 }
 
 .options::-webkit-scrollbar {
-  display: none;  /* Hide scrollbar for Chrome, Safari and Opera */
-}
-
-.options:hover {
-  /* cursor: pointer; /* Replaced by grab/grabbing */
+  display: none;  /* Hide scrollbar */
 }
 
 .option {
-  font-size: var(--font-size-md); /* Use existing variable, adjust if needed */
-  line-height: 20px; /* From example */
-  padding: 12px 10px; /* From example */
-  color: var(--secondary-text); /* Use existing variable */
-  white-space: nowrap; /* From example */
-  transition: color 0.3s ease; /* Simplified transition */
-  cursor: pointer; /* Ensure pointer cursor on options */
-  border-radius: 0; /* Remove previous radius */
+  font-size: var(--font-size-md);
+  line-height: 20px;
+  padding: 12px 10px;
+  color: var(--secondary-text);
+  white-space: nowrap;
+  transition: color 0.3s ease;
+  cursor: pointer; /* Ensure pointer cursor */
+  border-radius: 0;
 }
 
 .option:hover {
-  color: var(--text-color); /* Use existing variable */
+  color: var(--text-color);
 }
 
 .option:first-child {
-  padding-left: 0; /* From example */
+  padding-left: 0;
 }
 
 .option:last-child {
-  padding-right: 80px; /* From example - allows scrolling past fade */
+  padding-right: 80px; /* Allows scrolling past fade */
 }
 
 .option.is--active {
-  color: var(--text-color); /* Use existing variable */
-  /* Underline handled in mobile media query */
+  color: var(--text-color);
 }
 
-/* Text Content */
+/* --- Text Content --- */
 .texts {
   position: relative;
   z-index: 2;
@@ -526,14 +541,12 @@ canvas {
   padding-top: 0;
   line-height: 1.05;
   transition: all var(--transition-speed) ease-in-out;
-  /* min-height: 10em; /* Removed, using example's approach */
 }
 
 .text {
-  /* min-height: calc(1em * 0.975 * 7); /* From example - adjust multiplier if needed */
-  /* min-height: 7em; /* REMOVED - Height is now set dynamically on .texts container */
+  /* min-height is set dynamically on .texts container via JS */
   display: none;
-  font-size: clamp(1.25rem, 5vw, 2.875rem); /* Fluid typography from 20px to 46px */
+  font-size: clamp(1.25rem, 5vw, 2.875rem); /* Fluid typography 20px to 46px */
   line-height: 1.2;
   color: var(--text-color);
   margin-top: 10px;
@@ -541,7 +554,7 @@ canvas {
   transition: all var(--transition-speed) ease-in-out;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  hyphens: none; /* Changed from auto */
+  hyphens: none;
 }
 
 .text.is--visible {
@@ -549,19 +562,18 @@ canvas {
   transition: all var(--transition-speed) ease-in-out;
 }
 
-/* Typed Container */
+/* --- Typed Container --- */
 .typed-container {
   position: relative;
   z-index: 2;
   margin-top: 15vh; /* Default margin */
-  /* padding-left: var(--side-padding); /* Default padding */
 }
 
-/* Adjust Typed Container for Desktop */
+/* Typed Container Desktop */
 @media (min-width: 769px) {
   .typed-container {
     margin-top: 0; /* Remove top margin as section has padding now */
-    padding-left: 0; /* Remove left padding as it's inside main-content */
+    padding-left: 0; /* Inside main-content */
   }
 }
 
@@ -576,14 +588,13 @@ canvas {
   opacity: 0.8;
 }
 
-/* Animations */
+/* --- Animations --- */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
 }
-/* Projects Section */
+/* --- Projects Section --- */
 .section.projects {
-  /* padding: 5rem var(--side-padding) 2rem; /* Removed as requested */
   position: relative;
   z-index: 2;
 }
@@ -602,7 +613,7 @@ canvas {
 
 .project {
   background-color: rgba(var(--bg-color-rgb, 0, 0, 0), 0.5);
-  border: 1px solid var(--border-color); /* Use variable */
+  border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
   overflow: hidden;
 }
@@ -626,27 +637,21 @@ canvas {
 }
 
 .project-toggle {
-  /* font-size and font-weight removed as they don't directly style the SVG */
-  transition: transform 0.3s ease; /* Keep transition for potential future use, though rotate is removed */
-  display: inline-flex; /* Helps with alignment */
-  align-items: center; /* Vertically center icon if needed */
+  transition: transform 0.3s ease; /* Keep transition, though rotate is removed */
+  display: inline-flex; /* Alignment */
+  align-items: center; /* Vertical centering */
 }
 
-/* Style the SVG icon directly */
+/* Style SVG icon directly */
 .project-toggle svg {
   width: 1.2rem; /* Control icon size */
   height: 1.2rem; /* Control icon size */
-  stroke: currentColor; /* Use the parent text color */
-  stroke-width: 2; /* Default Lucide stroke width */
-  vertical-align: middle; /* Align icon nicely */
+  stroke: currentColor; /* Use parent text color */
+  stroke-width: 2; /* Default Lucide */
+  vertical-align: middle; /* Alignment */
 }
 
-/* Rotation is no longer needed as we swap icons */
-/*
-.project.active .project-toggle {
-  transform: rotate(45deg);
-}
-*/
+/* Rotation removed as icons are swapped */
 
 .project-details {
   max-height: 0;
@@ -657,7 +662,7 @@ canvas {
 
 .project.active .project-details {
   max-height: 1000px; /* Increased max-height */
-  padding: 1.2rem 1.5rem 1.2rem; /* Add top and bottom padding */
+  padding: 1.2rem 1.5rem 1.2rem; /* Add vertical padding */
 }
 
 .project-details p {
@@ -672,8 +677,7 @@ canvas {
   margin-bottom: 0.5rem;
 }
 
-/* Mobile Responsiveness */
-  /* Mobile Responsiveness */
+/* --- Mobile Responsiveness --- */
 @media (max-width: 768px) {
   :root {
     --navbar-height: 6vh;
@@ -681,7 +685,7 @@ canvas {
   }
 
   body {
-    /* Ensure body itself doesn't cause overflow */
+    /* Prevent body overflow */
     max-width: 100%;
     overflow-x: hidden;
     /* Other styles remain */
@@ -689,15 +693,13 @@ canvas {
     /* display: flex; */ /* Removed */
     /* flex-direction: column; */ /* Removed */
     /* align-items: center; */ /* Removed */
-    /* text-align: center; */ /* Removed */
   }
 
-  /* Navbar adjustments for mobile */
+  /* Navbar mobile adjustments */
   .navbar {
     padding: 0 var(--side-padding); /* Use mobile side padding */
     width: 100%;
     height: var(--navbar-height);
-    /* Ensure space for menu button */
     justify-content: space-between; /* Space between logo and button */
   }
 
@@ -706,7 +708,6 @@ canvas {
   }
 
   .brand.mobile {
-    /* No change needed */
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -716,17 +717,24 @@ canvas {
     color: var(--text-color);
   }
 
-  /* Show Mobile Menu Toggle Button */
+  /* Show Mobile Menu Toggle */
   .mobile-menu-toggle {
     display: block; /* Show the button */
+    margin-left: auto; /* Push to right */
   }
 
-  /* Hide typed container on mobile */
+  /* Theme toggle position mobile */
+  .theme-toggle {
+    margin-left: var(--spacing-sm); /* Reduce space on mobile */
+    order: 3; /* After mobile menu toggle */
+  }
+
+  /* Hide typed container mobile */
   .typed-container {
-    display: none; /* Hide this container on mobile */
+    display: none;
   }
 
-  /* Intro Section Mobile Specific Adjustments */
+  /* Intro Section Mobile */
   .section.intro {
     /* padding-top: 40px; /* Already set in base */
     /* align-items: center; /* Already set in base */
@@ -735,10 +743,9 @@ canvas {
     width: 100%; /* Already set in base */
     padding-left: var(--side-padding); /* Use mobile side padding */
     padding-right: var(--side-padding); /* Use mobile side padding */
-    /* min-height removed */
   }
 
-  /* Mobile Sidebar (Slide-in Panel) */
+  /* Mobile Sidebar (Slide-in) */
   .sidebar {
     position: fixed;
     top: 0;
@@ -752,7 +759,7 @@ canvas {
     transition: transform 0.3s ease-in-out;
     padding: var(--spacing-lg);
     padding-top: calc(var(--navbar-height) + 20px); /* Space below navbar */
-    box-shadow: 2px 0 5px rgba(0,0,0,0.2); /* Optional shadow */
+    box-shadow: 2px 0 5px rgba(0,0,0,0.2); /* Shadow */
     overflow-y: auto;
   }
 
@@ -760,7 +767,7 @@ canvas {
     transform: translateX(0);
   }
 
-  /* Mobile Sidebar Link Styling */
+  /* Mobile Sidebar Links */
   .sidebar a {
     display: block;
     padding: 15px 20px; /* Larger touch targets */
@@ -779,18 +786,16 @@ canvas {
   .sidebar a:hover,
   .sidebar a.active {
     color: var(--text-color);
-    background-color: rgba(var(--text-color-rgb), 0.05); /* Subtle hover/active background */
-    font-weight: bold; /* Keep active bold */
+    background-color: rgba(var(--text-color-rgb), 0.05); /* Subtle background */
+    font-weight: bold;
   }
 
-  /* .main-content margin-left is already 0 implicitly */
-
-  /* Hide desktop-specific gradient mask */
+  /* Hide desktop gradient mask */
   .gradient-mask.left {
     display: none !important;
   }
 
-  /* Full width content, relying on section padding */
+  /* Full width content (uses section padding) */
   .content {
     width: 100%;
     max-width: 100%; /* Use full available width within parent padding */
@@ -799,7 +804,7 @@ canvas {
     position: relative;
   }
 
-  /* Existing options menu - modified for horizontal scrolling */
+  /* Options menu horizontal scroll */
   .options {
     display: flex;
     flex-direction: row;
@@ -814,7 +819,6 @@ canvas {
     -ms-overflow-style: none;
     text-align: left;
     padding: 5px 0;
-    /* Removed potentially problematic commented-out padding */
   }
 
   .options::-webkit-scrollbar {
@@ -839,7 +843,7 @@ canvas {
     text-decoration: underline;
   }
 
-  /* Right fade effect */
+  /* Right fade effect (hidden) */
   .content::after {
     content: '';
     position: absolute;
@@ -850,76 +854,69 @@ canvas {
     background: linear-gradient(to right, transparent, var(--bg-color));
     pointer-events: none;
     z-index: 3;
-    display: none; /* Hide fade effect */
+    display: none; /* Hidden */
   }
 
-  /* Left fade effect when scrolled - REMOVED */
-  /* .content.scrolled::before { ... } */
-
-  /* Align text content on Mobile */
+  /* Align text content Mobile */
   .texts { /* Container for the switching text */
     /* width: 100%; */ /* Removed */
     /* max-width: 600px; /* Removed to allow full width */
     text-align: left; /* Align text left */
-    /* margin: 0 auto; /* Removed to prevent centering */
     padding: 0;
   }
   .text { /* Individual text lines */
-     /* width: 100%; */ /* Removed */
-     text-align: left; /* Align text left */
+     text-align: left;
      margin: 0 auto; /* Center block */
      padding: 0;
-     font-size: clamp(1rem, 4vw, 1.375rem); /* Fluid typography from 16px to 22px */
+     font-size: clamp(1rem, 4vw, 1.375rem); /* Fluid typography 16px to 22px */
      line-height: 1.4;
       word-wrap: break-word;
       overflow-wrap: break-word;
-      hyphens: none; /* Changed from auto */
+      hyphens: none;
    }
 
-   /* Adjust section padding specifically for mobile */
+   /* Section padding mobile */
   .section.intro,
   .section.projects,
   #career,
-  .subscribe-section { /* Added subscribe section */
-    /* width: 100%; */ /* Removed */
-    width: auto; /* Allow natural width */
+  .subscribe-section {
+    width: auto; /* Natural width */
     margin-left: auto; /* Center block */
     margin-right: auto; /* Center block */
-    max-width: 100%; /* Prevent section from exceeding container width */
-    padding-left: 5vw; /* Use mobile side padding */
-    padding-right: 5vw; /* Use mobile side padding */
-    /* box-sizing: border-box; is applied globally */
+    max-width: 100%; /* Prevent exceeding container */
+    padding-left: 5vw; /* Mobile side padding */
+    padding-right: 5vw; /* Mobile side padding */
   }
-  /* Keep specific vertical padding for projects */
+  /* Vertical padding projects */
    .section.projects {
-    padding-top: 3rem; /* Match career section padding */
+    padding-top: 3rem;
     padding-bottom: 2rem;
   }
-   /* Keep specific vertical padding for career */
+   /* Vertical padding career */
   #career { /* Updated ID */
-      padding-top: 3rem; /* Adjust as needed for mobile */
-       padding-bottom: 2rem; /* Adjust as needed for mobile */
+      padding-top: 3rem;
+       padding-bottom: 2rem;
    }
 
-   /* --- Career Journey Mobile --- */
+   /* Career Journey Mobile */
    .timeline::after {
-     display: none; /* Hide the center line */
+     display: none; /* Hide center line */
    }
 
    .timeline-item {
      width: 100%; /* Full width */
-     padding-left: 0; /* Remove padding */
-     padding-right: 0; /* Remove padding */
+     padding-left: 0;
+     padding-right: 0;
      margin-bottom: 20px; /* Adjust spacing */
    }
 
-   /* Move all items to the left side (effectively stacking them) */
+   /* Stack items */
    .timeline-item.left,
    .timeline-item.right {
      left: 0%;
    }
 
-   /* Hide the timeline circles */
+   /* Hide timeline circles */
    .timeline-item::after {
      display: none;
    }
@@ -927,7 +924,6 @@ canvas {
    .timeline-content {
      padding: 1rem; /* Adjust padding */
    }
-   /* --- End Career Journey Mobile --- */
 
    .section-title {
     font-size: 2rem;
@@ -938,147 +934,143 @@ canvas {
   .project-header {
     padding: 1rem;
   }
-} /* Added missing closing brace for @media (max-width: 768px) */
-
-/* Add spacing above the final italicized paragraph in project details */
-.projects-list .project .project-details p:last-of-type {
-  margin-top: 2em; /* Adjust value as needed */
 }
 
-/* Remove default top margin from the first paragraph in project details */
+/* Spacing above final italicized paragraph in project details */
+.projects-list .project .project-details p:last-of-type {
+  margin-top: 2em; /* Adjust as needed */
+}
+
+/* Remove top margin from first paragraph in project details */
 .projects-list .project .project-details p:first-of-type {
   margin-top: 0;
 }
 
-/* Spacing for Tradable Bits timeline entry */
+/* Spacing Tradable Bits timeline entry */
 .tradable-bits-entry h3 {
-  margin-bottom: 8px; /* Space below the main heading */
+  margin-bottom: 8px;
 }
 
 .tradable-bits-entry hr.role-separator {
-  margin-top: 8px;    /* Space above the separator (below the date) */
-  margin-bottom: 8px; /* Space below the separator (above the next role) */
-  border: none; /* Remove default border */
-  height: 1px; /* Define height for the line */
-  background-color: var(--secondary-text); /* Use theme color */
-  opacity: 0.5; /* Make it slightly subtle */
+  margin-top: 8px;
+  margin-bottom: 8px;
+  border: none;
+  height: 1px;
+  background-color: var(--secondary-text);
+  opacity: 0.5; /* Subtle */
 }
 
-/* ================================= */
-/*             FOOTER                */
-/* ================================= */
+/* --- FOOTER --- */
 
 footer {
-  padding: var(--spacing-lg) var(--side-padding); /* Use existing variables for padding */
+  padding: var(--spacing-lg) var(--side-padding);
   border-top: 1px solid var(--border-color); /* Theme-aware border */
-  margin-top: 3rem; /* Add some space above the footer */
-  position: relative; /* Ensure it's part of the normal flow */
-  z-index: 2; /* Keep above canvas */
+  margin-top: 3rem; /* Space above footer */
+  position: relative; /* Normal flow */
+  z-index: 2; /* Above canvas */
 }
 
 .footer-content {
-  max-width: 1200px; /* Optional: constrain width */
-  margin: 0 auto; /* Center content */
-  display: flex; /* Use flexbox */
-  flex-direction: column; /* Stack children vertically */
-  align-items: center; /* Center children horizontally */
-  gap: var(--spacing-sm); /* Add gap between icons and link */
+  max-width: 1200px; /* Optional constrain width */
+  margin: 0 auto; /* Center */
+  display: flex;
+  flex-direction: column; /* Stack vertically */
+  align-items: center; /* Center horizontally */
+  gap: var(--spacing-sm); /* Gap between icons and link */
 }
 
 .social-links {
   display: flex;
-  justify-content: center; /* Center icons horizontally */
+  justify-content: center; /* Center icons */
   align-items: center;
   gap: var(--spacing-lg); /* Space between icons */
 }
 
 .social-links a {
-  color: var(--secondary-text); /* Use theme variable for icon color */
+  color: var(--secondary-text);
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .social-links a:hover {
-  color: var(--text-color); /* Use theme variable for hover color */
+  color: var(--text-color);
 }
 
 .social-links svg {
   width: 1.5rem; /* Icon size */
   height: 1.5rem; /* Icon size */
-  stroke-width: 1.5; /* Slightly thinner stroke */
+  stroke-width: 1.5; /* Thinner stroke */
 }
 
-/* Spacing for Softball WA timeline entry */
+/* Spacing Softball WA timeline entry */
 .softball-wa-entry h3 {
-  margin-bottom: 8px; /* Space below the main heading */
+  margin-bottom: 8px;
 }
 
 .softball-wa-entry hr.role-separator {
-  margin-top: 8px;    /* Space above the separator (below the date) */
-  margin-bottom: 8px; /* Space below the separator (above the next role) */
-  border: none; /* Remove default border */
-  height: 1px; /* Define height for the line */
-  background-color: var(--secondary-text); /* Use theme color */
-  opacity: 0.5; /* Make it slightly subtle */
+  margin-top: 8px;
+  margin-bottom: 8px;
+  border: none;
+  height: 1px;
+  background-color: var(--secondary-text);
+  opacity: 0.5; /* Subtle */
 }
 
-/* ================================= */
-/*         SUBSCRIBE SECTION         */
-/* ================================= */
+/* --- SUBSCRIBE SECTION --- */
 
 .subscribe-section {
-  padding-top: 3rem; /* Add some space above */
-  padding-bottom: 3rem; /* Add some space below */
+  padding-top: 3rem; /* Space above */
+  padding-bottom: 3rem; /* Space below */
   position: relative;
   z-index: 2;
 }
 
 .subscribe-container {
-  background-color: var(--subscribe-bg-color); /* Use variable */
-  color: var(--text-color); /* Use variable */
+  background-color: var(--subscribe-bg-color);
+  color: var(--text-color);
   padding: var(--spacing-lg);
   border-radius: var(--border-radius);
   display: flex;
-  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  flex-wrap: wrap; /* Allow wrapping */
   justify-content: space-between;
   align-items: center;
   gap: var(--spacing-md);
-  width: 66%; /* Set width to 66% */
-  margin-left: auto; /* Center horizontally */
-  margin-right: auto; /* Center horizontally */
+  width: 66%; /* Width 66% */
+  margin-left: auto; /* Center */
+  margin-right: auto; /* Center */
 }
 
 .subscribe-text h2 {
   font-size: var(--font-size-lg);
   margin-bottom: var(--spacing-sm);
-  color: var(--text-color); /* Ensure main text color */
+  color: var(--text-color);
 }
 
 .subscribe-text p {
   font-size: var(--font-size-sm);
-  color: var(--secondary-text); /* Use secondary text color */
+  color: var(--secondary-text);
   margin: 0;
 }
 
 .subscribe-form {
   display: flex;
   gap: var(--spacing-sm);
-  flex-grow: 1; /* Allow form to take available space */
-  min-width: 250px; /* Prevent form from getting too small */
+  flex-grow: 1; /* Take available space */
+  min-width: 250px; /* Prevent getting too small */
 }
 
 .subscribe-form input[type="email"] {
-  flex-grow: 1; /* Allow input to expand */
+  flex-grow: 1; /* Input expand */
   padding: 10px 15px;
-  border: 1px solid var(--border-color); /* Add subtle border */
+  border: 1px solid var(--border-color); /* Subtle border */
   border-radius: var(--border-radius);
-  background-color: var(--subscribe-input-bg-color); /* Use variable */
-  color: var(--text-color); /* Use variable */
+  background-color: var(--subscribe-input-bg-color);
+  color: var(--text-color);
   font-size: var(--font-size-md);
 }
 
 .subscribe-form input[type="email"]::placeholder {
-  color: var(--secondary-text); /* Use variable */
+  color: var(--secondary-text);
   opacity: 0.8;
 }
 
@@ -1086,50 +1078,50 @@ footer {
   padding: 10px 20px;
   border: none;
   border-radius: var(--border-radius);
-  background-color: var(--subscribe-button-bg-color); /* Use variable */
-  color: var(--text-color); /* Use variable */
+  background-color: var(--subscribe-button-bg-color);
+  color: var(--text-color);
   font-size: var(--font-size-md);
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .subscribe-form button[type="submit"]:hover {
-  background-color: var(--subscribe-button-hover-bg-color); /* Use variable */
+  background-color: var(--subscribe-button-hover-bg-color);
 }
 
-/* Responsive adjustments for subscribe bar */
+/* Subscribe bar responsive */
 @media (max-width: 768px) {
   .subscribe-container {
-    flex-direction: column; /* Stack elements vertically */
-    align-items: flex-start; /* Align items to the start */
-    width: auto; /* Reset width for mobile */
+    flex-direction: column; /* Stack vertically */
+    align-items: flex-start; /* Align start */
+    width: auto; /* Reset width */
     margin-left: 0; /* Remove centering */
     margin-right: 0; /* Remove centering */
   }
 
   .subscribe-form {
-    width: 100%; /* Make form take full width */
+    width: 100%; /* Full width */
   }
 }
 
-/* Style for the Privacy Policy link in the footer */
+/* Privacy Policy link footer */
 .footer-content p a {
   color: var(--secondary-text); /* Match social icon color */
-  text-decoration: none;      /* Remove underline */
-  transition: color 0.3s ease; /* Smooth hover effect */
+  text-decoration: none;
+  transition: color 0.3s ease; /* Smooth hover */
 }
 
-/* Keep the color the same after clicking */
+/* Visited link color */
 .footer-content p a:visited {
   color: var(--secondary-text);
 }
 
-/* Style on hover */
+/* Hover style */
 .footer-content p a:hover {
-  color: var(--text-color);     /* Match social icon hover color */
+  color: var(--text-color); /* Match social icon hover */
 }
 
-/* Add padding to the header within main-content on privacy page */
+/* Padding for header on privacy page */
 .main-content > header {
   padding-top: var(--navbar-height); /* Push header below navbar */
   padding-left: var(--side-padding); /* Add side padding (mobile) */
@@ -1138,55 +1130,53 @@ footer {
   width: 100%;
 }
 
-/* Adjust header padding for desktop view */
+/* Header padding desktop */
 @media (min-width: 769px) {
   .main-content > header {
     padding-left: 0; /* Remove left padding as .main-content margin handles it */
     padding-right: 0; /* Remove right padding as .main-content margin handles it */
-    /* padding-top is still needed */
   }
 }
 
-/* Style inner main content area on privacy page */
+/* Inner main content privacy page */
 .main-content > main {
   /* padding-top: var(--navbar-height); /* REMOVED - Header now handles top spacing */
   padding-left: var(--side-padding); /* Keep side padding (mobile) */
   padding-right: var(--side-padding); /* Keep side padding (mobile) */
   box-sizing: border-box; /* Ensure padding is included in width */
-  width: 100%; /* Ensure it takes full width within the wrapper */
+  width: 100%; /* Full width within wrapper */
 }
 
-/* Adjust inner main padding for desktop view */
+/* Inner main padding desktop */
 @media (min-width: 769px) {
   .main-content > main {
     padding-left: 0; /* Keep removal */
     padding-right: 0; /* Keep removal */
-    /* padding-top was already removed */
   }
 }
 
-/* Add space below the 'Last Updated' paragraph on the privacy page */
+/* Space below 'Last Updated' privacy page */
 .main-content > main > p:first-of-type {
-  margin-bottom: 1.5em; /* Creates space below the 'Last Updated' paragraph */
+  margin-bottom: 1.5em;
 }
 
-/* Add space below the introductory paragraph on the privacy page */
+/* Space below intro paragraph privacy page */
 .main-content > main > p:nth-of-type(2) {
-  margin-bottom: 1.5em; /* Adjust value as needed */
+  margin-bottom: 1.5em; /* Adjust as needed */
 }
 
-/* Add space below each section on the privacy page */
+/* Space below sections privacy page */
 .main-content > main > section {
-  margin-bottom: 1.5em; /* Adjust value as needed */
+  margin-bottom: 1.5em; /* Adjust as needed */
 }
 
-/* Ensure bullet points and indentation appear for lists in privacy policy */
+/* List styles privacy policy */
 .main-content > main ul {
-  list-style: disc; /* Explicitly set the bullet style */
-  padding-left: 40px; /* Add standard indentation */
+  list-style: disc; /* Bullet style */
+  padding-left: 40px; /* Indentation */
 }
 
-/* Optional: Add margin below each list item for better spacing */
+/* Optional: Margin below list items */
 .main-content > main li {
   margin-bottom: 0.5em;
 }

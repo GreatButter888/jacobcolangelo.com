@@ -5,18 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Jacob Colangelo</title>
     
-    <!-- Meta tags for SEO -->
     <meta name="description" content="Jacob Colangelo - Sports industry professional specializing in data, technology, and fan engagement">
     <meta name="keywords" content="Jacob Colangelo, sports industry, data, technology, fan engagement">
     <meta name="author" content="Jacob Colangelo">
     
-    <!-- Open Graph tags for social sharing -->
     <meta property="og:title" content="Jacob Colangelo">
     <meta property="og:description" content="Sports industry professional specializing in data, technology, and fan engagement">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://jacobcolangelo.com">
     
-    <!-- Favicon -->
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     
@@ -25,7 +22,7 @@
     <link rel="preload" href="style.css" as="style">
     <link rel="preload" href="script.js" as="script">
 
-    <!-- Inline script to set theme before CSS loads -->
+    <!-- Inline script to set theme before CSS loads to prevent FOUC -->
     <script>
       (function() {
         try {
@@ -49,49 +46,60 @@
       })();
     </script>
 
-    <!-- Link to external CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
-<body>  <!-- Removed default dark-mode class -->
-    <div class="app-grid-overlay"></div> <!-- Added grid overlay element -->
-    <!-- NAVBAR -->
+<body>
+    <div class="app-grid-overlay"></div>
+    <!-- --- NAVBAR --- -->
     <div class="navbar">
         <div class="brand desktop">Jacob<span class="dash"></span>Colangelo</div>
         <div class="brand mobile">J-C</div>
         <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
-            <span></span> <!-- These spans will be styled into a hamburger icon -->
+            <span></span>
             <span></span>
             <span></span>
         </button>
-        <!-- Dark Mode Toggle Button removed -->
+        <button id="theme-toggle-button" class="theme-toggle" aria-label="Toggle theme">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-moon">
+              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-sun">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2"></path>
+              <path d="M12 20v2"></path>
+              <path d="m4.93 4.93 1.41 1.41"></path>
+              <path d="m17.66 17.66 1.41 1.41"></path>
+              <path d="M2 12h2"></path>
+              <path d="M20 12h2"></path>
+              <path d="m6.34 17.66-1.41 1.41"></path>
+              <path d="m19.07 4.93-1.41 1.41"></path>
+            </svg>
+        </button>
     </div>
 
-    <!-- SIDEBAR -->
+    <!-- --- SIDEBAR --- -->
     <nav class="sidebar">
         <a href="#about">About</a>
         <a href="#projects">Projects</a>
         <a href="#career">Career</a>
     </nav>
 
-    <!-- CANVAS BACKGROUND -->
+    <!-- --- CANVAS BACKGROUND --- -->
     <canvas></canvas>
 
-    <!-- MAIN CONTENT WRAPPER -->
+    <!-- --- MAIN CONTENT --- -->
     <main class="main-content">
 
-        <!-- TYPED TEXT CONTAINER -->
         <div class="typed-container">
             <h1 class="heading"></h1>
             <p class="subheading"></p>
         </div>
 
-        <!-- INTRO SECTION (ABOUT) -->
         <section id="about" class="section intro">
             <div class="content">
                 <div class="gradient-mask left"></div>
             <div class="gradient-mask right is--visible"></div>
 
-            <!-- OPTIONS MENU -->
             <div class="options">
                 <div class="option anyone is--active" role="button" tabindex="0">For anyone</div>
                 <div class="option recruiters" role="button" tabindex="0">Recruiters</div>
@@ -100,7 +108,6 @@
                 <div class="option academics" role="button" tabindex="0">Academics</div>
             </div>
 
-            <!-- TEXT CONTENT SWITCHER -->
             <div class="texts">
                 <h1 class="text anyone is--visible">Hi, I'm Jacob. I work in the sports tech industry, helping sports teams and leagues connect with their fans through data and technology. I'm passionate about learning and constantly pushing myself to develop new skills.</h1>
                 <h1 class="text recruiters">I help organisations use data and technology to enhance fan engagement and grow audiences. With expertise in onboarding, strategy, and campaigns, I deliver results and build strong client relationships. I am not actively seeking new roles.</h1>
@@ -110,13 +117,13 @@
             </div>
             </div>
         </section>
+        <!-- --- INTRO / ABOUT SECTION END --- -->
 
-        <!-- PROJECTS SECTION -->
+        <!-- --- PROJECTS SECTION --- -->
         <section id="projects" class="section projects">
             <div class="content">
                 <h2 class="section-title">Projects</h2>
             <div class="projects-list">
-                <!-- Project 1 -->
                 <div class="project">
                     <div class="project-header" role="button" tabindex="0">
                         <h3 class="project-title">Digit Automation</h3>
@@ -134,7 +141,6 @@
                     </div>
                 </div>
 
-                <!-- Project 2  -->
                 <div class="project">
                     <div class="project-header" role="button" tabindex="0">
                         <h3 class="project-title">DJ Jacob Colangelo</h3>
@@ -152,7 +158,6 @@
                     </div>
                 </div>
                 
-                <!-- Project 3 -->
                 <div class="project">
                     <div class="project-header" role="button" tabindex="0">
                         <h3 class="project-title">This Website</h3>
@@ -166,7 +171,6 @@
                     </div>
                 </div>
 
-                <!-- Project 4 -->
                 <div class="project">
                     <div class="project-header" role="button" tabindex="0">
                         <h3 class="project-title">3-D Printing</h3>
@@ -178,15 +182,15 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+            </div>
+        </section>
+        <!-- --- PROJECTS SECTION END --- -->
 
-        <!-- CAREER JOURNEY SECTION -->
+        <!-- --- CAREER SECTION --- -->
         <section id="career" class="section career">
             <div class="content">
                 <h2 class="section-title">Career</h2>
                 <div class="timeline">
-                    <!-- Timeline Item 1 -->
                     <div class="timeline-item left">
                         <div class="timeline-content tradable-bits-entry">
                             <h3>Tradable Bits</h3>
@@ -199,7 +203,6 @@
                             <p class="date">Sept 2023 - April 2025</p> 
                         </div>
                     </div>
-                    <!-- Timeline Item 2 -->
                      <div class="timeline-item right">
                         <div class="timeline-content">
                             <h3>Deakin University</h3>
@@ -208,7 +211,6 @@
                             <p class="date">May 2023 - Present</p>
                         </div>
                     </div>
-                    <!-- Timeline Item 3 -->
                     <div class="timeline-item left"> 
                         <div class="timeline-content">
                             <h3>Career Gap</h3>
@@ -216,7 +218,6 @@
                             <p class="date">June 2022 - Sept 2023</p>
                         </div>
                     </div>
-                    <!-- Timeline Item 4 -->
                     <div class="timeline-item right">
                         <div class="timeline-content softball-wa-entry"> 
                             <h3>Softball WA</h3>
@@ -232,8 +233,9 @@
                 </div>
             </div>
         </section>
+        <!-- --- CAREER SECTION END --- -->
 
-        <!-- SUBSCRIBE SECTION -->
+        <!-- --- SUBSCRIBE SECTION --- -->
         <section class="subscribe-section">
           <div class="subscribe-container">
             <div class="subscribe-text">
@@ -248,10 +250,12 @@
             </form>
           </div>
         </section>
+        <!-- --- SUBSCRIBE SECTION END --- -->
 
-    </main> <!-- END MAIN CONTENT WRAPPER -->
+    </main>
+    <!-- --- MAIN CONTENT END --- -->
 
-    <!-- FOOTER -->
+    <!-- --- FOOTER --- -->
     <footer>
         <div class="footer-content">
             <div class="social-links">
@@ -265,20 +269,13 @@
                     <i data-lucide="instagram"></i>
                 </a>
             </div>
-            <p><a href="privacy.html">Privacy Policy</a></p> <!-- Added Privacy Policy link -->
+            <p><a href="privacy.html">Privacy Policy</a></p>
         </div>
     </footer>
 
-    <!-- Typed.js from CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
-
-    <!-- Typed.js from CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
-
-    <!-- Lucide Icons from CDN -->
     <script src="https://unpkg.com/lucide@latest"></script>
-
-    <!-- Link to external JS -->
     <script src="script.js"></script>
 </body>
 </html>

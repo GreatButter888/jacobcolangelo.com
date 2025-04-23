@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy - Jacob Colangelo</title> <!-- Updated Title -->
+    <title>Privacy Policy - Jacob Colangelo</title>
 
-    <!-- Inline script to set theme before CSS loads -->
+    <!-- Inline script to set theme before CSS loads to prevent FOUC -->
     <script>
       (function() {
         try {
@@ -31,32 +31,47 @@
 
     <link rel="stylesheet" href="style.css">
 </head>
-<body> <!-- Removed default dark-mode class -->
-    <!-- NAVBAR -->
+<body>
+    <!-- --- NAVBAR --- -->
     <div class="navbar">
         <div class="brand desktop">Jacob<span class="dash"></span>Colangelo</div>
         <div class="brand mobile">J-C</div>
         <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
-            <span></span> <!-- These spans will be styled into a hamburger icon -->
+            <span></span>
             <span></span>
             <span></span>
         </button>
-        <!-- Dark Mode Toggle Button removed -->
+        <button id="theme-toggle-button" class="theme-toggle" aria-label="Toggle theme">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-moon">
+              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-sun">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2"></path>
+              <path d="M12 20v2"></path>
+              <path d="m4.93 4.93 1.41 1.41"></path>
+              <path d="m17.66 17.66 1.41 1.41"></path>
+              <path d="M2 12h2"></path>
+              <path d="M20 12h2"></path>
+              <path d="m6.34 17.66-1.41 1.41"></path>
+              <path d="m19.07 4.93-1.41 1.41"></path>
+            </svg>
+        </button>
     </div>
 
-    <!-- SIDEBAR -->
+    <!-- --- SIDEBAR --- -->
     <nav class="sidebar">
         <a href="index.html#about">About</a>
         <a href="index.html#projects">Projects</a>
         <a href="index.html#career">Career</a>
     </nav>
 
-    <!-- MAIN CONTENT WRAPPER -->
+    <!-- --- MAIN CONTENT --- -->
     <main class="main-content">
         <header>
             <h1>Privacy Policy</h1>
         </header>
-        <main> <!-- This inner main will hold the actual policy content -->
+        <main>
             <p><em>Last Updated: 23 April 2025</em></p>
             <p>Jacob Colangelo (“I”, “me”, or “my”) is committed to protecting your privacy. This Privacy Policy outlines how I collect, use, and store your personal information when you visit www.jacobcolangelo.com.</p>
         <section>
@@ -105,9 +120,11 @@
             <p>If you have any questions or concerns about this Privacy Policy or your data, please get in touch:</p>
             <p>Email: jacob@jacobcolangelo.com</p>
         </section>
-        </main> <!-- Close inner main -->
-    </main> <!-- Close main-content wrapper -->
-    <!-- FOOTER -->
+        </main>
+    </main>
+    <!-- --- MAIN CONTENT END --- -->
+
+    <!-- --- FOOTER --- -->
     <footer>
         <div class="footer-content">
             <div class="social-links">
@@ -121,14 +138,11 @@
                     <i data-lucide="instagram"></i>
                 </a>
             </div>
-            <p><a href="privacy.html">Privacy Policy</a></p> <!-- Added Privacy Policy link -->
+            <p><a href="privacy.html">Privacy Policy</a></p>
         </div>
     </footer>
 
-    <!-- Lucide Icons from CDN -->
     <script src="https://unpkg.com/lucide@latest"></script>
-
-    <!-- Link to external JS -->
     <script src="script.js"></script>
 </body>
 </html>

@@ -1,16 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // =====================
-  // THEME MANAGEMENT
-  // =====================
+  // --- THEME MANAGEMENT ---
   const htmlElement = document.documentElement; // Target <html> instead of body
-  
-  // Function to get theme based on time
+  const themeToggleButton = document.getElementById('theme-toggle-button');
+
   function getThemeBasedOnTime() {
       const currentHour = new Date().getHours();
       return (currentHour >= 6 && currentHour < 18) ? "light" : "dark";
   }
   
-  // Function to set theme
   function setTheme(theme, manual = false) {
       if (theme === "light") {
           htmlElement.classList.add("light-mode");
@@ -29,7 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   
   function toggleTheme() {
-      // Get current theme from html class, fallback to localStorage or time-based
       let currentTheme;
       
       if (htmlElement.classList.contains("light-mode")) {
@@ -37,20 +33,22 @@ document.addEventListener('DOMContentLoaded', () => {
       } else if (htmlElement.classList.contains("dark-mode")) {
           currentTheme = "dark";
       } else {
-          // Fallback if no class is set (shouldn't happen with inline script)
+          // Fallback if no class is set
           currentTheme = localStorage.getItem("theme") || getThemeBasedOnTime();
       }
       
-      // Toggle to opposite theme
       const newTheme = currentTheme === "light" ? "dark" : "light";
       
-      // Apply the new theme
       setTheme(newTheme, true);
       
       console.log(`Toggled from ${currentTheme} to ${newTheme}`);
-  }    
+  }
   
-  // Initialize theme (preference > time-based)
+  // Add click listener to the theme toggle button
+  if (themeToggleButton) {
+    themeToggleButton.addEventListener('click', toggleTheme);
+  }
+  
   function initializeTheme() {
       const savedTheme = localStorage.getItem("theme");
       const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
@@ -66,24 +64,21 @@ document.addEventListener('DOMContentLoaded', () => {
   
   initializeTheme();
   
-  // Toggle theme on "Ctrl + Q" key press
+  // Theme toggle shortcut: Ctrl + Q
   document.addEventListener("keydown", (event) => {
       if (event.key.toLowerCase() === "q" && event.ctrlKey) {
           toggleTheme();
       }
   });
   
-  // =====================
-  // TEXT CONTENT SWITCHER
-  // =====================
+  // --- TEXT CONTENT SWITCHER ---
   const options = document.querySelectorAll('.option');
   const texts = document.querySelectorAll('.text');
   
-  // Remove all active classes
   options.forEach(option => option.classList.remove('is--active'));
   texts.forEach(text => text.classList.remove('is--visible'));
   
-  // Set default selection
+  // Default selection
   const defaultOption = document.querySelector('.option.anyone');
   const defaultText = document.querySelector('.text.anyone');
   
@@ -92,9 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
     defaultText.classList.add('is--visible');
   }
   
-  // Click event for text switcher
   options.forEach(option => {
-    // Click handler
     const handleSelection = () => {
       options.forEach(opt => opt.classList.remove('is--active'));
       texts.forEach(text => text.classList.remove('is--visible'));
@@ -105,14 +98,13 @@ document.addEventListener('DOMContentLoaded', () => {
         selectedText.classList.add('is--visible');
       }
 
-      // Auto-scroll the clicked option into view
+      // Auto-scroll clicked option into view
       option.scrollIntoView({ behavior: 'smooth', inline: 'nearest', block: 'nearest' });
     };
 
-    // Add click event
     option.addEventListener('click', handleSelection);
     
-    // Add keyboard support
+    // Keyboard support (Enter/Space)
     option.addEventListener('keydown', (event) => {
       if (event.key === 'Enter' || event.key === ' ') {
         event.preventDefault();
@@ -121,9 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // =====================
-  // DYNAMIC INTRO TEXT HEIGHT
-  // =====================
+  // --- DYNAMIC INTRO TEXT HEIGHT ---
   const setIntroTextContainerHeight = () => {
     const textsContainer = document.querySelector('.texts');
     const textElements = document.querySelectorAll('.texts .text');
@@ -131,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let maxHeight = 0;
 
-    // Store original styles to reset later
+    // Store original styles to reset
     const originalStyles = new Map();
 
     textElements.forEach(text => {
@@ -143,15 +133,15 @@ document.addEventListener('DOMContentLoaded', () => {
         height: style.height // Store original height if any
       });
 
-      // Apply temporary styles for measurement
+      // Temp styles for measurement
       style.position = 'absolute'; // Take out of flow
       style.visibility = 'hidden'; // Keep invisible
       style.display = 'block';     // Ensure it's block for scrollHeight
-      style.height = 'auto';       // Allow natural height calculation
+      style.height = 'auto';
 
       maxHeight = Math.max(maxHeight, text.scrollHeight);
 
-      // Reset styles
+      // Reset original styles
       const original = originalStyles.get(text);
       style.position = original.position;
       style.visibility = original.visibility;
@@ -159,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
       style.height = original.height;
     });
 
-    // Apply the calculated max height as min-height to the container
+    // Apply calculated max height as min-height
     if (maxHeight > 0) {
       textsContainer.style.minHeight = `${maxHeight}px`;
       console.log(`Set .texts min-height to: ${maxHeight}px`);
@@ -169,7 +159,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  // Debounce function
   const debounce = (func, wait) => {
     let timeout;
     return function executedFunction(...args) {
@@ -182,17 +171,12 @@ document.addEventListener('DOMContentLoaded', () => {
     };
   };
 
-  // Calculate height initially on load
-  setIntroTextContainerHeight();
+  setIntroTextContainerHeight(); // Initial calculation
+  window.addEventListener('resize', debounce(setIntroTextContainerHeight, 250)); // Recalculate on resize
 
-  // Recalculate on window resize (debounced)
-  window.addEventListener('resize', debounce(setIntroTextContainerHeight, 250));
-
-  // =====================
-  // OPTIONS BAR SCROLLING & GRADIENTS (Based on Example)
-  // =====================
+  // --- OPTIONS BAR SCROLLING & GRADIENTS ---
   const optionsContainer = document.querySelector('.options');
-  // Need to select the masks within the specific intro section's content area
+  // Select masks within the intro section's content area
   const introContent = document.querySelector('.section.intro .content');
   const leftMask = introContent?.querySelector('.gradient-mask.left');
   const rightMask = introContent?.querySelector('.gradient-mask.right');
@@ -202,7 +186,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let startX;
     let scrollLeft;
 
-    // Function to update gradient visibility
     const updateGradients = () => {
       const maxScrollLeft = optionsContainer.scrollWidth - optionsContainer.clientWidth;
       // Show left gradient if scrolled away from the start
@@ -211,19 +194,18 @@ document.addEventListener('DOMContentLoaded', () => {
       rightMask.classList.toggle('is--visible', optionsContainer.scrollLeft < maxScrollLeft - 1);
     };
 
-    // Initial check
-    updateGradients();
+    updateGradients(); // Initial check
 
-    // Update gradients on scroll
-    optionsContainer.addEventListener('scroll', updateGradients, { passive: true }); // Use passive listener
+    // Update gradients on scroll (passive listener for performance)
+    optionsContainer.addEventListener('scroll', updateGradients, { passive: true });
 
-    // Click and Drag Logic
+    // Click and Drag scroll
     optionsContainer.addEventListener('mousedown', (e) => {
       isDown = true;
       optionsContainer.style.cursor = 'grabbing';
       startX = e.pageX - optionsContainer.offsetLeft;
       scrollLeft = optionsContainer.scrollLeft;
-      e.preventDefault(); // Prevent text selection/drag behavior
+      e.preventDefault(); // Prevent text selection
     });
 
     optionsContainer.addEventListener('mouseleave', () => {
@@ -242,20 +224,16 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!isDown) return;
       e.preventDefault();
       const x = e.pageX - optionsContainer.offsetLeft;
-      const walk = (x - startX) * 2; // Adjust multiplier for scroll speed if needed
+      const walk = (x - startX) * 2; // Adjust multiplier for scroll speed
       optionsContainer.scrollLeft = scrollLeft - walk;
-      // No need to call updateGradients here, scroll event handles it
     });
 
-    // Note: The auto-scroll on click logic was added directly into the
-    // handleSelection function within the TEXT CONTENT SWITCHER section above.
+    // Note: Auto-scroll on click is in handleSelection (TEXT CONTENT SWITCHER section)
   }
   
-  // =====================
-  // KEYBOARD SHORTCUTS
-  // =====================
+  // --- KEYBOARD SHORTCUTS ---
   
-  // Show time & mode on "Ctrl + T" press
+  // Show time & mode: Ctrl + T
   document.addEventListener("keydown", function(event) {
     if (event.key.toLowerCase() === "t" && event.ctrlKey) {
       const now = new Date();
@@ -266,7 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
   
-  // Show IP, location & timezone on "Ctrl + L" press
+  // Show IP/Location: Ctrl + L
   document.addEventListener("keydown", async function(event) {
     if (event.key.toLowerCase() === "l" && event.ctrlKey) {
       try {
@@ -312,22 +290,19 @@ Network Type: ${networkType}`
   });
 
 
-  // =====================
-  // PROJECTS TOGGLE
-  // =====================
+  // --- PROJECTS TOGGLE ---
   const projectHeaders = document.querySelectorAll('.project-header');
   
   projectHeaders.forEach(header => {
-    // Click handler for project toggle
     const handleProjectToggle = () => {
       const project = header.parentElement;
-      const iconElement = header.querySelector('.project-toggle i'); // Get the icon element
+      const iconElement = header.querySelector('.project-toggle i');
       const isActive = project.classList.contains('active');
 
-      // Close all projects first and reset their icons
+      // Close all other projects and reset their icons
       const allProjects = document.querySelectorAll('.project');
       allProjects.forEach(p => {
-        if (p !== project || isActive) { // Don't reset the icon if we are about to open it
+        if (p !== project || isActive) { // Don't reset icon if we are opening this one
           p.classList.remove('active');
           const otherIcon = p.querySelector('.project-toggle i');
           if (otherIcon) {
@@ -336,27 +311,26 @@ Network Type: ${networkType}`
         }
       });
 
-      // If the clicked project wasn't active, open it and set icon to chevron-up
+      // Toggle the clicked project and update its icon
       if (!isActive) {
         project.classList.add('active');
         if (iconElement) {
           iconElement.setAttribute('data-lucide', 'chevron-up');
         }
       } else {
-        // If it was active (meaning we just closed it above), ensure icon is chevron-down
+        // If it was active (now closed), ensure icon is chevron-down
         if (iconElement) {
           iconElement.setAttribute('data-lucide', 'chevron-down');
         }
       }
 
-      // Re-render icons after changing attributes
+      // Re-render Lucide icons after changing data-lucide attributes
       lucide.createIcons();
     };
 
-    // Add click event
     header.addEventListener('click', handleProjectToggle);
     
-    // Add keyboard support
+    // Keyboard support (Enter/Space)
     header.addEventListener('keydown', (event) => {
       if (event.key === 'Enter' || event.key === ' ') {
         event.preventDefault();
@@ -365,23 +339,21 @@ Network Type: ${networkType}`
     });
   });
 
-  // =====================
-  // SCROLL ANIMATIONS (Intersection Observer)
-  // =====================
+  // --- SCROLL ANIMATIONS (Intersection Observer) ---
   const animatedElements = document.querySelectorAll('.animate-on-scroll');
 
   if (animatedElements.length > 0) {
     const observerOptions = {
-      root: null, // Use the viewport as the root
+      root: null, // Viewport root
       rootMargin: '0px',
-      threshold: 0.1 // Trigger when 10% of the element is visible
+      threshold: 0.1 // Trigger when 10% visible
     };
 
     const observerCallback = (entries, observer) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target); // Stop observing once visible
+          observer.unobserve(entry.target); // Observe only once
         }
       });
     };
@@ -393,26 +365,23 @@ Network Type: ${networkType}`
     });
   }
 
-  // Initialize Lucide icons
-  lucide.createIcons();
+  lucide.createIcons(); // Initialize Lucide icons
 
-  // =====================
-  // INITIAL SCROLL POSITION
-  // =====================
-  // Scroll to the top section adjusted for navbar height on load
+  // --- INITIAL SCROLL POSITION ---
+  // Scroll to #about section, adjusted for navbar height
   const initialSection = document.querySelector('#about');
   const navbar = document.querySelector('.navbar');
   if (initialSection && navbar) {
     const navbarHeightInitial = navbar.offsetHeight;
-    // Use setTimeout to ensure layout is fully calculated, especially navbar height
+    // setTimeout ensures layout (navbar height) is calculated
     setTimeout(() => {
         const sectionTop = initialSection.offsetTop;
         window.scrollTo({
-            top: sectionTop - navbarHeightInitial - 10, // Adjust with a small buffer if needed
-            behavior: 'auto' // Instant scroll on load
+            top: sectionTop - navbarHeightInitial - 10, // Adjust buffer if needed
+            behavior: 'auto' // Instant scroll
         });
 
-        // Explicitly set the 'About' link as active after initial scroll
+        // Set 'About' link as active after initial scroll
         const allSidebarLinks = document.querySelectorAll('.sidebar a');
         const aboutLink = document.querySelector('.sidebar a[href="#about"]');
         allSidebarLinks.forEach(link => link.classList.remove('active'));
@@ -420,66 +389,80 @@ Network Type: ${networkType}`
             aboutLink.classList.add('active');
         }
 
-    }, 0); // Execute after current execution context
+    }, 0); // Execute immediately after current context
   }
 
-  // =====================
-  // SIDEBAR ACTIVE LINK HIGHLIGHTING
-  // =====================
+  // --- SIDEBAR ACTIVE LINK HIGHLIGHTING ---
   const sections = document.querySelectorAll('.main-content section[id]');
   const sidebarLinks = document.querySelectorAll('.sidebar a');
-  const navbarHeight = document.querySelector('.navbar')?.offsetHeight || 0; // Get navbar height for offset
+  const navbarHeight = document.querySelector('.navbar')?.offsetHeight || 0;
+  let isClickScrolling = false; // Flag to prevent observer override during click-triggered scroll
+  let clickScrollTimeout;
+
+  // Handle sidebar link clicks for immediate active state update
+  sidebarLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      isClickScrolling = true;
+      clearTimeout(clickScrollTimeout); // Handle rapid clicks
+
+      sidebarLinks.forEach(l => l.classList.remove('active')); // Remove from all
+      link.classList.add('active'); // Add to clicked
+
+      // Reset flag after a delay to allow scroll to finish
+      clickScrollTimeout = setTimeout(() => {
+        isClickScrolling = false;
+      }, 1000); // Adjust delay if needed
+
+      // Browser handles the actual scroll
+    });
+  });
 
   if (sections.length > 0 && sidebarLinks.length > 0) {
     const observerOptions = {
-      root: null, // relative to document viewport
-      rootMargin: `-${navbarHeight + 10}px 0px -40% 0px`, // Adjust top margin for navbar, bottom margin to trigger earlier
-      threshold: 0 // Trigger as soon as any part enters the adjusted root margin
+      root: null, // Viewport
+      rootMargin: `-${navbarHeight + 10}px 0px 0px 0px`, // Offset for navbar height + buffer
+      threshold: 0 // Trigger as soon as section enters adjusted view
     };
 
     const observerCallback = (entries) => {
+      // Ignore observer updates during click-triggered scroll
+      if (isClickScrolling) return;
+
       entries.forEach(entry => {
         const correspondingLink = document.querySelector(`.sidebar a[href="#${entry.target.id}"]`);
         if (entry.isIntersecting) {
-          // When a section enters the observed area, make its link active
+          // Section enters view: make its link active
           sidebarLinks.forEach(link => link.classList.remove('active'));
           if (correspondingLink) {
             correspondingLink.classList.add('active');
           }
         }
-        // Optional: Remove active class if section completely leaves the viewport
-        // else {
-        //   if (correspondingLink) {
-        //     correspondingLink.classList.remove('active');
-        //   }
-        // }
       });
 
-      // Fallback: If no section is 'intersecting' according to the observer (e.g., at the very top/bottom)
-      // Find the link whose section is closest to the top of the viewport (adjusted for navbar)
+      // Fallback: If no section is 'intersecting' (e.g., at top/bottom of page),
+      // highlight the link for the section closest to the top of the viewport.
       let closestSectionId = null;
       let minDistance = Infinity;
-      const scrollPosition = window.scrollY + navbarHeight + 10; // Adjust scroll position check
+      const scrollPosition = window.scrollY + navbarHeight + 10; // Adjusted scroll position
 
       sections.forEach(section => {
           const sectionTop = section.offsetTop;
           const distance = Math.abs(scrollPosition - sectionTop);
 
           if (sectionTop <= scrollPosition && scrollPosition < sectionTop + section.offsetHeight) {
-              // If currently within a section, prioritize it
+              // Prioritize if currently within a section
               closestSectionId = section.id;
-              minDistance = 0; // Ensure this section is chosen
+              minDistance = 0; // Ensure this one is chosen
           } else if (minDistance > 0 && distance < minDistance) {
-              // Otherwise, find the closest one based on top position
+              // Otherwise, find closest based on top position
               minDistance = distance;
               closestSectionId = section.id;
           }
       });
 
-      // Check if any link is already active from the observer logic
       const activeLinkExists = document.querySelector('.sidebar a.active');
 
-      // Only apply fallback if observer didn't set an active link
+      // Apply fallback only if observer didn't set an active link
       if (!activeLinkExists && closestSectionId) {
           sidebarLinks.forEach(link => link.classList.remove('active'));
           const fallbackLink = document.querySelector(`.sidebar a[href="#${closestSectionId}"]`);
@@ -496,21 +479,19 @@ Network Type: ${networkType}`
     });
   }
 
-  // =====================
-  // MOBILE MENU TOGGLE
-  // =====================
+  // --- MOBILE MENU TOGGLE ---
   const menuToggle = document.querySelector('.mobile-menu-toggle');
-  const mobileSidebar = document.querySelector('.sidebar'); // Re-select sidebar for this scope
+  const mobileSidebar = document.querySelector('.sidebar');
 
   if (menuToggle && mobileSidebar) {
     menuToggle.addEventListener('click', () => {
       mobileSidebar.classList.toggle('is-open');
-      // Toggle aria-expanded attribute for accessibility
+      // Toggle aria-expanded for accessibility
       const isExpanded = mobileSidebar.classList.contains('is-open');
       menuToggle.setAttribute('aria-expanded', isExpanded);
     });
 
-    // Close menu when a link inside is clicked
+    // Close mobile menu when a link inside is clicked
     const sidebarLinksMobile = mobileSidebar.querySelectorAll('a');
     sidebarLinksMobile.forEach(link => {
       link.addEventListener('click', () => {
@@ -522,9 +503,7 @@ Network Type: ${networkType}`
 
 });
 
-// =====================
-// FORM SUBMISSION (AJAX)
-// =====================
+// --- FORM SUBMISSION (AJAX) ---
 var form = document.getElementById("my-form");
 
 async function handleSubmit(event) {
