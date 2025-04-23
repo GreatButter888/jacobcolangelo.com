@@ -64,9 +64,9 @@ document.addEventListener('DOMContentLoaded', () => {
   
   initializeTheme();
   
-  // Toggle theme on "Q" key press
+  // Toggle theme on "Ctrl + Q" key press
   document.addEventListener("keydown", (event) => {
-      if (event.key.toLowerCase() === "q") {
+      if (event.key.toLowerCase() === "q" && event.ctrlKey) {
           toggleTheme();
       }
   });
@@ -253,9 +253,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // KEYBOARD SHORTCUTS
   // =====================
   
-  // Show time & mode on "T" press
+  // Show time & mode on "Ctrl + T" press
   document.addEventListener("keydown", function(event) {
-    if (event.key.toLowerCase() === "t") {
+    if (event.key.toLowerCase() === "t" && event.ctrlKey) {
       const now = new Date();
       const formattedTime = now.toLocaleTimeString();
       const suggestedTheme = getThemeBasedOnTime() === "light" ? "Light Mode" : "Dark Mode";
@@ -264,9 +264,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
   
-  // Show IP, location & timezone on "L" press
+  // Show IP, location & timezone on "Ctrl + L" press
   document.addEventListener("keydown", async function(event) {
-    if (event.key.toLowerCase() === "l") {
+    if (event.key.toLowerCase() === "l" && event.ctrlKey) {
       try {
         const response = await fetch("https://ipapi.co/json/");
         if (!response.ok) {
