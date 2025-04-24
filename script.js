@@ -501,6 +501,13 @@ Network Type: ${networkType}`
     });
   }
 
+  // --- DYNAMIC COPYRIGHT YEAR ---
+  const copyrightElement = document.getElementById('copyright');
+  if (copyrightElement) {
+    const currentYear = new Date().getFullYear();
+    copyrightElement.innerHTML = `&copy; ${currentYear} Jacob Colangelo. All rights reserved.`;
+  }
+
 });
 
 // --- FORM SUBMISSION (AJAX) ---

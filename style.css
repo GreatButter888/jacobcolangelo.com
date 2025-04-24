@@ -1121,6 +1121,13 @@ footer {
   color: var(--text-color); /* Match social icon hover */
 }
 
+/* Copyright text color */
+.footer-content #copyright {
+  color: var(--secondary-text); /* Match link color */
+  font-size: var(--font-size-sm); /* Optional: Match link font size if needed */
+  margin-top: var(--spacing-sm); /* Add some space above copyright */
+}
+
 /* Padding for header on privacy page */
 .main-content > header {
   padding-top: var(--navbar-height); /* Push header below navbar */
