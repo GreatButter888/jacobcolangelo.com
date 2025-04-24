@@ -30,14 +30,9 @@ html, body {
   --side-padding: 10vw;
 
   /* Backdrop filter */
-  --overlay-color-rgb: 0, 0, 0; /* Default to black components */
+  --overlay-color-rgb: 0, 0, 0;
   --overlay-alpha: 0.5;
   --blur-intensity: 10px;
-
-  /* Border color */
-  --border-color: rgba(var(--text-color-rgb), 0.1); /* Default (dark mode) */
-
-  /* Subscribe Bar Colors (Dark) */
   --subscribe-bg-color: #222;
   --subscribe-input-bg-color: #444;
   --subscribe-button-bg-color: #555;
@@ -54,17 +49,17 @@ html.light-mode {
   --accent-color: #121212;
 
   /* Light mode overlay */
-  --overlay-color-rgb: 255, 255, 255; /* White overlay for light mode */
+  --overlay-color-rgb: 255, 255, 255;
   --overlay-alpha: 0.5;
 
   /* Light mode border */
-  --border-color: rgba(var(--text-color-rgb), 0.2); /* Darker border for light mode */
+  --border-color: rgba(var(--text-color-rgb), 0.2);
 
   /* Subscribe Bar Colors (Light) */
-  --subscribe-bg-color: #e0e0e0;          /* Darker container */
+  --subscribe-bg-color: #e0e0e0;
   --subscribe-input-bg-color: #fff;
-  --subscribe-button-bg-color: #bdbdbd; /* Darker button */
-  --subscribe-button-hover-bg-color: #adadad; /* Darker button hover */
+  --subscribe-button-bg-color: #bdbdbd;
+  --subscribe-button-hover-bg-color: #adadad;
 }
 
 /* --- System Preference Detection --- */
@@ -78,23 +73,23 @@ html.light-mode {
   --accent-color: #121212;
 
   /* Light mode overlay */
-    --overlay-color-rgb: 255, 255, 255; /* White overlay for light mode */
+    --overlay-color-rgb: 255, 255, 255;
   --overlay-alpha: 0.5;
 
   /* Light mode border (system preference) */
-    --border-color: rgba(var(--text-color-rgb), 0.2); /* Darker border for light mode */
+    --border-color: rgba(var(--text-color-rgb), 0.2);
   }
 }
 
 /* --- Section Scroll Offset --- */
-#about, #projects, #career { /* Updated ID */
-  scroll-margin-top: calc(var(--navbar-height) + 20px); /* Space for fixed navbar */
+#about, #projects, #career { 
+  scroll-margin-top: calc(var(--navbar-height) + 20px); 
 }
 
 /* Career Section Padding */
-#career { /* Updated ID */
-  position: relative; /* Keep for potential absolute positioning inside */
-  z-index: 2; /* Keep for stacking */
+#career { 
+  position: relative; 
+  z-index: 2; 
 }
 
 /* --- Font Loading --- */
@@ -137,7 +132,6 @@ html {
   top: 0;
   left: 0;
   z-index: 1000;
-  /* Default padding (mobile first) */
   padding: 0 15px;
   background: rgba(var(--overlay-color-rgb), var(--overlay-alpha));
   backdrop-filter: blur(var(--blur-intensity));
@@ -170,27 +164,26 @@ html {
 .theme-toggle {
   background: transparent;
   border: none;
-  color: var(--text-color); /* Ensure this is set for currentColor inheritance */
+  color: var(--text-color);
   cursor: pointer;
   padding: 0;
-  margin-left: var(--spacing-md); /* Add some space from the brand/menu */
-  display: inline-flex; /* Align icon nicely */
+  margin-left: var(--spacing-md); 
+  display: inline-flex; 
   align-items: center;
-  /* Ensure button itself doesn't have extra height/width */
   line-height: 0;
 }
 
 /* Icons within the button */
 .theme-toggle .icon {
-  width: 1.2rem; /* Adjust size as needed */
+  width: 1.2rem; 
   height: 1.2rem;
-  display: block; /* Ensure icons behave predictably */
-  transition: transform 0.2s ease-in-out; /* Animation */
+  display: block; 
+  transition: transform 0.2s ease-in-out; 
 }
 
 /* Animation on press */
 .theme-toggle:active .icon {
-  transform: scale(0.9) rotate(90deg); /* Scale down and rotate */
+  transform: scale(0.9) rotate(90deg); 
 }
 
 /* Dark Mode: Show Sun, Hide Moon */
@@ -212,13 +205,13 @@ html.light-mode .theme-toggle .icon-moon {
 
 /* --- Mobile Menu Toggle (Hidden Desktop) --- */
 .mobile-menu-toggle {
-  display: none; /* Hidden by default */
+  display: none;
   background: transparent;
   border: none;
   padding: 0;
-  margin-left: auto; /* Push to the right side on mobile */
+  margin-left: auto; 
   cursor: pointer;
-  z-index: 1101; /* Above sidebar */
+  z-index: 1101; 
 }
 
 .mobile-menu-toggle span {
@@ -232,8 +225,8 @@ html.light-mode .theme-toggle .icon-moon {
 
 /* --- Desktop Styles --- */
 @media (min-width: 769px) {
-  :root { /* Define variable within this media query scope */
-    --sidebar-width: clamp(150px, 12vw, 220px); /* Variable width */
+  :root { 
+    --sidebar-width: clamp(150px, 12vw, 220px); 
   }
 
   /* Navbar Padding */
@@ -246,17 +239,17 @@ html.light-mode .theme-toggle .icon-moon {
     position: fixed;
     left: 0;
     top: var(--navbar-height);
-    width: var(--sidebar-width); /* Use variable width */
+    width: var(--sidebar-width); 
     height: calc(100vh - var(--navbar-height));
     background: rgba(var(--overlay-color-rgb), var(--overlay-alpha));
     backdrop-filter: blur(var(--blur-intensity));
     -webkit-backdrop-filter: blur(var(--blur-intensity));
-    padding: var(--spacing-md); /* Keep padding */
+    padding: var(--spacing-md); 
     z-index: 900;
-    overflow-y: auto; /* Allow scrolling if content overflows */
-    display: flex; /* Enable flexbox */
-    flex-direction: column; /* Stack links vertically */
-    justify-content: center; /* Center links vertically */
+    overflow-y: auto; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
   }
 
   .sidebar a {
@@ -289,39 +282,39 @@ html.light-mode .theme-toggle .icon-moon {
   .section.projects,
   #career,
   .subscribe-section {
-      padding-left: 0; /* Rely on main-content margin */
-      padding-right: var(--side-padding); /* Consistent right padding */
+      padding-left: 0; 
+      padding-right: var(--side-padding); 
       box-sizing: border-box;
   }
 
    /* Specific vertical padding */
    .section.projects {
-    padding-top: 5rem; /* Match career section padding */
-    padding-bottom: 2rem; /* Keep specific vertical padding */
+    padding-top: 5rem; 
+    padding-bottom: 2rem; 
    }
-   #career { /* Updated ID */
-    padding-top: 5rem; /* Keep specific vertical padding */
+   #career { 
+    padding-top: 5rem; 
     padding-bottom: 3rem;
   }
    .section.intro {
-     padding-top: var(--navbar-height); /* Position below navbar */
+     padding-top: var(--navbar-height); 
      padding-bottom: 0;
      display: flex;
      flex-direction: column;
-     justify-content: flex-start; /* Align content to top */
+     justify-content: flex-start; 
    }
 
    /* Ensure intro .content div uses available width */
    .section.intro .content {
-       width: 100%; /* Allow content to use available space */
+       width: 100%; 
        max-width: 100%;
-       text-align: left; /* Align text left on desktop */
+       text-align: left; 
        margin: 0;
    }
 
    /* Typed Container positioning */
    .typed-container {
-       margin-top: 0; /* Remove top margin */
+       margin-top: 0; 
        padding-left: 0;
    }
 
@@ -329,7 +322,7 @@ html.light-mode .theme-toggle .icon-moon {
 
 /* --- CAREER JOURNEY --- */
 
-.career .content { /* Updated selector */
+.career .content { 
 }
 
 .timeline {
@@ -346,8 +339,8 @@ html.light-mode .theme-toggle .icon-moon {
   top: 0;
   bottom: 0;
   left: 50%;
-  margin-left: -1px; /* Center the line */
-  z-index: -1; /* Behind content */
+  margin-left: -1px; 
+  z-index: -1; 
 }
 
 /* Timeline item container */
@@ -356,7 +349,7 @@ html.light-mode .theme-toggle .icon-moon {
   position: relative;
   background-color: inherit;
   width: 50%;
-  margin-bottom: 30px; /* Space between items */
+  margin-bottom: 30px; 
 }
 
 /* Timeline circles */
@@ -365,10 +358,10 @@ html.light-mode .theme-toggle .icon-moon {
   position: absolute;
   width: 15px;
   height: 15px;
-  right: -8px; /* Adjust position to sit on the line */
+  right: -8px; 
   background-color: var(--bg-color);
   border: 2px solid var(--secondary-text);
-  top: 25px; /* Adjust vertical alignment */
+  top: 25px; 
   border-radius: 50%;
   z-index: 1;
 }
@@ -385,14 +378,14 @@ html.light-mode .theme-toggle .icon-moon {
 
 /* Circle for right containers */
 .timeline-item.right::after {
-  left: -8px; /* Adjust position */
+  left: -8px; 
 }
 
 /* Timeline content box */
 .timeline-content {
   padding: 1.2rem 1.5rem;
   background-color: rgba(var(--bg-color-rgb, 0, 0, 0), 0.5);
-  border: 1px solid var(--border-color); /* Use variable */
+  border: 1px solid var(--border-color); 
   position: relative;
   border-radius: var(--border-radius);
 }
@@ -424,14 +417,14 @@ html.light-mode .theme-toggle .icon-moon {
 
 /* --- Gradient Masks (Options Bar) --- */
 .gradient-mask {
-  width: 80px; /* From example */
-  height: 44px; /* From example (adjust if needed based on .option height) */
+  width: 80px; 
+  height: 44px; 
   position: absolute;
-  top: 0; /* Align with top of options bar */
-  pointer-events: none; /* From example */
-  opacity: 0; /* Start hidden */
-  z-index: 10; /* From example */
-  transition: opacity 0.3s ease; /* From example */
+  top: 0; 
+  pointer-events: none;
+  opacity: 0; 
+  z-index: 10; 
+  transition: opacity 0.3s ease; 
 }
 
 .gradient-mask.left {
@@ -445,14 +438,13 @@ html.light-mode .theme-toggle .icon-moon {
 }
 
 .gradient-mask.is--visible {
-  opacity: 1; /* Show mask */
+  opacity: 1; 
 }
 
 /* --- Main Content Area --- */
 .main-content {
-  /* margin-left: 180px; /* Removed */
-  position: relative; /* Needed for z-index stacking if sections overlap */
-  z-index: 1; /* Above canvas, below navbar/sidebar */
+  position: relative; 
+  z-index: 1; 
 }
 
 /* --- Canvas Background --- */
@@ -469,40 +461,39 @@ canvas {
 .section.intro {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* Align content to top */
-  align-items: center; /* Center horizontally by default for mobile */
-  padding-top: var(--navbar-height); /* Position below navbar */
-  /* min-height removed */
-  width: 100%; /* Ensure full width */
+  justify-content: flex-start;
+  align-items: center; 
+  padding-top: var(--navbar-height); 
+  width: 100%; 
   box-sizing: border-box;
 }
 
 /* --- Content Block (Base) --- */
 .content {
   position: relative;
-  width: 100%; /* Use full width */
-  max-width: 100%; /* Ensure it can span */
-  margin: 0 auto; /* Center block */
+  width: 100%; /
+  max-width: 100%; 
+  margin: 0 auto; 
 }
 
 /* --- Options Menu --- */
 .options {
-  position: relative; /* Needed for gradient masks */
+  position: relative; 
   display: flex;
   flex-wrap: nowrap;
-  overflow-x: scroll; /* Use scroll instead of auto for consistency */
+  overflow-x: scroll; 
   -ms-overflow-style: none;  /* Hide scrollbar for IE and Edge */
-  scrollbar-width: none;  /* Hide scrollbar for Firefox */
-  -webkit-user-select: none; /* Prevent text selection during drag */
-  user-select: none; /* Prevent text selection during drag */
-  margin-bottom: 2px; /* Keep existing margin */
-  padding-bottom: 0; /* Keep existing padding */
-  line-height: 1; /* Keep existing line-height */
-  cursor: grab; /* Indicate draggable */
+  scrollbar-width: none;  
+  -webkit-user-select: none; 
+  user-select: none; 
+  margin-bottom: 2px; 
+  padding-bottom: 0; 
+  line-height: 1; 
+  cursor: grab; 
 }
 
 .options::-webkit-scrollbar {
-  display: none;  /* Hide scrollbar */
+  display: none;  
 }
 
 .option {
@@ -512,7 +503,7 @@ canvas {
   color: var(--secondary-text);
   white-space: nowrap;
   transition: color 0.3s ease;
-  cursor: pointer; /* Ensure pointer cursor */
+  cursor: pointer; 
   border-radius: 0;
 }
 
@@ -525,7 +516,7 @@ canvas {
 }
 
 .option:last-child {
-  padding-right: 80px; /* Allows scrolling past fade */
+  padding-right: 80px; 
 }
 
 .option.is--active {
@@ -546,7 +537,7 @@ canvas {
 .text {
   /* min-height is set dynamically on .texts container via JS */
   display: none;
-  font-size: clamp(1.25rem, 5vw, 2.875rem); /* Fluid typography 20px to 46px */
+  font-size: clamp(1.25rem, 5vw, 2.875rem);
   line-height: 1.2;
   color: var(--text-color);
   margin-top: 10px;
@@ -566,14 +557,14 @@ canvas {
 .typed-container {
   position: relative;
   z-index: 2;
-  margin-top: 15vh; /* Default margin */
+  margin-top: 15vh; 
 }
 
 /* Typed Container Desktop */
 @media (min-width: 769px) {
   .typed-container {
-    margin-top: 0; /* Remove top margin as section has padding now */
-    padding-left: 0; /* Inside main-content */
+    margin-top: 0; 
+    padding-left: 0; 
   }
 }
 
@@ -637,21 +628,18 @@ canvas {
 }
 
 .project-toggle {
-  transition: transform 0.3s ease; /* Keep transition, though rotate is removed */
-  display: inline-flex; /* Alignment */
-  align-items: center; /* Vertical centering */
+  transition: transform 0.3s ease; 
+  display: inline-flex; 
+  align-items: center; 
 }
 
-/* Style SVG icon directly */
 .project-toggle svg {
-  width: 1.2rem; /* Control icon size */
-  height: 1.2rem; /* Control icon size */
-  stroke: currentColor; /* Use parent text color */
-  stroke-width: 2; /* Default Lucide */
-  vertical-align: middle; /* Alignment */
+  width: 1.2rem; 
+  height: 1.2rem; 
+  stroke: currentColor; 
+  stroke-width: 2; 
+  vertical-align: middle; 
 }
-
-/* Rotation removed as icons are swapped */
 
 .project-details {
   max-height: 0;
@@ -661,8 +649,8 @@ canvas {
 }
 
 .project.active .project-details {
-  max-height: 1000px; /* Increased max-height */
-  padding: 1.2rem 1.5rem 1.2rem; /* Add vertical padding */
+  max-height: 1000px; 
+  padding: 1.2rem 1.5rem 1.2rem; 
 }
 
 .project-details p {
@@ -685,22 +673,17 @@ canvas {
   }
 
   body {
-    /* Prevent body overflow */
     max-width: 100%;
     overflow-x: hidden;
-    /* Other styles remain */
     width: 100%;
-    /* display: flex; */ /* Removed */
-    /* flex-direction: column; */ /* Removed */
-    /* align-items: center; */ /* Removed */
   }
 
   /* Navbar mobile adjustments */
   .navbar {
-    padding: 0 var(--side-padding); /* Use mobile side padding */
+    padding: 0 var(--side-padding); 
     width: 100%;
     height: var(--navbar-height);
-    justify-content: space-between; /* Space between logo and button */
+    justify-content: space-between; 
   }
 
   .brand.desktop {
@@ -719,14 +702,14 @@ canvas {
 
   /* Show Mobile Menu Toggle */
   .mobile-menu-toggle {
-    display: block; /* Show the button */
-    margin-left: auto; /* Push to right */
+    display: block; 
+    margin-left: auto; 
   }
 
   /* Theme toggle position mobile */
   .theme-toggle {
-    margin-left: var(--spacing-sm); /* Reduce space on mobile */
-    order: 3; /* After mobile menu toggle */
+    margin-left: var(--spacing-sm); 
+    order: 3;
   }
 
   /* Hide typed container mobile */
@@ -736,13 +719,9 @@ canvas {
 
   /* Intro Section Mobile */
   .section.intro {
-    /* padding-top: 40px; /* Already set in base */
-    /* align-items: center; /* Already set in base */
-    /* justify-content: center; /* Already set in base */
-    /* text-align: center; /* Already set in base */
-    width: 100%; /* Already set in base */
-    padding-left: var(--side-padding); /* Use mobile side padding */
-    padding-right: var(--side-padding); /* Use mobile side padding */
+    width: 100%; 
+    padding-left: var(--side-padding); 
+    padding-right: var(--side-padding); 
   }
 
   /* Mobile Sidebar (Slide-in) */
@@ -750,16 +729,16 @@ canvas {
     position: fixed;
     top: 0;
     left: 0;
-    width: 80%; /* Adjust width as needed */
+    width: 80%; 
     max-width: 300px;
     height: 100%;
-    background-color: var(--bg-color); /* Solid background */
-    z-index: 1100; /* Above content, below toggle button */
+    background-color: var(--bg-color); 
+    z-index: 1100; 
     transform: translateX(-100%);
     transition: transform 0.3s ease-in-out;
     padding: var(--spacing-lg);
-    padding-top: calc(var(--navbar-height) + 20px); /* Space below navbar */
-    box-shadow: 2px 0 5px rgba(0,0,0,0.2); /* Shadow */
+    padding-top: calc(var(--navbar-height) + 20px); 
+    box-shadow: 2px 0 5px rgba(0,0,0,0.2); 
     overflow-y: auto;
   }
 
@@ -770,10 +749,10 @@ canvas {
   /* Mobile Sidebar Links */
   .sidebar a {
     display: block;
-    padding: 15px 20px; /* Larger touch targets */
+    padding: 15px 20px; 
     color: var(--secondary-text);
     text-decoration: none;
-    font-size: var(--font-size-lg); /* Larger text */
+    font-size: var(--font-size-lg); 
     text-align: center;
     border-bottom: 1px solid rgba(var(--text-color-rgb), 0.1);
     transition: background-color 0.2s ease;
@@ -786,7 +765,7 @@ canvas {
   .sidebar a:hover,
   .sidebar a.active {
     color: var(--text-color);
-    background-color: rgba(var(--text-color-rgb), 0.05); /* Subtle background */
+    background-color: rgba(var(--text-color-rgb), 0.05); 
     font-weight: bold;
   }
 
@@ -798,7 +777,7 @@ canvas {
   /* Full width content (uses section padding) */
   .content {
     width: 100%;
-    max-width: 100%; /* Use full available width within parent padding */
+    max-width: 100%; 
     padding: 0;
     margin: 0 auto;
     position: relative;
@@ -811,7 +790,7 @@ canvas {
     justify-content: flex-start;
     overflow-x: auto;
     white-space: nowrap;
-    width: 100%; /* Use full width, rely on parent padding */
+    width: 100%; 
     margin: 0 auto 10px auto;
     -webkit-overflow-scrolling: touch;
     gap: 15px;
@@ -854,21 +833,19 @@ canvas {
     background: linear-gradient(to right, transparent, var(--bg-color));
     pointer-events: none;
     z-index: 3;
-    display: none; /* Hidden */
+    display: none; 
   }
 
   /* Align text content Mobile */
-  .texts { /* Container for the switching text */
-    /* width: 100%; */ /* Removed */
-    /* max-width: 600px; /* Removed to allow full width */
-    text-align: left; /* Align text left */
+  .texts { 
+    text-align: left; 
     padding: 0;
   }
-  .text { /* Individual text lines */
+  .text { 
      text-align: left;
-     margin: 0 auto; /* Center block */
+     margin: 0 auto; 
      padding: 0;
-     font-size: clamp(1rem, 4vw, 1.375rem); /* Fluid typography 16px to 22px */
+     font-size: clamp(1rem, 4vw, 1.375rem); 
      line-height: 1.4;
       word-wrap: break-word;
       overflow-wrap: break-word;
@@ -880,12 +857,12 @@ canvas {
   .section.projects,
   #career,
   .subscribe-section {
-    width: auto; /* Natural width */
-    margin-left: auto; /* Center block */
-    margin-right: auto; /* Center block */
-    max-width: 100%; /* Prevent exceeding container */
-    padding-left: 5vw; /* Mobile side padding */
-    padding-right: 5vw; /* Mobile side padding */
+    width: auto; 
+    margin-left: auto; 
+    margin-right: auto; 
+    max-width: 100%; 
+    padding-left: 5vw; 
+    padding-right: 5vw; 
   }
   /* Vertical padding projects */
    .section.projects {
@@ -893,21 +870,21 @@ canvas {
     padding-bottom: 2rem;
   }
    /* Vertical padding career */
-  #career { /* Updated ID */
+  #career { 
       padding-top: 3rem;
        padding-bottom: 2rem;
    }
 
    /* Career Journey Mobile */
    .timeline::after {
-     display: none; /* Hide center line */
+     display: none; 
    }
 
    .timeline-item {
-     width: 100%; /* Full width */
+     width: 100%; 
      padding-left: 0;
      padding-right: 0;
-     margin-bottom: 20px; /* Adjust spacing */
+     margin-bottom: 20px; 
    }
 
    /* Stack items */
@@ -922,7 +899,7 @@ canvas {
    }
 
    .timeline-content {
-     padding: 1rem; /* Adjust padding */
+     padding: 1rem; 
    }
 
    .section-title {
@@ -936,12 +913,12 @@ canvas {
   }
 }
 
-/* Spacing above final italicized paragraph in project details */
+
 .projects-list .project .project-details p:last-of-type {
-  margin-top: 2em; /* Adjust as needed */
+  margin-top: 2em; 
 }
 
-/* Remove top margin from first paragraph in project details */
+
 .projects-list .project .project-details p:first-of-type {
   margin-top: 0;
 }
@@ -957,33 +934,33 @@ canvas {
   border: none;
   height: 1px;
   background-color: var(--secondary-text);
-  opacity: 0.5; /* Subtle */
+  opacity: 0.5; 
 }
 
 /* --- FOOTER --- */
 
 footer {
   padding: var(--spacing-lg) var(--side-padding);
-  border-top: 1px solid var(--border-color); /* Theme-aware border */
-  margin-top: 3rem; /* Space above footer */
-  position: relative; /* Normal flow */
-  z-index: 2; /* Above canvas */
+  border-top: 1px solid var(--border-color); 
+  margin-top: 3rem; 
+  position: relative; 
+  z-index: 2; 
 }
 
 .footer-content {
-  max-width: 1200px; /* Optional constrain width */
-  margin: 0 auto; /* Center */
+  max-width: 1200px;
+  margin: 0 auto; 
   display: flex;
-  flex-direction: column; /* Stack vertically */
-  align-items: center; /* Center horizontally */
-  gap: var(--spacing-sm); /* Gap between icons and link */
+  flex-direction: column; 
+  align-items: center; 
+  gap: var(--spacing-sm); 
 }
 
 .social-links {
   display: flex;
-  justify-content: center; /* Center icons */
+  justify-content: center; 
   align-items: center;
-  gap: var(--spacing-lg); /* Space between icons */
+  gap: var(--spacing-lg); 
 }
 
 .social-links a {
@@ -997,9 +974,9 @@ footer {
 }
 
 .social-links svg {
-  width: 1.5rem; /* Icon size */
-  height: 1.5rem; /* Icon size */
-  stroke-width: 1.5; /* Thinner stroke */
+  width: 1.5rem; 
+  height: 1.5rem; 
+  stroke-width: 1.5; 
 }
 
 /* Spacing Softball WA timeline entry */
@@ -1013,14 +990,14 @@ footer {
   border: none;
   height: 1px;
   background-color: var(--secondary-text);
-  opacity: 0.5; /* Subtle */
+  opacity: 0.5; 
 }
 
 /* --- SUBSCRIBE SECTION --- */
 
 .subscribe-section {
-  padding-top: 3rem; /* Space above */
-  padding-bottom: 3rem; /* Space below */
+  padding-top: 3rem; 
+  padding-bottom: 3rem; 
   position: relative;
   z-index: 2;
 }
@@ -1031,13 +1008,13 @@ footer {
   padding: var(--spacing-lg);
   border-radius: var(--border-radius);
   display: flex;
-  flex-wrap: wrap; /* Allow wrapping */
+  flex-wrap: wrap; 
   justify-content: space-between;
   align-items: center;
   gap: var(--spacing-md);
-  width: 66%; /* Width 66% */
-  margin-left: auto; /* Center */
-  margin-right: auto; /* Center */
+  width: 66%; 
+  margin-left: auto; 
+  margin-right: auto; 
 }
 
 .subscribe-text h2 {
@@ -1055,14 +1032,14 @@ footer {
 .subscribe-form {
   display: flex;
   gap: var(--spacing-sm);
-  flex-grow: 1; /* Take available space */
-  min-width: 250px; /* Prevent getting too small */
+  flex-grow: 1; 
+  min-width: 250px; 
 }
 
 .subscribe-form input[type="email"] {
-  flex-grow: 1; /* Input expand */
+  flex-grow: 1; 
   padding: 10px 15px;
-  border: 1px solid var(--border-color); /* Subtle border */
+  border: 1px solid var(--border-color); 
   border-radius: var(--border-radius);
   background-color: var(--subscribe-input-bg-color);
   color: var(--text-color);
@@ -1092,23 +1069,23 @@ footer {
 /* Subscribe bar responsive */
 @media (max-width: 768px) {
   .subscribe-container {
-    flex-direction: column; /* Stack vertically */
-    align-items: flex-start; /* Align start */
-    width: auto; /* Reset width */
-    margin-left: 0; /* Remove centering */
-    margin-right: 0; /* Remove centering */
+    flex-direction: column; 
+    align-items: flex-start; 
+    width: auto; 
+    margin-left: 0; 
+    margin-right: 0; 
   }
 
   .subscribe-form {
-    width: 100%; /* Full width */
+    width: 100%; 
   }
 }
 
 /* Privacy Policy link footer */
 .footer-content p a {
-  color: var(--secondary-text); /* Match social icon color */
+  color: var(--secondary-text);
   text-decoration: none;
-  transition: color 0.3s ease; /* Smooth hover */
+  transition: color 0.3s ease; 
 }
 
 /* Visited link color */
@@ -1118,21 +1095,21 @@ footer {
 
 /* Hover style */
 .footer-content p a:hover {
-  color: var(--text-color); /* Match social icon hover */
+  color: var(--text-color); 
 }
 
 /* Copyright text color */
 .footer-content #copyright {
-  color: var(--secondary-text); /* Match link color */
-  font-size: var(--font-size-sm); /* Optional: Match link font size if needed */
-  margin-top: var(--spacing-sm); /* Add some space above copyright */
+  color: var(--secondary-text); 
+  font-size: var(--font-size-sm); 
+  margin-top: var(--spacing-sm); 
 }
 
 /* Padding for header on privacy page */
 .main-content > header {
-  padding-top: var(--navbar-height); /* Push header below navbar */
-  padding-left: var(--side-padding); /* Add side padding (mobile) */
-  padding-right: var(--side-padding); /* Add side padding (mobile) */
+  padding-top: var(--navbar-height); 
+  padding-left: var(--side-padding); 
+  padding-right: var(--side-padding); 
   box-sizing: border-box;
   width: 100%;
 }
@@ -1140,25 +1117,24 @@ footer {
 /* Header padding desktop */
 @media (min-width: 769px) {
   .main-content > header {
-    padding-left: 0; /* Remove left padding as .main-content margin handles it */
-    padding-right: 0; /* Remove right padding as .main-content margin handles it */
+    padding-left: 0; 
+    padding-right: 0; 
   }
 }
 
 /* Inner main content privacy page */
 .main-content > main {
-  /* padding-top: var(--navbar-height); /* REMOVED - Header now handles top spacing */
-  padding-left: var(--side-padding); /* Keep side padding (mobile) */
-  padding-right: var(--side-padding); /* Keep side padding (mobile) */
-  box-sizing: border-box; /* Ensure padding is included in width */
-  width: 100%; /* Full width within wrapper */
+  padding-left: var(--side-padding); 
+  padding-right: var(--side-padding); 
+  box-sizing: border-box; 
+  width: 100%; 
 }
 
 /* Inner main padding desktop */
 @media (min-width: 769px) {
   .main-content > main {
-    padding-left: 0; /* Keep removal */
-    padding-right: 0; /* Keep removal */
+    padding-left: 0; 
+    padding-right: 0; 
   }
 }
 
@@ -1169,18 +1145,18 @@ footer {
 
 /* Space below intro paragraph privacy page */
 .main-content > main > p:nth-of-type(2) {
-  margin-bottom: 1.5em; /* Adjust as needed */
+  margin-bottom: 1.5em; 
 }
 
 /* Space below sections privacy page */
 .main-content > main > section {
-  margin-bottom: 1.5em; /* Adjust as needed */
+  margin-bottom: 1.5em; 
 }
 
 /* List styles privacy policy */
 .main-content > main ul {
-  list-style: disc; /* Bullet style */
-  padding-left: 40px; /* Indentation */
+  list-style: disc; 
+  padding-left: 40px; 
 }
 
 /* Optional: Margin below list items */
