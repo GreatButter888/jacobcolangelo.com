@@ -28,20 +28,15 @@
         try {
           const theme = localStorage.getItem('theme');
           if (theme === 'light') {
-            // Apply light mode class to the root <html> element
             document.documentElement.classList.add('light-mode');
-            // Explicitly remove dark mode class if light is set
             document.documentElement.classList.remove('dark-mode');
           } else {
-            // Default to dark mode if no theme is stored or if it's explicitly 'dark'
             document.documentElement.classList.add('dark-mode');
-             // Explicitly remove light mode class
             document.documentElement.classList.remove('light-mode');
           }
         } catch (e) {
-          // Fallback in case localStorage is unavailable or throws an error
           console.error('Error accessing localStorage for theme:', e);
-          document.documentElement.classList.add('dark-mode'); // Default to dark on error
+          document.documentElement.classList.add('dark-mode'); 
         }
       })();
     </script>
@@ -130,7 +125,7 @@
                         <span class="project-toggle"><i data-lucide="chevron-down"></i></span>
                     </div>
                     <div class="project-details">
-                        <p>This is my current venture, digit automation, an early-stage company focused on transforming businesses through the power of Artificial Intelligence and automation. digit automation aims to partner with organisations to provide cutting-edge solutions designed to streamline operations, enhance efficiency, and ultimately drive growth in today's competitive landscape.</p>
+                        <p>This is my current venture, digit automation, an early-stage company focused on transforming businesses through the power of Artificial Intelligence and automation. Digit Automation aims to partner with organisations to provide cutting-edge solutions designed to streamline operations, enhance efficiency, and ultimately drive growth in today's competitive landscape.</p>
                         <p>Our core services include:</p>
                         <ul>
                             <li><strong>AI Strategy Consulting:</strong> Helping businesses identify high-impact opportunities and develop a clear roadmap for successful AI integration.</li>
@@ -194,11 +189,11 @@
                     <div class="timeline-item left">
                         <div class="timeline-content tradable-bits-entry">
                             <h3>Tradable Bits</h3>
-                            <p>Senior Customer Success Manager</p>
+                            <p>Senior Customer Success Manager, Sports APAC</p>
                             <p>Melbourne, Australia</p> 
                             <p class="date">April 2025 - Present</p> 
                             <hr class="role-separator">
-                            <p>Customer Success Manager</p>
+                            <p>Customer Success Manager, Sports APAC</p>
                             <p>Melbourne, Australia</p> 
                             <p class="date">Sept 2023 - April 2025</p> 
                         </div>
